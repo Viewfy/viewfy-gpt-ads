@@ -53,7 +53,10 @@ html.dark .hero-mascot-glow {
   isolation: isolate;
 }
 
-.shine-ring::before {
+.shine-ring::before,
+.btn-primary::before,
+.btn-accent::before,
+.map-primary-button::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -73,6 +76,44 @@ html.dark .hero-mascot-glow {
   );
   animation: ring-spin 4.5s linear infinite;
   z-index: -1;
+}
+
+.btn-primary,
+.btn-accent,
+.map-primary-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.btn-primary::after,
+.btn-accent::after,
+.map-primary-button::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 11px;
+  background: var(--ui-primary);
+  z-index: -1;
+}
+
+.btn-primary:hover::after,
+.btn-accent:hover::after,
+.map-primary-button:hover::after {
+  background: var(--ui-primary-hover);
+}
+
+.shine-ring .btn-primary,
+.shine-ring .btn-accent {
+  isolation: auto;
+  overflow: visible;
+}
+
+.shine-ring .btn-primary::before,
+.shine-ring .btn-primary::after,
+.shine-ring .btn-accent::before,
+.shine-ring .btn-accent::after {
+  content: none;
 }
 
 .sheen {

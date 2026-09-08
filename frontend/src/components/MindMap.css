@@ -314,8 +314,8 @@ button.opportunity-card:hover { border-color: #cadfff; box-shadow: 0 8px 24px #7
 .opportunity-card strong, .opportunity-card h3 { display: block; font-size: 15px; font-weight: 650; line-height: 1.4; letter-spacing: -.3px; margin: 0 0 5px; }
 .opportunity-card p { margin: 0; font-size: 11px; line-height: 1.5; color: #6a80a6; }
 .map-primary-button, .map-secondary-button { display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px; min-height: 45px; padding: 12px 16px; border-radius: 13px; font-size: 13px !important; line-height: 1.4; font-weight: 600 !important; cursor: pointer; transition: background .15s, box-shadow .15s, translate .15s; }
-.map-primary-button { color: var(--ui-primary-ink); border: 1px solid var(--ui-primary-border); background: var(--ui-primary); box-shadow: var(--ui-primary-shadow); }
-.map-primary-button:hover { background: var(--ui-primary-hover); }
+.map-primary-button { color: var(--ui-primary-ink); border: 1px solid transparent; background: transparent; box-shadow: 0 0 18px rgb(var(--accent) / 0.28), var(--ui-primary-shadow); }
+.map-primary-button:hover { background: transparent; }
 .map-primary-button:disabled { opacity: .6; cursor: wait; }
 .map-primary-button svg, .map-secondary-button svg { width: 16px; height: 16px; }
 .map-secondary-button { margin-top: 9px; color: #4d73ab; border: 1px solid #d7e5fa; background: rgba(255, 255, 255, .72); }
