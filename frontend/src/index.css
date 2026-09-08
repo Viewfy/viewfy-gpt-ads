@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  background: #F8F5F1;
+  color: #171717;
+  font-family: "DM Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background: #0c0b0a;
+  color: #f4efe6;
+}
+
+@keyframes ring-spin {
+  to { transform: translate(-50%, -50%) rotate(1turn); }
+}
+
+@keyframes halo {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+
+.animate-halo { animation: halo 4s ease-in-out infinite; }
+
+.shine-ring {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.shine-ring::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 180%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    rgb(var(--accent) / 0.15) 0%,
+    rgb(var(--accent)) 10%,
+    #fbbf24 20%,
+    #f472b6 30%,
+    rgb(var(--accent)) 42%,
+    rgb(var(--accent) / 0.15) 55%,
+    rgb(var(--accent) / 0.15) 100%
+  );
+  animation: ring-spin 4.5s linear infinite;
+  z-index: -1;
+}
+
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  animation: sheen 2.8s ease-in-out infinite;
+}
+
+.btn-primary {
+  @apply rounded-xl bg-neutral-900 text-white font-bold px-5 py-3 hover:bg-neutral-800 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200;
+}
+
+.btn-accent {
+  @apply sheen rounded-xl bg-accent-400 text-neutral-900 font-bold px-5 py-3 hover:bg-accent-300 disabled:opacity-50;
+}
+
+.chip {
+  @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide;
+}

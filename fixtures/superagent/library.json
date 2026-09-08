@@ -1,0 +1,404 @@
+{
+  "status": "ready",
+  "error": null,
+  "source": "demo",
+  "subjects": [
+    {
+      "kind": "self",
+      "name": "SUPERAGENT",
+      "domain": "getsuperagent.com",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=getsuperagent.com&country=ALL",
+        "ads": [
+          {
+            "id": "superagent-meta-1",
+            "platform": "meta",
+            "advertiser": "SUPERAGENT",
+            "headline": "Stop missing inbound calls",
+            "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
+            "cta": "See how it works",
+            "image_url": "/superagent-ads.png",
+            "link_url": "https://getsuperagent.com/",
+            "format": "image",
+            "started_at": "2026-08-12",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=getsuperagent.com&country=ALL",
+            "status": "active",
+            "impressions": "18k"
+          },
+          {
+            "id": "superagent-meta-2",
+            "platform": "meta",
+            "advertiser": "SUPERAGENT",
+            "headline": "Not a generic receptionist",
+            "body": "Built for insurance agencies. The conversation stays with the producer.",
+            "cta": "Get the walkthrough",
+            "image_url": "/superagent-ads-2.png",
+            "link_url": "https://getsuperagent.com/",
+            "format": "image",
+            "started_at": "2026-08-20",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=getsuperagent.com&country=ALL",
+            "status": "active",
+            "impressions": "9k"
+          }
+        ]
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=getsuperagent.com",
+        "ads": [
+          {
+            "id": "superagent-g-1",
+            "platform": "google",
+            "advertiser": "SUPERAGENT",
+            "headline": "Not a generic receptionist",
+            "body": "Built for insurance agencies. The conversation stays with the producer.",
+            "cta": "Get the walkthrough",
+            "image_url": "/superagent-ads-2.png",
+            "link_url": "https://getsuperagent.com/",
+            "format": "responsive search",
+            "started_at": "2026-07-03",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=getsuperagent.com",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    },
+    {
+      "kind": "competitor",
+      "name": "Smith.ai",
+      "domain": "smith.ai",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=smith.ai&country=ALL",
+        "ads": [
+          {
+            "id": "smith-m1",
+            "platform": "meta",
+            "advertiser": "Smith.ai",
+            "headline": "Never miss another call",
+            "body": "AI answers, humans take over. Receptionists for growing teams.",
+            "cta": "Try Smith.ai",
+            "image_url": null,
+            "link_url": "https://smith.ai/",
+            "format": "image",
+            "started_at": "2026-03-12",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=smith.ai&country=ALL",
+            "status": "active",
+            "impressions": "210k"
+          },
+          {
+            "id": "smith-m2",
+            "platform": "meta",
+            "advertiser": "Smith.ai",
+            "headline": "AI + human receptionists",
+            "body": "Every inbound call answered. Your brand on the first ring.",
+            "cta": "See pricing",
+            "image_url": null,
+            "link_url": "https://smith.ai/",
+            "format": "video",
+            "started_at": "2026-06-02",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=smith.ai&country=ALL",
+            "status": "active",
+            "impressions": "88k"
+          }
+        ]
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=smith.ai",
+        "ads": [
+          {
+            "id": "smith-g1",
+            "platform": "google",
+            "advertiser": "Smith.ai",
+            "headline": "AI receptionist for growing teams",
+            "body": "Never miss another call. AI answers, humans take over.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://smith.ai/",
+            "format": "responsive search",
+            "started_at": "2026-02-18",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=smith.ai",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    },
+    {
+      "kind": "competitor",
+      "name": "Ruby",
+      "domain": "callruby.com",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=callruby.com&country=ALL",
+        "ads": [
+          {
+            "id": "ruby-m1",
+            "platform": "meta",
+            "advertiser": "Ruby",
+            "headline": "A real person, every time",
+            "body": "Live US receptionists who sound like your front desk.",
+            "cta": "Get a quote",
+            "image_url": null,
+            "link_url": "https://callruby.com/",
+            "format": "image",
+            "started_at": "2026-01-20",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=callruby.com&country=ALL",
+            "status": "active",
+            "impressions": "154k"
+          },
+          {
+            "id": "ruby-m2",
+            "platform": "meta",
+            "advertiser": "Ruby",
+            "headline": "Stop sending callers to voicemail",
+            "body": "Your brand on the first ring. Humans only.",
+            "cta": "See how Ruby works",
+            "image_url": null,
+            "link_url": "https://callruby.com/",
+            "format": "image",
+            "started_at": "2026-05-08",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=callruby.com&country=ALL",
+            "status": "active",
+            "impressions": "41k"
+          }
+        ]
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=callruby.com",
+        "ads": [
+          {
+            "id": "ruby-g1",
+            "platform": "google",
+            "advertiser": "Ruby",
+            "headline": "Live US receptionists",
+            "body": "A real person, every time. Sound like you hired a front desk.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://callruby.com/",
+            "format": "responsive search",
+            "started_at": "2026-03-01",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=callruby.com",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    },
+    {
+      "kind": "competitor",
+      "name": "Goodcall",
+      "domain": "goodcall.com",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=goodcall.com&country=ALL",
+        "ads": [
+          {
+            "id": "good-m1",
+            "platform": "meta",
+            "advertiser": "Goodcall",
+            "headline": "Your AI receptionist is ready",
+            "body": "Book while you are with a client. Missed calls become appointments.",
+            "cta": "Start free",
+            "image_url": null,
+            "link_url": "https://goodcall.com/",
+            "format": "image",
+            "started_at": "2026-04-11",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=goodcall.com&country=ALL",
+            "status": "active",
+            "impressions": "67k"
+          },
+          {
+            "id": "good-m2",
+            "platform": "meta",
+            "advertiser": "Goodcall",
+            "headline": "Missed calls become appointments",
+            "body": "AI phone assistant that books the appointment.",
+            "cta": "Try Goodcall",
+            "image_url": null,
+            "link_url": "https://goodcall.com/",
+            "format": "image",
+            "started_at": "2026-07-19",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=goodcall.com&country=ALL",
+            "status": "active",
+            "impressions": "22k"
+          }
+        ]
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=goodcall.com",
+        "ads": [
+          {
+            "id": "good-g1",
+            "platform": "google",
+            "advertiser": "Goodcall",
+            "headline": "AI phone assistant that books",
+            "body": "Your AI receptionist is ready. Start from $79/mo.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://goodcall.com/",
+            "format": "responsive search",
+            "started_at": "2026-04-02",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=goodcall.com",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    },
+    {
+      "kind": "competitor",
+      "name": "My AI Front Desk",
+      "domain": "myaifrontdesk.com",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=myaifrontdesk.com&country=ALL",
+        "ads": [
+          {
+            "id": "maifd-m1",
+            "platform": "meta",
+            "advertiser": "My AI Front Desk",
+            "headline": "Answer every call after hours",
+            "body": "24/7 AI front desk for local businesses. Trained on your FAQs.",
+            "cta": "See a demo",
+            "image_url": null,
+            "link_url": "https://myaifrontdesk.com/",
+            "format": "image",
+            "started_at": "2026-05-03",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://www.facebook.com/ads/library/?q=myaifrontdesk.com&country=ALL",
+            "status": "active",
+            "impressions": "39k"
+          }
+        ]
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=myaifrontdesk.com",
+        "ads": [
+          {
+            "id": "maifd-g1",
+            "platform": "google",
+            "advertiser": "My AI Front Desk",
+            "headline": "24/7 AI front desk",
+            "body": "No more missed leads. Trained on your FAQs.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://myaifrontdesk.com/",
+            "format": "responsive search",
+            "started_at": "2026-05-14",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=myaifrontdesk.com",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    },
+    {
+      "kind": "competitor",
+      "name": "Retell",
+      "domain": "retellai.com",
+      "meta": {
+        "platform": "meta",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://www.facebook.com/ads/library/?q=retellai.com&country=ALL",
+        "ads": []
+      },
+      "google": {
+        "platform": "google",
+        "status": "ok",
+        "error": null,
+        "source_url": "https://adstransparency.google.com/?region=US&domain=retellai.com",
+        "ads": [
+          {
+            "id": "retell-g1",
+            "platform": "google",
+            "advertiser": "Retell",
+            "headline": "Human-sounding voice agents",
+            "body": "Ship a phone agent this week. Latency under a second.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://retellai.com/",
+            "format": "responsive search",
+            "started_at": "2026-03-22",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=retellai.com",
+            "status": "active",
+            "impressions": null
+          },
+          {
+            "id": "retell-g2",
+            "platform": "google",
+            "advertiser": "Retell",
+            "headline": "Voice agents on any number",
+            "body": "Build and deploy. You still wire the book.",
+            "cta": null,
+            "image_url": null,
+            "link_url": "https://retellai.com/",
+            "format": "search",
+            "started_at": "2026-06-09",
+            "ended_at": null,
+            "is_active": true,
+            "source_url": "https://adstransparency.google.com/?region=US&domain=retellai.com",
+            "status": "active",
+            "impressions": null
+          }
+        ]
+      }
+    }
+  ]
+}

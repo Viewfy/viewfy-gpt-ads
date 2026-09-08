@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "name": "SUPERAGENT",
+    "one_liner": "AI that helps US insurance agencies answer the phone and book the work they already paid to generate.",
+    "logo_url": "https://www.google.com/s2/favicons?domain=getsuperagent.com&sz=128",
+    "colors": [
+      "#111827",
+      "#F59E0B",
+      "#F8F5F1"
+    ],
+    "category": "AI receptionist for insurance agencies"
+  },
+  "pages": [
+    {
+      "kind": "home",
+      "url": "https://getsuperagent.com/",
+      "status": "ok",
+      "excerpt": "SUPERAGENT helps insurance agencies adopt AI. Owners stop missing inbound calls. The agency keeps the conversation.",
+      "error": null
+    },
+    {
+      "kind": "about",
+      "url": "https://getsuperagent.com/about",
+      "status": "ok",
+      "excerpt": "Founded by Vadym Shashkov. Built for independent and captive US insurance agencies, not consumers shopping for a policy.",
+      "error": null
+    },
+    {
+      "kind": "products",
+      "url": "https://getsuperagent.com/",
+      "status": "ok",
+      "excerpt": "An AI agent that answers agency phones, books appointments, and follows up when a producer is out.",
+      "error": null
+    },
+    {
+      "kind": "pricing",
+      "url": "https://getsuperagent.com/pricing",
+      "status": "missing",
+      "excerpt": "",
+      "error": "thin page"
+    },
+    {
+      "kind": "faq",
+      "url": "https://getsuperagent.com/faq",
+      "status": "missing",
+      "excerpt": "",
+      "error": "thin page"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p1",
+      "branch": "products",
+      "text": "AI phone agent that answers inbound agency calls and books the appointment",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "c1",
+      "branch": "customers",
+      "text": "Owners and sales leaders at independent and captive US insurance agencies with 1 to 10 producers",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "c2",
+      "branch": "customers",
+      "text": "Not consumers shopping for a policy, and not carriers",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "pr1",
+      "branch": "problems",
+      "text": "Inbound calls go to voicemail when the desk is busy. Paid leads die in the queue.",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "o1",
+      "branch": "offers",
+      "text": "Put an AI agent on the agency phone so a person still owns the book of business",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "d1",
+      "branch": "differentiators",
+      "text": "Built for insurance agencies, not a generic AI SDR that cold-emails a B2B list",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "inference",
+      "domain": ""
+    },
+    {
+      "id": "v1",
+      "branch": "voice",
+      "text": "Direct, operator-to-operator. No hype adjectives.",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "inference",
+      "domain": ""
+    },
+    {
+      "id": "g1",
+      "branch": "geography",
+      "text": "United States",
+      "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "smith",
+      "branch": "competitors",
+      "text": "Smith.ai",
+      "source_url": "https://smith.ai",
+      "provenance": "confirmed",
+      "domain": "smith.ai"
+    },
+    {
+      "id": "ruby",
+      "branch": "competitors",
+      "text": "Ruby",
+      "source_url": "https://callruby.com",
+      "provenance": "confirmed",
+      "domain": "callruby.com"
+    },
+    {
+      "id": "goodcall",
+      "branch": "competitors",
+      "text": "Goodcall",
+      "source_url": "https://goodcall.com",
+      "provenance": "confirmed",
+      "domain": "goodcall.com"
+    },
+    {
+      "id": "frontdesk",
+      "branch": "competitors",
+      "text": "My AI Front Desk",
+      "source_url": "https://myaifrontdesk.com",
+      "provenance": "confirmed",
+      "domain": "myaifrontdesk.com"
+    },
+    {
+      "id": "rosie",
+      "branch": "competitors",
+      "text": "Rosie",
+      "source_url": "https://heyrosie.com",
+      "provenance": "confirmed",
+      "domain": "heyrosie.com"
+    },
+    {
+      "id": "retell",
+      "branch": "competitors",
+      "text": "Retell",
+      "source_url": "https://retellai.com",
+      "provenance": "confirmed",
+      "domain": "retellai.com"
+    },
+    {
+      "id": "synthflow",
+      "branch": "competitors",
+      "text": "Synthflow",
+      "source_url": "https://synthflow.ai",
+      "provenance": "confirmed",
+      "domain": "synthflow.ai"
+    },
+    {
+      "id": "bland",
+      "branch": "competitors",
+      "text": "Bland",
+      "source_url": "https://bland.ai",
+      "provenance": "confirmed",
+      "domain": "bland.ai"
+    },
+    {
+      "id": "answerconnect",
+      "branch": "competitors",
+      "text": "AnswerConnect",
+      "source_url": "https://answerconnect.com",
+      "provenance": "confirmed",
+      "domain": "answerconnect.com"
+    },
+    {
+      "id": "patlive",
+      "branch": "competitors",
+      "text": "PATLive",
+      "source_url": "https://patlive.com",
+      "provenance": "confirmed",
+      "domain": "patlive.com"
+    }
+  ],
+  "missing": [
+    "pricing",
+    "faq"
+  ],
+  "insights": [
+    {
+      "title": "What they keep repeating",
+      "observation": "Smith.ai and Ruby keep selling a generic receptionist. Never miss a call. A real person every time.",
+      "recommendation": "Talk to the agency owner mid-missed-call. Do not copy the horizontal receptionist hook.",
+      "because": [
+        "Never miss another call",
+        "A real person, every time"
+      ],
+      "signals": [
+        "repetition"
+      ]
+    },
+    {
+      "title": "What has stayed up",
+      "observation": "Smith and Ruby receptionist cards have been up for months. Longevity, not performance.",
+      "recommendation": "Keep the insurance-agency claim if the site still stands behind it.",
+      "because": [
+        "Never miss another call",
+        "US-based receptionists"
+      ],
+      "signals": [
+        "longevity"
+      ]
+    },
+    {
+      "title": "A gap we can own",
+      "observation": "Nobody in the set talks to a 1-to-10 producer agency that already paid for the lead.",
+      "recommendation": "Write the ChatGPT card from the missed inbound call, not from a generic SDR hook.",
+      "because": [
+        "Owners and sales leaders at independent and captive US insurance agencies",
+        "Put an AI agent on the agency phone"
+      ],
+      "signals": []
+    }
+  ],
+  "concepts": [
+    {
+      "id": "a",
+      "name": "The buyer, mid-problem",
+      "angle": "Agency owners who miss inbound calls",
+      "why": "The approved buyer is the agency owner. Category ads talk around that person. This card speaks to them.",
+      "headline": "Stop missing inbound calls",
+      "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
+      "cta": "See how it works",
+      "visual": "Empty agency at dusk, official Superagent head mark on a card, ringing desk phone"
+    },
+    {
+      "id": "b",
+      "name": "The offer, said plainly",
+      "angle": "An AI agent on the agency phone",
+      "why": "The confirmed offer is the phone agent. Competitor ads stay vague. Say the offer.",
+      "headline": "Not a generic receptionist",
+      "body": "Built for insurance agencies. The conversation stays with the producer.",
+      "cta": "Get the walkthrough",
+      "visual": "Black poster, official Superagent head mark, lime speed streak, no desk"
+    },
+    {
+      "id": "c",
+      "name": "The difference",
+      "angle": "Built for insurance agencies",
+      "why": "The brief names insurance agencies, not a generic AI SDR. Competitor ads do not.",
+      "headline": "Built for insurance agencies",
+      "body": "Not a generic AI SDR. SUPERAGENT answers the phone you already paid for.",
+      "cta": "Talk to us",
+      "visual": "Simple contrast: one calm agency desk vs generic SDR clutter"
+    }
+  ],
+  "creative": {
+    "id": "sa-1",
+    "concept_id": "a",
+    "title": "Stop missing inbound calls",
+    "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
+    "cta": "See how it works",
+    "target_url": "https://getsuperagent.com",
+    "image_url": "/superagent-ads.png",
+    "format": "chat_card"
+  },
+  "creatives": [
+    {
+      "id": "sa-1",
+      "concept_id": "a",
+      "title": "Stop missing inbound calls",
+      "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
+      "cta": "See how it works",
+      "target_url": "https://getsuperagent.com",
+      "image_url": "/superagent-ads.png",
+      "format": "chat_card"
+    },
+    {
+      "id": "sa-2",
+      "concept_id": "b",
+      "title": "Not a generic receptionist",
+      "body": "Built for insurance agencies. The conversation stays with the producer.",
+      "cta": "Get the walkthrough",
+      "target_url": "https://getsuperagent.com",
+      "image_url": "/superagent-ads-2.png",
+      "format": "chat_card"
+    }
+  ]
+}
