@@ -548,13 +548,13 @@
   "concepts": [
     {
       "id": "a",
-      "name": "Your next lead could call another agency.",
+      "name": "Your team is constantly interrupted",
       "angle": "Make the cost of a missed call immediate",
-      "why": "Buyer research highlights missed calls and coverage outside office hours. The headline makes the risk of a lead contacting another agency concrete, while the copy connects it to Superagent's researched call-answering and qualification capabilities. The prominent official wordmark and original branded artwork anchor awareness.",
-      "headline": "Your next lead could call another agency.",
-      "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+      "why": "Buyer research highlights missed calls and coverage outside office hours. The reused competitor layout is redrawn in official Superagent black and lime so the interruption cost is immediate, while the copy connects it to giving producers selling time back.",
+      "headline": "Your team is constantly interrupted",
+      "body": "SUPERAGENT gives producers their selling time back.",
       "cta": "Meet SUPERAGENT",
-      "visual": "The original dark SUPERAGENT brand artwork with its large black-and-lime mark and company name. Keep the real official wordmark prominent beside the editable copy."
+      "visual": "A minimal vertical Superagent text ad: official wordmark at the top, centered dark copy, and constantly interrupted highlighted in brand lime #BFD300 on a light grey field."
     },
     {
       "id": "b",
@@ -570,22 +570,22 @@
   "creative": {
     "id": "sa-1",
     "concept_id": "a",
-    "title": "Your next lead could call another agency.",
-    "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+    "title": "Your team is constantly interrupted",
+    "body": "SUPERAGENT gives producers their selling time back.",
     "cta": "Meet SUPERAGENT",
     "target_url": "https://getsuperagent.com/",
-    "image_url": "/superagent-ads-2.png",
+    "image_url": "/superagent-ads-3.png",
     "format": "chat_card"
   },
   "creatives": [
     {
       "id": "sa-1",
       "concept_id": "a",
-      "title": "Your next lead could call another agency.",
-      "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+      "title": "Your team is constantly interrupted",
+      "body": "SUPERAGENT gives producers their selling time back.",
       "cta": "Meet SUPERAGENT",
       "target_url": "https://getsuperagent.com/",
-      "image_url": "/superagent-ads-2.png",
+      "image_url": "/superagent-ads-3.png",
       "format": "chat_card"
     },
     {

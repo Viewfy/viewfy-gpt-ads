@@ -1,0 +1,20 @@
+[
+  {
+    "file": "frontend/public/demo-ads/frozen-leads.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 2356630,
+    "sha256": "3f05e76f81793fd014d51083e4a65ef5924406e317a3dc42c52ff284a6b05b67",
+    "source": "/Users/mike/.codex/generated_images/01a082bb-e7ff-71a0-bde1-ddd6e708081f/exec-d5901829-5ba0-4c3d-8084-36334e7195ce.png",
+    "generator": "built-in image_gen"
+  },
+  {
+    "file": "frontend/public/demo-ads/context-handoff.png",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 1776917,
+    "sha256": "ace1f0358903908f777deab81b471834b60575f632f14c10aede66b3d995c438",
+    "source": "/Users/mike/.codex/generated_images/01a082bb-e7ff-71a0-bde1-ddd6e708081f/exec-0c377800-097c-4174-9dda-a62f16ed723a.png",
+    "generator": "built-in image_gen"
+  }
+]

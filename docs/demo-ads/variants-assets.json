@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a1",
+    "file": "frontend/public/demo-ads/variants/a1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "d9d8dc713b17162d860f39a928766295d7bbbb5180472187c702465f6fe35608",
+    "bytes": 2313283
+  },
+  {
+    "id": "a2",
+    "file": "frontend/public/demo-ads/variants/a2.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "a82fd89e3b2310a34b9a31ad1b4e14d400ad1f4099ed8e5a294cde3392bc8123",
+    "bytes": 2539225
+  },
+  {
+    "id": "a3",
+    "file": "frontend/public/demo-ads/variants/a3.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "5ea7c3ffa56a49931a1d8cc414b22e13591dd844e936a21f82272f20ddef5abb",
+    "bytes": 1992658
+  },
+  {
+    "id": "b1",
+    "file": "frontend/public/demo-ads/variants/b1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "ffe1a0629d134fa093ef4d6eec505ebc8f4ced62c731a9fa1e19bd5dccdbf8f5",
+    "bytes": 1943823
+  },
+  {
+    "id": "b2",
+    "file": "frontend/public/demo-ads/variants/b2.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "5f37e557a594bac3f26ecd6290ede5f705ba40a76df3c35ebb430b3a7247ef8d",
+    "bytes": 1970256
+  },
+  {
+    "id": "b3",
+    "file": "frontend/public/demo-ads/variants/b3.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "364d7fd0c626e4fd6e8cde66b5fcd2eb7d6726c498b3f7395863bd35d09641db",
+    "bytes": 2563732
+  }
+]

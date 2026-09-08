@@ -1,0 +1,31 @@
+{
+  "tool_mode": "built-in",
+  "tool": "image_gen.imagegen",
+  "generation_date": "2026-09-08",
+  "generation_count": 2,
+  "retries": 0,
+  "assets": [
+    {
+      "id": "frozen-leads",
+      "output_path": "/Users/mike/.codex/generated_images/01a082bb-e7ff-71a0-bde1-ddd6e708081f/exec-d5901829-5ba0-4c3d-8084-36334e7195ce.png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "3:2",
+      "prompt": "Use case: ads-marketing\nAsset type: finished standalone premium advertising artwork, landscape 3:2 aspect ratio, 1536x1024.\nPrimary request: A cinematic photoreal 3D still of a frozen insurance lead pipeline waking up.\nScene/backdrop: Dark charcoal studio with generous breathing room.\nSubject: A large clear fractured ice block containing layered cream paper insurance lead cards. A warm amber light pulse cracks the ice and draws one tangible card out; the light curls into an elegant path with three simple physical sculptural tokens representing phone, message, and email, ending in a cream appointment card.\nStyle/medium: Spectacular polished big-budget campaign art, premium editorial still life, optically realistic ice and precise refraction. One focal visual story, clear readable visual hierarchy, not cluttered.\nMaterials/textures: Paper cards visibly tangible within the ice, delicately thick cream stock, beautiful glass-clear ice, a few suspended shards, condensation, tactile surfaces.\nLighting/mood: Dramatic cinematic warm amber pulse against dark graphite, elegant studio reflections.\nColor palette: Dark graphite, cream, amber.\nComposition/framing: Landscape 3:2. Ice and its internal paper cards are the main focal point; the unfurling amber path completes the visual story across the frame. Generous clean margins, balanced spacing.\nText: No words anywhere. All cards are blank with subtle abstract rule lines only.\nConstraints: No people, robots, money, numbers, logos, headline, CTA, watermark, UI screenshot, platform chrome, ad frame, fake dashboard, or phone interface.",
+      "inspected_with": "view_image",
+      "issues": []
+    },
+    {
+      "id": "context-handoff",
+      "output_path": "/Users/mike/.codex/generated_images/01a082bb-e7ff-71a0-bde1-ddd6e708081f/exec-0c377800-097c-4174-9dda-a62f16ed723a.png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "3:2",
+      "prompt": "Use case: ads-marketing\nAsset type: finished standalone premium advertising artwork, landscape 3:2 aspect ratio, 1536x1024.\nPrimary request: Premium editorial photography combined with a sculptural graphic composition depicting the human receiving the context for their next insurance conversation.\nScene/backdrop: Warm cream and off-white clean studio background.\nSubject: Close-up natural human hands of a professionally dressed insurance producer receiving an elegant flowing amber ribbon of sound. The ribbon transitions from a luminous voice waveform on the left into three crisp floating cream information cards, then comes together in the person's hand on the right. Cropped torso in navy, no full face necessary.\nStyle/medium: Sophisticated business magazine campaign, photoreal believable human anatomy, sculptural depth and natural textures, refined editorial polish.\nLighting/mood: Beautiful golden studio light, warm and human, restrained charcoal details.\nComposition/framing: Landscape 3:2. A clear generous composition moving from sound on left through exactly three context cards toward a naturally posed receiving hand at right. Limited believable hands, each finger anatomically natural.\nText (verbatim): The three cream cards contain exactly these short labels, one per card: \"Auto quote\", \"Two vehicles\", \"Renewal next month\". Crisp readable dark charcoal typography. No other text.\nConstraints: These labels are illustrative demo content. No robot, fake dashboard, phone interface, other logos, headline, CTA, fabricated metrics, platform UI chrome, ad frame, or watermark. Avoid excessive hands, extra fingers, awkward or robotic hands.",
+      "inspected_with": "view_image",
+      "issues": [
+        "Minor incidental plant and studio decor were added by generation; no material issues."
+      ]
+    }
+  ]
+}
