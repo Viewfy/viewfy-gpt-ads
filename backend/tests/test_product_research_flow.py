@@ -163,3 +163,25 @@ def test_research_remains_pollable_until_concepts_are_ready(monkeypatch):
     asyncio.run(app._research('run'))
     assert [data['status'] for data in saved] == ['writing', 'ready']
     assert saved[-1]['concepts'] == [{'id': 'new-direction'}]
+
+
+def test_superagent_research_and_creatives_use_the_snapshot_without_waiting(saved_map_environment, monkeypatch):
+    monkeypatch.setattr(app, 'MOCK', False)
+    monkeypatch.setattr(app, 'make_creative', AsyncMock(side_effect=AssertionError('Superagent must not generate a live creative')))
+    monkeypatch.setattr(app, 'research_ads', AsyncMock(side_effect=AssertionError('Superagent must not recrawl ad libraries')))
+    monkeypatch.setattr(app, 'build_insights', AsyncMock(side_effect=AssertionError('Superagent must not rewrite snapshot insights')))
+
+    created = asyncio.run(app.create_run(app.DomainIn(domain='getsuperagent.com'), BackgroundTasks()))
+    tasks = BackgroundTasks()
+    confirmed = asyncio.run(app.confirm(created['id'], app.ConfirmIn(competitor_ids=[]), tasks))
+    assert not tasks.tasks
+    assert confirmed['status'] == 'ready'
+    assert confirmed['concepts']
+    assert confirmed['ads']['source'] in {'fixture', 'public_snapshot'}
+
+    selected = confirmed['concepts'][0]['id']
+    finished = asyncio.run(app.select_concept(created['id'], selected, BackgroundTasks()))
+    assert finished['status'] == 'ready'
+    assert finished['step'] == 'creatives'
+    assert finished['creative']['title']
+    assert finished['creatives']

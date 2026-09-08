@@ -177,6 +177,10 @@ async def confirm(run_id: str, body: ConfirmIn, tasks: BackgroundTasks) -> dict[
     run["selected_concept_id"] = None
     run["error"] = None
     save(run)
+    if MOCK or run.get("source") == "fixture" or is_superagent(run.get("domain") or ""):
+        apply_ads(run)
+        apply_insights(run)
+        return save(run)
     tasks.add_task(_research, run_id)
     return run
 
@@ -202,6 +206,9 @@ async def select_concept(run_id: str, concept_id: str, tasks: BackgroundTasks) -
     run["step"] = "creatives"
     run["status"] = "rendering"
     save(run)
+    if MOCK or run.get("source") == "fixture" or is_superagent(run.get("domain") or ""):
+        apply_creative(run)
+        return save(run)
     tasks.add_task(_creative, run_id)
     return run
 
@@ -499,9 +506,7 @@ async def _research(run_id: str) -> None:
     if not run or not run.get("brief"):
         return
     try:
-        if MOCK or run.get("source") == "fixture":
-            await asyncio.sleep(1.0)
-            run = get(run_id) or run
+        if MOCK or run.get("source") == "fixture" or is_superagent(run.get("domain") or ""):
             apply_ads(run)
             apply_insights(run)
             save(run)
@@ -571,9 +576,7 @@ async def _creative(run_id: str) -> None:
         update(run_id, status="error", error="Pick a concept first")
         return
     try:
-        if MOCK:
-            await asyncio.sleep(0.8)
-            run = get(run_id) or run
+        if MOCK or run.get("source") == "fixture" or is_superagent(run.get("domain") or ""):
             apply_creative(run)
             save(run)
             return

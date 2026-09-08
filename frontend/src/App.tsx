@@ -94,14 +94,14 @@ export default function App() {
     setBusy(true)
     setErr('')
     try {
-      if (run.brief && !run.stale.research && !run.stale.concepts && run.concepts.length) {
-        const pick = run.selected_concept_id || run.concepts[0].id
-        setRun(await api.select(run.id, pick))
-        setView('launch')
-      } else {
-        setRun(await api.confirm(run.id, ids))
-        setView('confirmation')
+      let current = run
+      if (!(current.brief && !current.stale.research && !current.stale.concepts && current.concepts.length)) {
+        current = await api.confirm(current.id, ids)
       }
+      const pick = current.selected_concept_id || current.concepts[0]?.id
+      if (!pick) throw new Error('Could not prepare your campaign. Try again.')
+      setRun(await api.select(current.id, pick))
+      setView('launch')
     } catch (error) {
       setErr(error instanceof Error ? error.message : 'Could not prepare your campaign. Try again.')
     } finally {
