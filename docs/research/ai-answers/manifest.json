@@ -1,0 +1,65 @@
+[
+  {
+    "questionId": "q-recv",
+    "engine": "chatgpt",
+    "characters": 3389,
+    "sha256": "7443d1291d27ff6d50dd22d46cbf544c454e47f43128f3073bcdd9962d47ea12",
+    "file": "chatgpt/q-recv.txt"
+  },
+  {
+    "questionId": "q-recv",
+    "engine": "claude",
+    "characters": 2916,
+    "sha256": "613035118573bc3b549f46cbe542032e6c848109d537b081d202ca36d6b29f22",
+    "file": "claude/q-recv.txt"
+  },
+  {
+    "questionId": "q-recv",
+    "engine": "perplexity",
+    "characters": 1600,
+    "sha256": "0930566f2596b0fda755ad7d103ad52958b99398adba6fbdf68f1be8cfb9aeb2",
+    "file": "perplexity/q-recv.txt"
+  },
+  {
+    "questionId": "q-miss",
+    "engine": "chatgpt",
+    "characters": 1994,
+    "sha256": "6400facaf4a14fb7b15d35be7ddbbac9d4521140654c1439edc14fcee5a156b3",
+    "file": "chatgpt/q-miss.txt"
+  },
+  {
+    "questionId": "q-miss",
+    "engine": "claude",
+    "characters": 2135,
+    "sha256": "d974b1c5f7dd8f69ff42e9acaeb8acd6871debc6554e131f01208915cb62c662",
+    "file": "claude/q-miss.txt"
+  },
+  {
+    "questionId": "q-miss",
+    "engine": "perplexity",
+    "characters": 1834,
+    "sha256": "ab0d300839283c7dc0f4e38cf3e3e0ecd57f814d23c46d5681b87eb7d7d15da8",
+    "file": "perplexity/q-miss.txt"
+  },
+  {
+    "questionId": "q-vs",
+    "engine": "chatgpt",
+    "characters": 5752,
+    "sha256": "c1b7a88f71888f8b01637654502a4843594df65e64a8d21dd9fb364d5c3e3eb4",
+    "file": "chatgpt/q-vs.txt"
+  },
+  {
+    "questionId": "q-vs",
+    "engine": "claude",
+    "characters": 3269,
+    "sha256": "06f35188a4afe7ab58724a677bf920026c7e2be57111d20f717a6265cc4bf823",
+    "file": "claude/q-vs.txt"
+  },
+  {
+    "questionId": "q-vs",
+    "engine": "perplexity",
+    "characters": 1990,
+    "sha256": "f468a0d8b716f6b3b9aef04005ed34ebb49d58b735f5b82e9a5f764154b30b56",
+    "file": "perplexity/q-vs.txt"
+  }
+]

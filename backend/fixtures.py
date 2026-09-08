@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from typing import Any
 
 from brief import node
 from config import FIXTURE_DIR
-from tracking import apply_tracking
-from util import host_of
+from public_channels import hydrate_public_channels
+from util import brief_hash, host_of
+
+
+def _canonical_host(value: str | None) -> str:
+    host = host_of(value)
+    return "ruby.com" if host == "callruby.com" else host
 
 
 def is_superagent(domain: str) -> bool:
@@ -43,6 +49,31 @@ def apply_crawl(run: dict[str, Any]) -> dict[str, Any]:
 
 def apply_ads(run: dict[str, Any]) -> dict[str, Any]:
     ads = dict(load_library())
+    # The confirmed brief is the research scope. A cached library must not
+    # silently reintroduce competitors the user removed from that brief.
+    brief = run.get("brief")
+    if isinstance(brief, dict) and isinstance(brief.get("nodes"), list):
+        domains = {_canonical_host(n.get("domain")) for n in brief["nodes"] if n.get("branch") == "competitors"}
+        ads["subjects"] = [s for s in ads.get("subjects", []) if s.get("kind") == "self" or _canonical_host(s.get("domain")) in domains]
+    subjects = ads.get("subjects", [])
+    records = [ad for subject in subjects for ad in (
+        (subject.get("meta") or {}).get("ads", [])
+        + (subject.get("google") or {}).get("ads", [])
+        + subject.get("other_ads", [])
+    )]
+    count = len(records)
+    source_count = sum(len(s.get("sources", [])) for s in subjects)
+    ads["coverage"] = [f"{len(subjects)} brands · {count} saved ad/campaign records · {source_count} source records", "Saved records include historical ads and labeled third-party evidence. They are not campaign totals."]
+    ads["analysis_stats"] = {
+        **(ads.get("analysis_stats") or {}),
+        "subjects": len(subjects),
+        "competitors": sum(s.get("kind") == "competitor" for s in subjects),
+        "ad_records": count,
+        "sources": source_count,
+        "by_platform": dict(Counter(ad.get("platform") for ad in records)),
+        "brand_matched_meta_records": sum(ad.get("platform") == "meta" for ad in records),
+        "meta_unique_copy_fingerprints": len({ad["creative_fingerprint"] for ad in records if ad.get("creative_fingerprint")}),
+    }
     ads["brief_version"] = run.get("brief_version")
     ads["source"] = ads.get("source") or "fixture"
     ads["status"] = "ready"
@@ -67,17 +98,43 @@ def hydrate_map(run: dict[str, Any]) -> dict[str, Any]:
     nodes = list(mp.get("nodes") or [])
     comps = [n for n in nodes if n.get("branch") == "competitors"]
     others = [n for n in nodes if n.get("branch") != "competitors"]
+    previous_defaults = {_canonical_host(n.get("domain")) for n in fixture if n.get("domain") != "sonant.ai"}
+    if run.get("source") == "fixture" and {_canonical_host(n.get("domain")) for n in comps} == previous_defaults:
+        # Migrate the complete legacy set for the requested Sonant addition.
+        # Smaller/custom selections remain untouched.
+        sonant = next((dict(n) for n in fixture if n.get("domain") == "sonant.ai"), None)
+        if sonant:
+            mp["nodes"] = nodes + [sonant]
+            brief = run.get("brief")
+            if isinstance(brief, dict) and {_canonical_host(n.get("domain")) for n in brief.get("nodes", []) if n.get("branch") == "competitors"} == previous_defaults:
+                brief["nodes"] = list(brief["nodes"]) + [dict(sonant)]
+                version_input = {k: v for k, v in brief.items() if k != "version"}
+                brief["version"] = run["brief_version"] = brief_hash(version_input)
+            return run
     if comps and all(n.get("domain") in allowed for n in comps):
+        return run
+    if run.get("confirmed_at") or run.get("source") != "fixture":
         return run
     mp["nodes"] = others + fixture
     return run
 
 
 def hydrate_ads(run: dict[str, Any]) -> dict[str, Any]:
+    hydrate_public_channels(run)
     hydrate_map(run)
     if not is_superagent(str(run.get("domain") or "")):
         return run
     pack = load_pack()
+    library = load_library()
+    current = run.get("ads") or {}
+    # Upgrade persisted research snapshots too, without changing live research,
+    # the approved brief, generated creatives, or the current workflow step.
+    if (current.get("subjects") and current.get("source", "fixture" if run.get("source") == "fixture" else "live") in {"fixture", "public_snapshot"}
+            and current.get("research_version") != library.get("research_version")):
+        status, step = run.get("status"), run.get("step")
+        apply_ads(run)
+        run["insights"] = _scoped_insights(run, pack)
+        run["status"], run["step"] = status, step
     extra = [dict(c) for c in pack.get("creatives") or []]
     if not extra:
         return run
@@ -94,10 +151,15 @@ def hydrate_ads(run: dict[str, Any]) -> dict[str, Any]:
 
 def apply_insights(run: dict[str, Any]) -> dict[str, Any]:
     pack = load_pack()
-    run["insights"] = pack.get("insights") or []
+    run["insights"] = _scoped_insights(run, pack)
     run["concepts"] = pack.get("concepts") or []
     run["status"] = "ready"
     return run
+
+
+def _scoped_insights(run: dict[str, Any], pack: dict[str, Any]) -> list[dict[str, Any]]:
+    source_ids = {source.get("id") for s in (run.get("ads") or {}).get("subjects", []) for source in s.get("sources", [])}
+    return [i for i in pack.get("insights", []) if all(e.get("source_id") in source_ids for e in i.get("evidence", []) if e.get("source_id"))]
 
 
 def apply_creative(run: dict[str, Any]) -> dict[str, Any]:
@@ -123,47 +185,3 @@ def apply_creative(run: dict[str, Any]) -> dict[str, Any]:
     run["step"] = "creatives"
     run["error"] = None
     return run
-
-
-def apply_launch(run: dict[str, Any], budget_usd: float = 25, geo: list[str] | None = None) -> dict[str, Any]:
-    campaign = dict(run.get("campaign") or {})
-    campaign.update(
-        {
-            "status": "draft",
-            "mode": "demo",
-            "budget_usd": budget_usd,
-            "geo": geo or ["US"],
-            "error": None,
-            "note": "Mock. Nothing was submitted or spent.",
-            "connected": True,
-        }
-    )
-    campaign["account"] = campaign.get("account") or {"id": "adacct_demo", "name": "Demo Ads Manager"}
-    run["campaign"] = campaign
-    run["step"] = "autopilot"
-    run["status"] = "ready"
-    return run
-
-
-def apply_github(run: dict[str, Any]) -> dict[str, Any]:
-    from tracking import tracking_of
-
-    track = tracking_of(run)
-    track.update(
-        {
-            "status": "connected",
-            "login": "astra-demo",
-            "repos": [
-                {"full_name": "getsuperagent/superagent", "default_branch": "main", "html_url": "https://github.com/getsuperagent/superagent", "private": False},
-                {"full_name": "getsuperagent/web", "default_branch": "main", "html_url": "https://github.com/getsuperagent/web", "private": False},
-            ],
-            "repo": "getsuperagent/superagent",
-            "error": None,
-        }
-    )
-    run["tracking"] = track
-    return run
-
-
-def apply_pixel_pr(run: dict[str, Any], repo: str | None = None) -> dict[str, Any]:
-    return apply_tracking(run, repo=repo, mock=True)

@@ -9,6 +9,7 @@ import logging
 import re
 import time
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
 from urllib.parse import quote
@@ -47,7 +48,7 @@ class SubjectSpec:
 @dataclass
 class KeptAd:
     archive_id: str
-    is_active: bool
+    is_active: bool | None
     started_at: str | None
     ended_at: str | None
     display_format: str | None
@@ -62,6 +63,8 @@ class KeptAd:
     page_name: str | None
     impressions: str | None = None
     extra: dict[str, Any] | None = None
+    video_url: str | None = None
+    last_shown_at: str | None = None
 
 
 @dataclass
@@ -88,10 +91,11 @@ def library_search_url(query: str, country: str = "ALL") -> str:
 
 
 def keep_ad(ad: dict, target_domain: str) -> bool:
-    for host in ad_hosts(ad):
-        if same_market_host(host, target_domain):
-            return True
-    return False
+    snap = ad.get("snapshot") if isinstance(ad.get("snapshot"), dict) else {}
+    links = [snap.get("linkUrl"), ad.get("linkUrl")]
+    links.extend(c.get("linkUrl") or c.get("link_url") for c in snap.get("cards") or [] if isinstance(c, dict))
+    # Mentions in someone else's ad copy are not ads for this destination.
+    return any(same_market_host(host_of(url), target_domain) for url in links if host_of(url))
 
 
 def ad_hosts(ad: dict) -> list[str]:
@@ -123,18 +127,26 @@ def parse_kept(ad: dict) -> KeptAd | None:
     if not archive:
         return None
     snap = ad.get("snapshot") if isinstance(ad.get("snapshot"), dict) else {}
-    body = _body_text(snap)
+    # Dynamic creatives put their actual copy/media in cards; the outer
+    # snapshot often contains unresolved {{product.*}} placeholders.
+    cards = [c for c in snap.get("cards") or [] if isinstance(c, dict)]
+    card = cards[0] if cards else {}
+    body = _creative_text(_body_text(snap)) or _creative_text(card.get("body"))
+    active = ad.get("isActive") if isinstance(ad.get("isActive"), bool) else None
+    last_shown = _date(ad.get("endDateFormatted") or ad.get("endDate"))
     extra = parse_extra(ad)
+    if cards:
+        extra = {**(extra or {}), "variants": cards}
     return KeptAd(
         archive_id=archive[:64],
-        is_active=bool(ad.get("isActive", True)),
+        is_active=active,
         started_at=_date(ad.get("startDateFormatted") or ad.get("startDate")),
-        ended_at=_date(ad.get("endDateFormatted") or ad.get("endDate")),
+        ended_at=last_shown if active is False else None,
         display_format=clip(snap.get("displayFormat"), 40),
-        headline=clip(snap.get("title"), 512),
+        headline=clip(_creative_text(snap.get("title")) or _creative_text(card.get("title")), 512),
         body=body[:4000] if body else None,
         cta=clip(snap.get("ctaText"), 80),
-        link_url=clip(snap.get("linkUrl") or ad.get("linkUrl"), 1024),
+        link_url=clip(card.get("linkUrl") or snap.get("linkUrl") or ad.get("linkUrl"), 1024),
         platforms=_platforms(ad),
         image_url=_image_url(snap),
         library_url=f"https://www.facebook.com/ads/library/?id={archive}",
@@ -142,6 +154,8 @@ def parse_kept(ad: dict) -> KeptAd | None:
         page_name=clip(ad.get("pageName") or snap.get("pageName"), 255),
         impressions=clip((extra or {}).get("impressions"), 80),
         extra=extra,
+        video_url=_video_url(snap),
+        last_shown_at=last_shown,
     )
 
 
@@ -219,14 +233,9 @@ class MetaLibrary:
             keepers: list[KeptAd] = []
             seen: set[str] = set()
             for ad in flatten_ads(raw):
-                if spec.kind != "self" and not keep_ad(ad, spec.domain):
-                    if not keep_ad(ad, spec.domain):
-                        # still keep a few keyword matches when landing host is missing
-                        parsed = parse_kept(ad)
-                        if parsed and parsed.archive_id not in seen:
-                            seen.add(parsed.archive_id)
-                            keepers.append(parsed)
-                        continue
+                if not keep_ad(ad, spec.domain):
+                    # A keyword match alone is not advertiser identity evidence.
+                    continue
                 parsed = parse_kept(ad)
                 if not parsed or parsed.archive_id in seen:
                     continue
@@ -343,7 +352,18 @@ def _caption_blobs(ad: dict, snap: dict) -> list[str]:
 def _date(raw: Any) -> str | None:
     if raw is None or raw == "":
         return None
+    if isinstance(raw, (int, float)) or (isinstance(raw, str) and raw.isdigit()):
+        try:
+            value = float(raw)
+            return datetime.fromtimestamp(value / 1000 if value > 1e11 else value, timezone.utc).isoformat()
+        except (OverflowError, ValueError, OSError):
+            return None
     return str(raw).strip()[:40] or None
+
+
+def _creative_text(raw: Any) -> str | None:
+    text = str(raw or "").strip()
+    return text if text and "{{" not in text else None
 
 
 def _platforms(ad: dict) -> list[str] | None:
@@ -356,9 +376,18 @@ def _platforms(ad: dict) -> list[str] | None:
 
 
 def _image_url(snap: dict) -> str | None:
-    for img in snap.get("images") or []:
+    for img in (snap.get("images") or []) + (snap.get("cards") or []) + (snap.get("videos") or []):
         if isinstance(img, dict):
-            url = img.get("originalImageUrl") or img.get("resizedImageUrl") or img.get("url")
+            url = img.get("originalImageUrl") or img.get("resizedImageUrl") or img.get("videoPreviewImageUrl") or img.get("url")
             if url:
                 return str(url)[:2048]
+    return None
+
+
+def _video_url(snap: dict) -> str | None:
+    for video in (snap.get("videos") or []) + (snap.get("cards") or []):
+        if isinstance(video, dict):
+            url = video.get("videoHdUrl") or video.get("videoSdUrl")
+            if url:
+                return str(url)[:4096]
     return None

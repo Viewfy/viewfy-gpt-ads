@@ -1,0 +1,53 @@
+{
+  "domain": "getsuperagent.com",
+  "query_url": "https://www.facebook.com/getsuperagent",
+  "cost_usd": "0",
+  "ads": [],
+  "raw": [
+    {
+      "inputUrl": "https://www.facebook.com/getsuperagent",
+      "pageInfo": {
+        "adLibrarySystemStatus": {
+          "systemStatus": {
+            "status": "NO_KNOWN_ISSUES",
+            "activeIssues": [
+              {
+                "product": "Ad Library",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Ad Library Report",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Ad Library API",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Branded Content",
+                "status": "NO_KNOWN_ISSUES"
+              }
+            ]
+          }
+        },
+        "xfbAdLibraryIsCaptchaRequired": false,
+        "adLibraryPageInfo": {
+          "pageInfo": {
+            "relatedPages": [],
+            "hasBlankAds": false,
+            "hiddenAds": 0,
+            "pageIsDeleted": false
+          }
+        },
+        "page": {
+          "name": "Superagent",
+          "id": "677644648769982"
+        },
+        "adLibraryUser": null
+      },
+      "isResultComplete": true,
+      "results": [],
+      "totalCount": 0
+    }
+  ]
+}

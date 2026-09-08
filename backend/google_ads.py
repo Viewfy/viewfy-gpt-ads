@@ -98,10 +98,12 @@ def _parse(item: dict, source: str) -> dict[str, Any] | None:
         "link_url": clip(item.get("destinationUrl") or item.get("url"), 1024),
         "format": clip(item.get("format") or item.get("adFormat") or item.get("type"), 40),
         "started_at": clip(item.get("firstShown") or item.get("startDate") or item.get("dateFrom"), 40),
-        "ended_at": clip(item.get("lastShown") or item.get("endDate") or item.get("dateTo"), 40),
+        "ended_at": clip(item.get("endDate"), 40) if item.get("isActive") is False else None,
+        "last_shown_at": clip(item.get("lastShown") or item.get("dateTo"), 40),
         "is_active": item.get("isActive") if isinstance(item.get("isActive"), bool) else None,
         "source_url": clip(item.get("transparencyUrl") or item.get("url") or source, 512),
-        "status": "active" if item.get("isActive") else "archived",
+        "status": "active" if item.get("isActive") is True else "inactive" if item.get("isActive") is False else "unknown",
+        "evidence_type": "ad_library",
     }
 
 

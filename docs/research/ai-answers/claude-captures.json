@@ -1,0 +1,76 @@
+[
+  {
+    "prompt_id": "q-recv",
+    "prompt": "Best AI receptionist for a small insurance agency",
+    "response": "Sonant Custom quote AgentZap From $109/mo Goodcall From $79/mo Best for Agencies that want every call transcribed and pushed into the AMS Best for Smaller agencies wanting insurance workflows on a flat budget Best for Basic 24/7 answering and scheduling at a predictable cost Insurance-specific Yes — built only for P&C agencies; handles quote intake, servicing, transfers Insurance-specific Yes — quote capture with vehicle/property details, FNOL intake Insurance-specific No — general-purpose, you script the FAQs AMS integration Native: EZLynx, Applied Epic, HawkSoft, AMS360, QQCatalyst, AgencyZoom, Zywave, Momentum AMS integration Applied Epic, EZLynx (per vendor) AMS integration None native; generic CRM/calendar hooks Pricing model Quote-based; third-party estimates start around $299/mo for ~200 calls Pricing model Flat monthly, no per-call fees Pricing model Per unique caller (100 callers/mo), ~$0.50 each beyond that\n\nA few things worth knowing before you pick:\n\nAMS integration is the real dividing line. The generic tools ($30–$200/month) will answer calls and take messages fine, but someone on your team still has to re-key everything into EZLynx or HawkSoft. Sonant's pitch is that everything gets transcribed and pushed into the management system so staff can act on it immediately, and its pricing bundles setup, AMS integrations, training, and support with no separate charges. That's what you're paying the premium for. Note that Sonant doesn't publish pricing, so the ~$299 figure in the card is a third-party estimate, not official. \nSonant - The AI Receptionist For Insurance +2\n\nBe skeptical of \"best of\" rankings. Nearly every comparison article in this category is written by one of the vendors ranking itself first. The market has fragmented a lot since 2025, with new entrants undercutting on price, and every platform bills differently, so the only reliable test is calling the thing yourself. \nTrillet\n\nTest with your actual call types. Use the free trial and call the AI 10+ times with realistic scenarios to check voice quality, comprehension, and accuracy: a client reporting a claim at 9 PM, someone wanting an auto quote with two vehicles, a billing question, a Spanish-speaking caller. Watch especially for whether it tries to answer coverage questions rather than routing them to a licensed agent, since that's an E&O exposure you'll want scripted out. \nVoksha\n\nDo the math on volume. Agencies miss roughly 39% of inbound calls and 85% of those callers never call back; AI receptionists typically run $50 to $300 per month versus $35,000 to $45,000 a year for a full-time receptionist. If you're getting under 20 calls a day, a flat-rate generic tool may capture most of the value; if you're fielding constant servicing calls, the AMS-integrated option pays for itself in staff time. \ndialnote\n\nIf you tell me your AMS and rough monthly call volume, I can narrow this further.",
+    "model": "Fable 5.1 · Extra (displayed in Claude)",
+    "engine": "claude",
+    "method": "web_app",
+    "collectedAt": "2026-09-08T20:18:52.424033+00:00",
+    "citations": [
+      {
+        "title": "Sonant - The AI Receptionist For Insurance +2",
+        "url": "https://www.sonant.ai/"
+      },
+      {
+        "title": "Trillet",
+        "url": "https://trillet.ai/blogs/top-10-ai-receptionists-for-small-business-2026"
+      },
+      {
+        "title": "Voksha",
+        "url": "https://voksha.com/guide/best-ai-receptionists-2026/"
+      },
+      {
+        "title": "dialnote",
+        "url": "https://dialnote.com/en/blog/ai-receptionist-insurance-growth/"
+      }
+    ],
+    "sourceUrl": "https://claude.ai/",
+    "captureNote": "Fresh incognito Claude web chat. Visible response copied verbatim; rendered comparison card flattened to accessible text where present. Citations are visible inline links; collapsed citation groups were not expanded."
+  },
+  {
+    "prompt_id": "q-miss",
+    "prompt": "How do small insurance agencies handle missed calls after hours?",
+    "response": "Most small agencies use some mix of these, roughly in order of how common they are:\n\nVoicemail with a triage message. The default. The greeting tells callers office hours, points claims to the carrier's 24/7 claims line (the big one — most after-hours calls are claims or roadside), and promises a next-business-day callback. Cheap, but you lose some prospects who just call the next agency.\n\nCarrier claims lines. Nearly every carrier (State Farm, Progressive, Travelers, etc.) runs a 24/7 claims and roadside number. Agencies lean on this heavily; the voicemail greeting or website basically redirects urgent calls there.\n\nLive answering services. Services like Ruby, Smith.ai, or insurance-specific ones (e.g., Nexa, AnswerConnect) take messages, screen for emergencies, and text/email the agent. Typically $100–$400/month depending on call volume. Popular with agencies of 2–10 people who want a human but not a night shift.\n\nAI phone agents. Newer and growing fast — tools that answer, collect the caller's name/policy/issue, answer basic questions (hours, how to file a claim, certificate requests), and text a summary to the agent. Cheaper than live services and available instantly, though quality varies and some clients dislike talking to a bot.\n\nCall forwarding to a cell. Common at the smallest agencies (solo or 2-person). The owner or a rotating staff member takes calls personally. Works until it doesn't — burnout and boundary problems are the usual complaint.\n\nText and web fallbacks. Auto-reply texts when a call is missed (\"Sorry we missed you — reply here and we'll get back first thing\"), plus a client portal or app for ID cards and payments so many after-hours needs never become calls. Agency management systems (EZLynx, HawkSoft, Applied) often have this built in or via integrations.\n\nA typical setup for a 5-person independent agency: voicemail greeting that routes claims to carriers, a missed-call auto-text, and either an answering service or AI agent for everything else. The main tradeoff is cost versus how many leads and renewals they're willing to lose to the first ring that gets answered elsewhere.",
+    "model": "Fable 5.1 · Extra (displayed in Claude)",
+    "engine": "claude",
+    "method": "web_app",
+    "collectedAt": "2026-09-08T20:18:52.424283+00:00",
+    "citations": [],
+    "sourceUrl": "https://claude.ai/",
+    "captureNote": "Fresh incognito Claude web chat. Visible response copied verbatim; rendered comparison card flattened to accessible text where present. Citations are visible inline links; collapsed citation groups were not expanded."
+  },
+  {
+    "prompt_id": "q-vs",
+    "prompt": "How do insurance-specific AI receptionists compare with general answering services?",
+    "response": "The short version: insurance-specific AI receptionists are built to complete common insurance tasks on the call, while general answering services (human or generic AI) mostly capture and relay them. Whether that difference matters depends on your call mix.\n\nWhere the insurance-specific ones pull ahead\n\nIntent handling. Most inbound agency calls are a handful of things: quotes, claims, policy changes, billing, certificates. Specialized tools are designed around those. A new-business caller gets asked for name, coverage type, and contact info and a producer follow-up is booked; a damage report triggers first-notice-of-loss intake and either escalates to a licensed rep or logs details for the morning. \nSonant\nSystem integration. The bigger differentiator is write-back to your agency management system. Sonant, for example, integrates natively with EZLynx, Applied Epic, HawkSoft, and AMS360 and writes call notes back to the AMS. A general service hands you a message you still have to process the next day. \nSonant\nVocabulary. Specialized products are trained on terms like endorsements, certificates of insurance, and claims procedures, so callers aren't stuck explaining what a COI is. \nAgentZap\nConcurrency and hours. Any AI option handles unlimited simultaneous calls 24/7; a human service scales cost with volume. Human answering services typically bill by the minute or staffed hours. \nSonant\n\nWhere general services still hold their own\n\nPure message-taking. If you mostly need someone to catch after-hours calls and pass them along, a human service or a generic AI receptionist does that fine and setup is trivial. Some generic tools work by call forwarding on busy/missed/after-hours and send a summary plus transcript. \nSkipCalls\nBroader platform flexibility. General AI platforms like ElevenLabs offer things the niche tools may not: 30+ languages with automatic detection, voice cloning, REST APIs, and SOC 2/HIPAA/GDPR compliance options. They can be configured for insurance, but you're doing the configuration. \nElevenLabs\nHuman judgment. A live operator handles an angry or confused caller more gracefully than any AI, and some clients (older policyholders especially) simply prefer a person.\n\nThings to weigh regardless of category\n\nLicensing limits. In most states, unlicensed staff (and any AI) can't bind coverage, quote premiums, or give coverage advice. Ask any vendor how the system is constrained from crossing that line and how it escalates. Some tools can be set to avoid making promises like binding coverage and route sensitive situations back to you. \nSkipCalls\nDisclosure. Several states have or are adopting rules requiring callers be told they're talking to an AI. Check your state's position.\nVendor bias. Nearly everything published on this comparison, including the sources here, comes from vendors selling one side of it. Claims like \"60–80% cheaper\" or \"agencies miss 30% of calls\" are marketing figures, not independent data.\n\nA reasonable way to decide: pull a week of your call logs and sort them by intent. If most are routine transactions you'd want closed on the spot and logged in your AMS, an insurance-specific tool likely earns its cost. If most are \"have Dave call me back,\" a general service is probably enough.",
+    "model": "Fable 5.1 · Extra (displayed in Claude)",
+    "engine": "claude",
+    "method": "web_app",
+    "collectedAt": "2026-09-08T20:18:52.424320+00:00",
+    "citations": [
+      {
+        "title": "Sonant",
+        "url": "https://www.sonant.ai/blog/ai-answering-service-for-insurance-agents"
+      },
+      {
+        "title": "Sonant",
+        "url": "https://www.sonant.ai/blog/best-phone-answering-services-insurance"
+      },
+      {
+        "title": "AgentZap",
+        "url": "https://agentzap.ai/industries/insurance"
+      },
+      {
+        "title": "SkipCalls",
+        "url": "https://skipcalls.com/insurance-agent/ai-receptionist-vs-human-answering-service-for-an-insurance-agency-can-it-captur"
+      },
+      {
+        "title": "ElevenLabs",
+        "url": "https://elevenlabs.io/ai-answering-service/insurance"
+      }
+    ],
+    "sourceUrl": "https://claude.ai/",
+    "captureNote": "Fresh incognito Claude web chat. Visible response copied verbatim; rendered comparison card flattened to accessible text where present. Citations are visible inline links; collapsed citation groups were not expanded."
+  }
+]

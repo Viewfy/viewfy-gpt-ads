@@ -1,0 +1,1026 @@
+{
+  "researched_at": "2026-09-08",
+  "scope": "Public paid creative and official product evidence for receptionist competitors",
+  "methodology": "Official websites scraped with public HTTP; Meta and Google ad libraries inspected in a browser; independent ChatGPT captures explicitly labeled. Null fields are unavailable, never zero. Google last shown is not started/ended/active status. Exact copy is limited to short excerpts, with paraphrases clearly separated. Ad result counts and reuse are not performance.",
+  "subjects": [
+    {
+      "domain": "smith.ai",
+      "name": "Smith.ai",
+      "profile": {
+        "category": "AI and human receptionist; legal intake",
+        "positioning": "Law-firm intake from answering through qualification, booking and CRM sync, with AI-first, hybrid and human-first service.",
+        "audience": [
+          "Law firms",
+          "Home services",
+          "IT services"
+        ],
+        "primary_cta": "Book a consultation",
+        "free_offer": "25 calls per month free forever, as advertised on homepage.",
+        "pricing_summary": "Homepage starting rates: AI-first $1.60/call; hybrid $2.50/call; human-first $7/call; human escalation $3 extra. These are starting per-call rates, not a total monthly quote.",
+        "features": [
+          "24/7 intake",
+          "Legal-practice-specific qualification",
+          "Calendar booking",
+          "CRM sync",
+          "English and Spanish",
+          "Human escalation"
+        ],
+        "source_ids": [
+          "smith-home"
+        ]
+      },
+      "sources": [
+        {
+          "id": "smith-home",
+          "url": "https://smith.ai/",
+          "title": "Smith.ai homepage",
+          "kind": "official_website",
+          "observed_at": "2026-09-08",
+          "summary": "The homepage is explicitly oriented toward law firms and describes a complete intake-to-client workflow. Its pricing differentiates AI-first, hybrid and human-first coverage. Brand-reported proof includes 25M+ handled calls, 4,000+ law firms and 500+ North American agents. It names Clio, Filevine, Lawmatics and other practice-management integrations. These are vendor claims, not independent performance measurements.",
+          "quotes": [
+            "Answer every call, book the consult, sign more clients."
+          ],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "smith-meta-1535533717913506",
+          "url": "https://www.facebook.com/ads/library/?id=1535533717913506",
+          "title": "Smith.ai Meta ad 1535533717913506",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "A 22-second video connects missed calls to wasted marketing spend, promises intake, qualification, booking and CRM sync, and mentions human backup plus an under-$100/month offer. The offer is historical ad copy; current price should be checked against the website.",
+          "quotes": [],
+          "retrieval_method": "Meta Ad Library advertiser page; visible library ID, date, copy and format"
+        },
+        {
+          "id": "smith-meta-1528061168490375",
+          "url": "https://www.facebook.com/ads/library/?id=1528061168490375",
+          "title": "Smith.ai Meta ad 1528061168490375",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Legal-specific creative frames the service as a coordinated intake process that captures, qualifies and routes inquiries. Meta groups three ads using this creative and text; this record represents the displayed library ID.",
+          "quotes": [],
+          "retrieval_method": "Meta Ad Library advertiser page; visible library ID, date, copy and format"
+        },
+        {
+          "id": "smith-meta-1050754350930029",
+          "url": "https://www.facebook.com/ads/library/?id=1050754350930029",
+          "title": "Smith.ai Meta ad 1050754350930029",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "A 13-second legal-focused video emphasizes screening, calendar bookings and allowing law firms to focus on cases.",
+          "quotes": [],
+          "retrieval_method": "Meta Ad Library advertiser page; visible library ID, date, copy and format"
+        },
+        {
+          "id": "smith-chatgpt-13532",
+          "url": "https://www.chatgptadlibrary.com/ad/13532",
+          "title": "Smith.ai AI Legal Receptionist observed ChatGPT ad",
+          "kind": "third_party_ad_capture",
+          "observed_at": "2026-09-08",
+          "summary": "An independent ad-observation site publishes this sponsored-card capture. The library ID belongs to the observation site, not OpenAI. Delivery dates, official campaign identifiers and paid performance are unavailable.",
+          "quotes": [],
+          "retrieval_method": "Web page and indexed capture"
+        },
+        {
+          "id": "smith-chatgpt-187158",
+          "url": "https://www.chatgptadlibrary.com/ad/187158",
+          "title": "Smith.ai AI Legal Receptionist observed ChatGPT ad",
+          "kind": "third_party_ad_capture",
+          "observed_at": "2026-09-08",
+          "summary": "An independent ad-observation site publishes this sponsored-card capture. The library ID belongs to the observation site, not OpenAI. Delivery dates, official campaign identifiers and paid performance are unavailable.",
+          "quotes": [],
+          "retrieval_method": "Web page and indexed capture"
+        }
+      ],
+      "ads": [
+        {
+          "id": "1535533717913506",
+          "platform": "meta",
+          "advertiser": "Smith.ai Receptionists",
+          "headline": "Never miss another call",
+          "body": "You’ve invested in marketing. Leads are coming in.",
+          "cta": "Learn more",
+          "source_url": "https://www.facebook.com/ads/library/?id=1535533717913506",
+          "link_url": null,
+          "format": "video",
+          "started_at": "2026-05-01",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "smith-meta-1535533717913506",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "body_summary": "A 22-second video connects missed calls to wasted marketing spend, promises intake, qualification, booking and CRM sync, and mentions human backup plus an under-$100/month offer. The offer is historical ad copy; current price should be checked against the website.",
+          "advertiser_page_id": "208657366181329",
+          "advertiser_relationship": "brand_matched"
+        },
+        {
+          "id": "1528061168490375",
+          "platform": "meta",
+          "advertiser": "Smith.ai Receptionists",
+          "headline": "24/7 AI Receptionists + Live Agents",
+          "body": "24/7 call handling built for lawyers.",
+          "cta": "Learn More",
+          "source_url": "https://www.facebook.com/ads/library/?id=1528061168490375",
+          "link_url": null,
+          "format": "image",
+          "started_at": "2026-08-04",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "smith-meta-1528061168490375",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "body_summary": "Legal-specific creative frames the service as a coordinated intake process that captures, qualifies and routes inquiries. Meta groups three ads using this creative and text; this record represents the displayed library ID.",
+          "advertiser_page_id": "208657366181329",
+          "advertiser_relationship": "brand_matched"
+        },
+        {
+          "id": "1050754350930029",
+          "platform": "meta",
+          "advertiser": "Smith.ai Receptionists",
+          "headline": "24/7 answering, 365 days a year",
+          "body": "Smith.ai answers every call, screens out unqualified leads,",
+          "cta": "Learn more",
+          "source_url": "https://www.facebook.com/ads/library/?id=1050754350930029",
+          "link_url": null,
+          "format": "video",
+          "started_at": "2026-08-30",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "smith-meta-1050754350930029",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "body_summary": "A 13-second legal-focused video emphasizes screening, calendar bookings and allowing law firms to focus on cases.",
+          "advertiser_page_id": "208657366181329",
+          "advertiser_relationship": "brand_matched"
+        },
+        {
+          "id": "chatgptadlibrary-13532",
+          "platform": "chatgpt",
+          "advertiser": "Smith.ai",
+          "headline": "AI Legal Receptionist",
+          "body": "24/7 call handling and new client intake for law firms & lawyers. Never miss a call again.",
+          "cta": null,
+          "source_url": "https://www.chatgptadlibrary.com/ad/13532",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "third_party_observed_ad",
+          "source_id": "smith-chatgpt-13532",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_relationship": "brand_matched",
+          "external_library_id": "13532"
+        },
+        {
+          "id": "chatgptadlibrary-187158",
+          "platform": "chatgpt",
+          "advertiser": "Smith.ai",
+          "headline": "AI Legal Receptionist",
+          "body": "Get an AI legal receptionist that never takes a break. Answers every call and qualifies leads 24/7",
+          "cta": null,
+          "source_url": "https://www.chatgptadlibrary.com/ad/187158",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "third_party_observed_ad",
+          "source_id": "smith-chatgpt-187158",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_relationship": "brand_matched",
+          "external_library_id": "187158"
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&search_type=page&view_all_page_id=208657366181329",
+          "status": "ads_observed",
+          "note": "Exact Smith.ai Receptionists advertiser, @virtualreceptionists. Meta displayed approximately 140 active results. This is an approximate platform result count, not unique creative count or spend."
+        },
+        {
+          "platform": "chatgpt",
+          "url": "https://www.chatgptadlibrary.com/advertiser/Smith.ai",
+          "status": "third_party_captures_observed",
+          "note": "Independent capture service; not an official ad transparency or performance feed."
+        }
+      ],
+      "insights": [
+        {
+          "title": "Legal intake is the clearest differentiated message",
+          "observation": "The August Meta examples talk about legal qualification and booked clients; the homepage also leads with law-firm intake.",
+          "implication": "For a direct comparison, test the specific intake outcome and practice-system workflow rather than a generic always-on AI answerer.",
+          "source_ids": [
+            "smith-home",
+            "smith-meta-1528061168490375",
+            "smith-meta-1050754350930029"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Protecting lead acquisition spend is an established hook",
+          "observation": "The May video leads with marketing expenditure lost when calls go unanswered.",
+          "implication": "A missed-lead economics message can connect the product to an existing marketing budget; its effectiveness still requires conversion testing.",
+          "source_ids": [
+            "smith-meta-1535533717913506"
+          ],
+          "kind": "evidence_based_inference"
+        }
+      ]
+    },
+    {
+      "domain": "ruby.com",
+      "name": "Ruby",
+      "domain_aliases": [
+        "callruby.com"
+      ],
+      "profile": {
+        "category": "Live virtual receptionist and managed chat",
+        "positioning": "Human-led customer communication with optional AI assistance.",
+        "audience": [
+          "Small businesses",
+          "Law firms",
+          "Home services",
+          "Healthcare",
+          "Financial services"
+        ],
+        "primary_cta": "Build your plan",
+        "pricing_summary": "Live receptionist plans: $250/month for 50 minutes, $395 for 100, $720 for 200, $1,725 for 500. Chat plans start $143/month for 10 chats. Chat bundled with receptionist plans receives a 20% discount. No setup/onboarding/after-hours fees advertised; overage terms were not extracted.",
+        "features": [
+          "24/7 live answering",
+          "Bilingual availability",
+          "Intake and lead qualification",
+          "Appointment scheduling",
+          "Payment collection",
+          "Optional AI transcripts and sentiment analysis"
+        ],
+        "source_ids": [
+          "ruby-home",
+          "ruby-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "ruby-home",
+          "url": "https://www.ruby.com/",
+          "title": "Ruby official homepage",
+          "kind": "official_website",
+          "observed_at": "2026-09-08",
+          "summary": "A direct public request to callruby.com redirected to ruby.com. Ruby presents virtual receptionists, managed website chat, integration support and industry-specific offerings. Its official social profile is facebook.com/callruby.",
+          "quotes": [
+            "100% live, personalized communication"
+          ],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "ruby-pricing",
+          "url": "https://www.ruby.com/plans-and-pricing/",
+          "title": "Ruby plans and pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "Plans are metered by receptionist minutes or chat count. The same feature set is offered across receptionist tiers; optional AI enhancements are included. Phone plans range from 50 to 500 included minutes. The site advertises bilingual availability and no added setup, onboarding or period-of-coverage charges. Overage rates are not stated in the extracted pricing table.",
+          "quotes": [],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "ruby-google-CR08987517515567464449",
+          "url": "https://adstransparency.google.com/advertiser/AR11033858188439977985/creative/CR08987517515567464449?region=anywhere",
+          "title": "Ruby Google text ad CR 08987517515567464449",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Google identifies Ruby Receptionists, Inc as the advertiser and shows this text creative last served September 8,2026. Copy was read from the rendered ad preview. Exact destination URL was not exposed; link below is the displayed URL.",
+          "quotes": [],
+          "retrieval_method": "Google Ads Transparency Center browser metadata and screenshot"
+        },
+        {
+          "id": "ruby-google-CR08821910044854452225",
+          "url": "https://adstransparency.google.com/advertiser/AR11033858188439977985/creative/CR08821910044854452225?region=anywhere",
+          "title": "Ruby Google text ad CR 08821910044854452225",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Google identifies Ruby Receptionists, Inc as the advertiser and shows this text creative last served September 8,2026. Copy was read from the rendered ad preview. Exact destination URL was not exposed; link below is the displayed URL.",
+          "quotes": [],
+          "retrieval_method": "Google Ads Transparency Center browser metadata and screenshot"
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR08987517515567464449",
+          "platform": "google",
+          "advertiser": "Ruby Receptionists, Inc",
+          "headline": "Telephone Answer Service - All Calls Answered Live",
+          "body": "Focus on Your Business While We Answer Your Calls.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR11033858188439977985/creative/CR08987517515567464449?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "primary_ad_library",
+          "source_id": "ruby-google-CR08987517515567464449",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "last_shown_at": "2026-09-08",
+          "display_url": "https://info.ruby.com/virtual/receptionist",
+          "advertiser_id": "AR11033858188439977985",
+          "advertiser_relationship": "brand_matched"
+        },
+        {
+          "id": "CR08821910044854452225",
+          "platform": "google",
+          "advertiser": "Ruby Receptionists, Inc",
+          "headline": "Ruby Virtual Receptionists",
+          "body": "Stop losing customers to missed calls. Let our virtual receptionists answer for you.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR11033858188439977985/creative/CR08821910044854452225?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "primary_ad_library",
+          "source_id": "ruby-google-CR08821910044854452225",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "last_shown_at": "2026-09-08",
+          "display_url": "https://info.ruby.com/",
+          "advertiser_id": "AR11033858188439977985",
+          "advertiser_relationship": "brand_matched"
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&search_type=page&view_all_page_id=107944562569022",
+          "status": "no_results_in_checked_scope",
+          "note": "Exact @callruby advertiser was selected. Both active-only and all-status searches showed no matching ads. This does not prove historical absence or zero ad spend."
+        },
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=ruby.com",
+          "status": "ads_observed",
+          "note": "Brand-matched verified advertiser; two text ads inspected. Last-shown date is not an end date or proof that a campaign remains active."
+        }
+      ],
+      "insights": [
+        {
+          "title": "Ruby competes on live human handling",
+          "observation": "The search ad explicitly promises live handling while the price table charges for receptionist minutes.",
+          "implication": "Position comparisons around the desired caller experience and predictable workload cost; a base monthly sticker-price comparison omits different service models.",
+          "source_ids": [
+            "ruby-google-CR 08987517515567464449",
+            "ruby-pricing"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Missed-customer loss crosses both AI and human offers",
+          "observation": "Ruby’s second search ad uses customer loss from unanswered calls as its core hook.",
+          "implication": "Availability alone is weak differentiation against this incumbent; make workflow depth or service economics concrete.",
+          "source_ids": [
+            "ruby-google-CR 08821910044854452225"
+          ],
+          "kind": "evidence_based_inference"
+        }
+      ]
+    },
+    {
+      "domain": "goodcall.com",
+      "name": "Goodcall",
+      "profile": {
+        "category": "Agentic voice AI",
+        "positioning": "Self-service AI phone agents, flexible logic and analytics with usage billed by unique customer rather than call duration.",
+        "audience": [
+          "Small business owners",
+          "Multi-location operators",
+          "Enterprise call centers"
+        ],
+        "primary_cta": "Get Started",
+        "pricing_summary": "Monthly per-agent Starter $79/100 unique customers, Growth $129/250, Scale $249/500; $0.50 per additional unique customer. Annual display rates $66/$108/$208 per month. Unlimited call minutes and tokens; a repeat caller from the same phone number counts once monthly. Robo/silent/blocked calls excluded.",
+        "features": [
+          "Custom logic flows",
+          "Appointment automation",
+          "CRM integrations",
+          "Conditional forwarding",
+          "Analytics",
+          "Operator escalation"
+        ],
+        "source_ids": [
+          "goodcall-home",
+          "goodcall-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "goodcall-home",
+          "url": "https://www.goodcall.com/",
+          "title": "Goodcall official homepage",
+          "kind": "official_website",
+          "observed_at": "2026-09-08",
+          "summary": "The site promotes launching and customizing agents without engineering, integration into existing customer systems and outcome-focused call analytics. Brand-reported scale includes 50,000+ agents and 42,000+ businesses; these are different units. Security/compliance statements are vendor claims and were not audited.",
+          "quotes": [
+            "AI phone calls made easy"
+          ],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "goodcall-pricing",
+          "url": "https://www.goodcall.com/pricing",
+          "title": "Goodcall pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "Pricing combines a per-agent subscription with a monthly allowance for distinct interacting phone numbers. Repeated conversations from the same number do not increase the distinct-customer count; excess distinct customers are $0.50 each. Call length and token usage are not separately charged. Annual pricing is shown separately from monthly rates.",
+          "quotes": [],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "goodcall-tiktok",
+          "url": "https://ads.tiktok.com/business/en-US/inspiration/goodcall-drives-signups-with-spark-ads",
+          "title": "Goodcall TikTok for Business case study",
+          "kind": "paid_campaign_case_study",
+          "observed_at": "2026-09-08",
+          "summary": "TikTok documents a Goodcall conversion campaign using creators,15–30-second UGC and Spark Ads, with automatic and business-owner interest/behavior targeting. The historical platform case study reports acquisition cost declining from $185 to $7 per signup,75% retention and 6K+ signups. No campaign date range, experiment design, attribution window or current outcomes are supplied. These are reported campaign outcomes, not current ad-level metrics.",
+          "quotes": [],
+          "retrieval_method": "Official platform case study plus publicly embedded video"
+        },
+        {
+          "id": "goodcall-google-CR00592287105493762049",
+          "url": "https://adstransparency.google.com/advertiser/AR01601941678065713153/creative/CR00592287105493762049?region=anywhere",
+          "title": "Google ad promoting Goodcall: CR 00592287105493762049",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "This real Google text ad displays the Goodcall brand and goodcall.com destination domain. Google lists Digital Funda as the advertiser. Its relationship to Goodcall is unverified: do not attribute ownership, budget or strategy directly to Goodcall.",
+          "quotes": [],
+          "retrieval_method": "Google Ads Transparency Center rendered screenshot and metadata"
+        },
+        {
+          "id": "goodcall-google-CR16321032001480032257",
+          "url": "https://adstransparency.google.com/advertiser/AR04849455390754078721/creative/CR16321032001480032257?region=anywhere",
+          "title": "Google ad promoting Goodcall: CR 16321032001480032257",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "This real Google text ad displays the Goodcall brand and goodcall.com destination domain. Google lists Creation Place Development Limited as the advertiser. Its relationship to Goodcall is unverified: do not attribute ownership, budget or strategy directly to Goodcall.",
+          "quotes": [],
+          "retrieval_method": "Google Ads Transparency Center rendered screenshot and metadata"
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR00592287105493762049",
+          "platform": "google",
+          "advertiser": "Digital Funda",
+          "headline": "Your Virtual Receptionist",
+          "body": "AI Phone Agent and Virtual Receptionist for Service CX",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR01601941678065713153/creative/CR00592287105493762049?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "primary_ad_library_domain_match",
+          "source_id": "goodcall-google-CR00592287105493762049",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "last_shown_at": "2026-09-07",
+          "display_url": "https://www.goodcall.com/",
+          "advertiser_id": "AR01601941678065713153",
+          "advertiser_relationship": "unverified_third_party"
+        },
+        {
+          "id": "CR16321032001480032257",
+          "platform": "google",
+          "advertiser": "Creation Place Development Limited",
+          "headline": "Goodcall",
+          "body": "Discover how Goodcall's AI answering service boosts efficiency for small businesses.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR04849455390754078721/creative/CR16321032001480032257?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "primary_ad_library_domain_match",
+          "source_id": "goodcall-google-CR16321032001480032257",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "last_shown_at": "2026-03-16",
+          "display_url": "https://www.goodcall.com/",
+          "advertiser_id": "AR04849455390754078721",
+          "advertiser_relationship": "unverified_third_party"
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=goodcall.com",
+          "status": "domain_ads_observed",
+          "note": "Two domain-matched text ads under other advertiser names; advertiser-brand relationship unverified."
+        },
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=Goodcall",
+          "status": "identity_unresolved",
+          "note": "Exact official handle goodcallanswers did not resolve in browser suggestions. Generic Goodcall returned similarly named clothing, recruitment and other businesses; these were not attributed to Goodcall voice AI."
+        },
+        {
+          "platform": "tiktok",
+          "url": "https://ads.tiktok.com/business/en-US/inspiration/goodcall-drives-signups-with-spark-ads",
+          "status": "paid_campaign_and_embedded_creative_observed",
+          "note": "Official platform case study confirms paid Spark Ads and supplies an embedded campaign video; exact ad-ID, full script and date range unavailable."
+        }
+      ],
+      "insights": [
+        {
+          "title": "Repeat callers create a distinct pricing advantage",
+          "observation": "Goodcall bills excess distinct customers rather than excess minutes.",
+          "implication": "Model cost using caller count and repeat-call frequency; a minutes-only cost chart would misrepresent this offer.",
+          "source_ids": [
+            "goodcall-pricing"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Creator-led acquisition has documented precedent",
+          "observation": "TikTok’s own case study confirms Goodcall used Spark Ads and creator content to pursue business-owner signups.",
+          "implication": "A short problem/demonstration creator test is evidence-backed channel exploration. Historical reported CAC is not a benchmark or a forecast.",
+          "source_ids": [
+            "goodcall-tiktok"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Domain ads are not necessarily brand-owned",
+          "observation": "Both Google domain matches show advertiser names other than Goodcall.",
+          "implication": "Keep advertiser identity visible and exclude these from brand-owned spend or campaign-count claims.",
+          "source_ids": [
+            "goodcall-google-CR 00592287105493762049",
+            "goodcall-google-CR 16321032001480032257"
+          ],
+          "kind": "evidence_based_inference"
+        }
+      ],
+      "campaign_evidence": [
+        {
+          "id": "goodcall-tiktok-spark-case-study",
+          "platform": "tiktok",
+          "advertiser": "Goodcall",
+          "evidence_type": "primary_platform_case_study",
+          "source_id": "goodcall-tiktok",
+          "objective": "user signups",
+          "formats": [
+            "Spark Ads",
+            "creator UGC",
+            "15–30-second videos"
+          ],
+          "audiences": [
+            "business owners",
+            "automatic targeting"
+          ],
+          "creative_video_url": "https://lf-tt4b.tiktokcdn.com/obj/i18nblog/tt4b_cms/en-US/tipdilz7wysq-3nxSxx2Ov57P0jbSdNceqg.mp4",
+          "reported_outcomes": {
+            "signup_acquisition_cost_before_usd": 185,
+            "signup_acquisition_cost_after_usd": 7,
+            "retention_percent": 75,
+            "new_signups_lower_bound": 6000
+          },
+          "period": null,
+          "active_status": null
+        }
+      ]
+    },
+    {
+      "domain": "myaifrontdesk.com",
+      "name": "My AI Front Desk",
+      "display_name": "Frontdesk",
+      "profile": {
+        "category": "AI customer platform",
+        "positioning": "A shared customer memory and workflow layer across calls, text, chat, CRM and follow-up.",
+        "audience": [
+          "Small and medium businesses",
+          "Property management",
+          "Retail",
+          "Clinics",
+          "Home services"
+        ],
+        "primary_cta": "Try for free",
+        "pricing_summary": "Basic $20/month ($16 annually) includes no voice minutes. Business-in-a-Box $99/month ($79 annually) includes 200 voice minutes plus chat/SMS. Overage credits cost $0.01 each; voice uses 25 credits/minute ($0.25/min), with $10/1,000-credit auto-reload. Enterprise custom.",
+        "features": [
+          "AI voice receptionist",
+          "CRM",
+          "SMS and chatbot",
+          "Booking",
+          "Outbound and follow-up workflows",
+          "Customer memory"
+        ],
+        "source_ids": [
+          "frontdesk-home",
+          "frontdesk-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "frontdesk-home",
+          "url": "https://www.myaifrontdesk.com/",
+          "title": "Frontdesk official homepage",
+          "kind": "official_website",
+          "observed_at": "2026-09-08",
+          "summary": "The public brand now presents a broad customer platform that remembers and acts across channels. It identifies property management, retail and clinics and describes self-learning customer records and follow-up automation. A homepage FAQ references a free tier, while the current pricing page describes trial access and a non-voice Basic tier; use the pricing table for purchase comparisons.",
+          "quotes": [
+            "Agentic AI that powers every stage of the customer journey."
+          ],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "frontdesk-pricing",
+          "url": "https://www.myaifrontdesk.com/pricing",
+          "title": "Frontdesk plans and AI receptionist pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "The actual entry plan for answering calls is Business-in-a-Box, not Basic. It includes 200 minutes,400 SMS,100 chatbot conversations and 1,000 monthly overage credits. Purchased credits do not expire, whereas monthly included credits do. Partner/Enterprise supports custom volumes, integrations and account service. The page compares its combined stack against multiple tools; its savings estimate is a vendor comparison, not an audited customer result.",
+          "quotes": [],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "frontdesk-google-CR09112843132256387073",
+          "url": "https://adstransparency.google.com/advertiser/AR12950389178507460609/creative/CR09112843132256387073?region=anywhere",
+          "title": "AI Front Desk Google ad with three variations",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Google lists the verified advertiser as AI Front Desk and the text creative as last shown September 7,2026. Three variations are exposed under one creative ID: home-service customer support with scheduling; a Housecall Pro integration/scheduling angle; and a home-services category-leadership claim. Variants are not three separate ads.",
+          "quotes": [],
+          "retrieval_method": "Google Ads Transparency Center browser screenshots of all three variations"
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR09112843132256387073",
+          "platform": "google",
+          "advertiser": "AI Front Desk",
+          "headline": "The AI CSR for Home Services - My AI Front Desk",
+          "body": "Automate calls, schedule appointments, and enhance customer service effortlessly",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR12950389178507460609/creative/CR09112843132256387073?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "evidence_type": "primary_ad_library",
+          "source_id": "frontdesk-google-CR09112843132256387073",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "last_shown_at": "2026-09-07",
+          "display_url": "https://www.myaifrontdesk.com/",
+          "advertiser_id": "AR12950389178507460609",
+          "advertiser_relationship": "brand_matched",
+          "variation_count": 3,
+          "variation_summaries": [
+            "Home-services CSR that automates calls and appointments.",
+            "Housecall Pro integration to automate appointment scheduling.",
+            "Home-services category-leadership assertion."
+          ]
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=myaifrontdesk.com",
+          "status": "ads_observed",
+          "note": "Page displayed 14 ads, with duplicate DOM cards and multiple other advertiser accounts. One brand-matched creative with 3 variations inspected. Do not count duplicate cards or domain matches as 14 brand-owned campaigns."
+        },
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=My%20AI%20Front%20Desk",
+          "status": "identity_unresolved",
+          "note": "Brand and official social handle lookup did not identify an unambiguous Meta advertiser; generic similarly named front-desk products were excluded."
+        }
+      ],
+      "insights": [
+        {
+          "title": "A narrow paid entry point feeds a broader platform story",
+          "observation": "The observed Google creative is tailored to home services and one field-service integration; the homepage sells shared customer memory across channels.",
+          "implication": "Test a concrete vertical workflow as the acquisition hook, then explain the broader platform after the click.",
+          "source_ids": [
+            "frontdesk-google-CR 09112843132256387073",
+            "frontdesk-home"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "The lowest sticker price is not a voice receptionist plan",
+          "observation": "Basic has zero included voice minutes, while Business-in-a-Box includes 200.",
+          "implication": "Use $99 monthly or $79 on annual billing as the starting comparison for call handling, and explicitly include usage in price-led creative.",
+          "source_ids": [
+            "frontdesk-pricing"
+          ],
+          "kind": "evidence_based_inference"
+        }
+      ]
+    },
+    {
+      "domain": "heyrosie.com",
+      "name": "Rosie",
+      "profile": {
+        "category": "AI receptionist for small business",
+        "positioning": "Quick setup and 24/7 call coverage for owner-operated businesses.",
+        "audience": [
+          "Local small businesses",
+          "Home services",
+          "Law firms",
+          "Accounting",
+          "Real estate"
+        ],
+        "primary_cta": "Start My Free Trial",
+        "free_offer": "7-day trial; cancel anytime.",
+        "pricing_summary": "Professional $49/month includes 250 minutes and scheduling links; Scale $149 includes 1,000 minutes, direct calendar booking and warm/live transfer; Growth $299 includes 2,000 minutes and waterfall transfers/custom training. Annual toggle advertises two months free. Minute-overage rate not extracted.",
+        "features": [
+          "Website/Google-profile setup",
+          "English and Spanish",
+          "FAQs and message taking",
+          "Call summaries and recordings",
+          "Website chat",
+          "Calendar booking on Scale and above"
+        ],
+        "source_ids": [
+          "rosie-home",
+          "rosie-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "rosie-home",
+          "url": "https://heyrosie.com/",
+          "title": "Rosie official homepage",
+          "kind": "official_website",
+          "observed_at": "2026-09-08",
+          "summary": "Rosie leads with ease of setup, around-the-clock availability and a $49 entry price. It claims 2,000+ customers,3.1M+ calls and 3.3M+ minutes saved. These are brand-reported adoption figures, not ad performance. Training imports the customer’s website and Google business information; caller notifications reinforce owner control.",
+          "quotes": [
+            "The easiest AI answering service for small business"
+          ],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "rosie-pricing",
+          "url": "https://heyrosie.com/pricing",
+          "title": "Rosie plans and pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "The $49 Professional tier sends booking links, whereas direct calendar booking and warm/live transfers start at $149 Scale. Growth adds fallback transfer paths and custom training. Website chat is included; website texting adds $50/month for 25 conversations and $1 each additional conversation. The extracted FAQ headings did not disclose per-minute overage charges.",
+          "quotes": [],
+          "retrieval_method": "browser and public page scrape"
+        },
+        {
+          "id": "rosie-meta-2293470181396209",
+          "url": "https://www.facebook.com/ads/library/?id=2293470181396209",
+          "title": "Rosie Meta ad 2293470181396209",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "A 33-second video sells a professional business impression while the owner is occupied, driving or closed.",
+          "quotes": [],
+          "retrieval_method": "Exact Rosie advertiser page; visible library ID, started date, paid label and creative"
+        },
+        {
+          "id": "rosie-meta-1297986775742192",
+          "url": "https://www.facebook.com/ads/library/?id=1297986775742192",
+          "title": "Rosie Meta ad 1297986775742192",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Product-update creative promotes direct appointment scheduling during the call and Google Calendar synchronization, with a seven-day trial offer. Two ads are grouped using this creative/text. Its booking functionality is plan-gated on the current pricing page.",
+          "quotes": [],
+          "retrieval_method": "Exact Rosie advertiser page; visible library ID, started date, paid label and creative"
+        },
+        {
+          "id": "rosie-meta-1326217596300135",
+          "url": "https://www.facebook.com/ads/library/?id=1326217596300135",
+          "title": "Rosie Meta ad 1326217596300135",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "A 13-second proof-focused creative cites adoption/usage and uninterrupted operation, then offers a seven-day trial. Its historical 2.4M call proof is lower than the current homepage 3.1M; keep the ad’s original proof separate from current website figures.",
+          "quotes": [],
+          "retrieval_method": "Exact Rosie advertiser page; visible library ID, started date, paid label and creative"
+        },
+        {
+          "id": "rosie-meta-1328177095451777",
+          "url": "https://www.facebook.com/ads/library/?id=1328177095451777",
+          "title": "Rosie Meta ad 1328177095451777",
+          "kind": "paid_ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Carousel contrasts a busy business with unanswered calls. Another card cites 1,800 customers. Two ads are grouped under the displayed creative/text.",
+          "quotes": [],
+          "retrieval_method": "Exact Rosie advertiser page; visible library ID, started date, paid label and creative"
+        }
+      ],
+      "ads": [
+        {
+          "id": "2293470181396209",
+          "platform": "meta",
+          "advertiser": "Rosie",
+          "headline": "No More Missed Opportunities",
+          "body": "Rosie makes your business look big.",
+          "cta": "See details",
+          "source_url": "https://www.facebook.com/ads/library/?id=2293470181396209",
+          "link_url": "https://heyrosie.com/",
+          "format": "video",
+          "started_at": "2026-06-16",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "rosie-meta-2293470181396209",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_page_id": "416384301549608",
+          "advertiser_relationship": "brand_matched",
+          "body_summary": "A 33-second video sells a professional business impression while the owner is occupied, driving or closed."
+        },
+        {
+          "id": "1297986775742192",
+          "platform": "meta",
+          "advertiser": "Rosie",
+          "headline": null,
+          "body": "Rosie now books appointments directly in the call",
+          "cta": null,
+          "source_url": "https://www.facebook.com/ads/library/?id=1297986775742192",
+          "link_url": "https://heyrosie.com/",
+          "format": null,
+          "started_at": "2026-06-24",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "rosie-meta-1297986775742192",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_page_id": "416384301549608",
+          "advertiser_relationship": "brand_matched",
+          "body_summary": "Product-update creative promotes direct appointment scheduling during the call and Google Calendar synchronization, with a seven-day trial offer. Two ads are grouped using this creative/text. Its booking functionality is plan-gated on the current pricing page."
+        },
+        {
+          "id": "1326217596300135",
+          "platform": "meta",
+          "advertiser": "Rosie",
+          "headline": "No sick days. No missed calls. Just Rosie doing her job.",
+          "body": "2.4 million calls answered. 32,000 appointments links sent.",
+          "cta": "Sign up",
+          "source_url": "https://www.facebook.com/ads/library/?id=1326217596300135",
+          "link_url": "https://heyrosie.com/",
+          "format": "video",
+          "started_at": "2026-06-24",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "rosie-meta-1326217596300135",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_page_id": "416384301549608",
+          "advertiser_relationship": "brand_matched",
+          "body_summary": "A 13-second proof-focused creative cites adoption/usage and uninterrupted operation, then offers a seven-day trial. Its historical 2.4M call proof is lower than the current homepage 3.1M; keep the ad’s original proof separate from current website figures."
+        },
+        {
+          "id": "1328177095451777",
+          "platform": "meta",
+          "advertiser": "Rosie",
+          "headline": "No more missed calls.",
+          "body": "Busy days are good for business. Unanswered calls aren't.",
+          "cta": "Sign Up",
+          "source_url": "https://www.facebook.com/ads/library/?id=1328177095451777",
+          "link_url": "https://heyrosie.com/",
+          "format": "carousel",
+          "started_at": "2026-06-23",
+          "ended_at": null,
+          "is_active": true,
+          "evidence_type": "primary_ad_library",
+          "source_id": "rosie-meta-1328177095451777",
+          "observed_at": "2026-09-08",
+          "impressions": null,
+          "spend": null,
+          "ctr": null,
+          "cpc": null,
+          "conversions": null,
+          "copy_is_excerpt": true,
+          "advertiser_page_id": "416384301549608",
+          "advertiser_relationship": "brand_matched",
+          "body_summary": "Carousel contrasts a busy business with unanswered calls. Another card cites 1,800 customers. Two ads are grouped under the displayed creative/text."
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&search_type=page&view_all_page_id=416384301549608",
+          "status": "ads_observed",
+          "note": "Exact software advertiser Rosie, @heyrosieai; destination heyrosie.com. Approximately 80 active results displayed. This is an approximate library count, not 80 unique concepts or spend."
+        },
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=heyrosie.com",
+          "status": "not_checked",
+          "note": "Meta provided four distinct substantiated creative angles in this pass."
+        }
+      ],
+      "insights": [
+        {
+          "title": "Rosie makes owner confidence tangible",
+          "observation": "Observed creative emphasizes a professional impression, continued call coverage, adoption proof and a short trial.",
+          "implication": "A concise operational scenario may be a stronger small-business pitch than describing model capabilities.",
+          "source_ids": [
+            "rosie-meta-2293470181396209",
+            "rosie-meta-1326217596300135"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Direct booking is an explicit product-upgrade angle",
+          "observation": "The June 24 ad introduces direct in-call calendar booking; pricing makes that a Scale-tier feature.",
+          "implication": "An ad that combines a $49 hook with direct booking needs clear plan conditions. Compare included actions as well as minutes.",
+          "source_ids": [
+            "rosie-meta-1297986775742192",
+            "rosie-pricing"
+          ],
+          "kind": "evidence_based_inference"
+        },
+        {
+          "title": "Longevity signals reuse, not a performance win",
+          "observation": "June creatives are still shown as active in the September 8 Meta snapshot.",
+          "implication": "Treat them as retained messages to study. No conversion, spend, reach or profitability data was available.",
+          "source_ids": [
+            "rosie-meta-2293470181396209",
+            "rosie-meta-1328177095451777"
+          ],
+          "kind": "evidence_based_inference"
+        }
+      ]
+    }
+  ]
+}

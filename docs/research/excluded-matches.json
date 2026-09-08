@@ -1,0 +1,119 @@
+{
+  "observed_at": "2026-09-08",
+  "records": [
+    {
+      "query_domain": "smith.ai",
+      "id": "1462574535888938",
+      "advertiser": "ConnorSmith.ai",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "smith.ai",
+      "id": "1878083716211901",
+      "advertiser": "ConnorSmith.ai",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "smith.ai",
+      "id": "1668883497487778",
+      "advertiser": "ConnorSmith.ai",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "smith.ai",
+      "id": "1535533717913506",
+      "advertiser": "Smith.ai Receptionists",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "smith.ai",
+      "id": "2130712574504233",
+      "advertiser": "ConnorSmith.ai",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "smith.ai",
+      "id": "2064719087417660",
+      "advertiser": "ConnorSmith.ai",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "synthflow.ai",
+      "id": "843668248675347",
+      "advertiser": "thebookofeli37",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "196267578145945",
+      "advertiser": "Keep Judge Ruby Davis",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "26186363171018297",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1061336723098733",
+      "advertiser": "Jeff Ruby's Steakhouse, Nashville",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1463157992259965",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1864353321207912",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1807515900153332",
+      "advertiser": "Ruby Online",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "982958241124881",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "939487905159339",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1442748424300921",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "930386452772237",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "1703721894104436",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    },
+    {
+      "query_domain": "ruby.com",
+      "id": "956003967290141",
+      "advertiser": "Rebecca & Ruby",
+      "reason": "Destination or exact advertiser identity did not match."
+    }
+  ]
+}

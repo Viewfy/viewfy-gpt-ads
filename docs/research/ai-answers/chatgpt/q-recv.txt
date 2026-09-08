@@ -1,0 +1,52 @@
+For a small insurance agency, I’d narrow it to these three:
+
+Pick	Best for	Approx. cost	Why
+Sonant AI	Best overall for P&C agencies	Custom	Insurance-specific; connects directly to EZLynx, Applied Epic, HawkSoft, AMS360, AgencyZoom, etc.
+Rosie AI – Scale	Best value for a small agency	$149/mo	1,000 minutes, English/Spanish, appointment booking, warm/live transfers, Zapier
+Smith.ai	Best when human backup matters	From $150/mo for 75 AI calls	AI answers first; live human agents can take over complicated calls
+My recommendation
+
+If you use an AMS like EZLynx, HawkSoft, AMS360, Applied Epic, AgencyZoom, QQCatalyst, or Momentum → demo Sonant first. It is built specifically for P&C insurance and can identify callers, handle quote/service intake, route calls, and write notes/tasks back into the AMS. It also supports warm transfers and is SOC 2 Type II compliant. 
+Sonant
++1
+
+That AMS integration is a big deal. A generic AI receptionist may take a beautiful message, but your CSR still has to open the customer record and enter everything manually. Sonant can eliminate much of that duplicate work. 
+Sonant
++1
+
+The drawback is Sonant doesn't publish simple small-business pricing, so it may be more system than a 1–5 person agency needs. 
+Sonant
+
+Best bang for the buck: Rosie
+
+If you mainly want someone to answer every call, determine why they're calling, capture new-business leads, schedule appointments and transfer important calls, I'd probably choose Rosie Scale at $149/month.
+
+It currently includes 1,000 minutes/month, direct calendar booking, warm transfers, live transfers, texts during calls, English and Spanish, call summaries/transcripts/recordings, and Zapier integration. 
+Hey Rosie
+
+That's an unusually strong package for a small agency.
+
+When I'd choose Smith.ai
+
+Smith.ai is particularly attractive if you're nervous about an AI getting stuck with an upset insured, complicated claim situation, or unusual question. Its AI can escalate to live North America-based receptionists, while still providing 24/7 answering, lead qualification, scheduling, bilingual handling, warm transfers, recordings and integrations. 
+Smith.ai
++1
+
+The downside is cost at higher call volume. The current Pro AI plan starts around $150/month for 75 calls, with additional calls charged separately. 
+Smith.ai
+
+One important insurance rule
+
+Whichever you choose, I would configure the AI to never interpret coverage, recommend limits, promise that something is covered, bind coverage, or make policy changes requiring licensed judgment. Use it for intake and service routing:
+
+“New quote → collect information → producer.”
+“Claim → collect basic details → carrier/CSR.”
+“Billing → appropriate carrier/CSR.”
+“Policy change → collect request → licensed staff.”
+“Certificate/COI → collect request → service team/approved automated workflow.”
+
+That setup gets most of the labor savings without creating unnecessary E&O exposure.
+
+My ranking for a typical small independent agency: Sonant if you want deep AMS automation; Rosie if you want the best value and fast deployment; Smith.ai if human backup is your highest priority.
+
+If you tell me (1) how many employees you have, (2) approximately how many calls you get per day, and (3) whether you use EZLynx, HawkSoft, Applied Epic, AMS360, AgencyZoom, etc., I can narrow it down to the one I'd buy for your agency and estimate the monthly cost.

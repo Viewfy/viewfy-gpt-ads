@@ -1,0 +1,29 @@
+The short version: insurance-specific AI receptionists are built to complete common insurance tasks on the call, while general answering services (human or generic AI) mostly capture and relay them. Whether that difference matters depends on your call mix.
+
+Where the insurance-specific ones pull ahead
+
+Intent handling. Most inbound agency calls are a handful of things: quotes, claims, policy changes, billing, certificates. Specialized tools are designed around those. A new-business caller gets asked for name, coverage type, and contact info and a producer follow-up is booked; a damage report triggers first-notice-of-loss intake and either escalates to a licensed rep or logs details for the morning. 
+Sonant
+System integration. The bigger differentiator is write-back to your agency management system. Sonant, for example, integrates natively with EZLynx, Applied Epic, HawkSoft, and AMS360 and writes call notes back to the AMS. A general service hands you a message you still have to process the next day. 
+Sonant
+Vocabulary. Specialized products are trained on terms like endorsements, certificates of insurance, and claims procedures, so callers aren't stuck explaining what a COI is. 
+AgentZap
+Concurrency and hours. Any AI option handles unlimited simultaneous calls 24/7; a human service scales cost with volume. Human answering services typically bill by the minute or staffed hours. 
+Sonant
+
+Where general services still hold their own
+
+Pure message-taking. If you mostly need someone to catch after-hours calls and pass them along, a human service or a generic AI receptionist does that fine and setup is trivial. Some generic tools work by call forwarding on busy/missed/after-hours and send a summary plus transcript. 
+SkipCalls
+Broader platform flexibility. General AI platforms like ElevenLabs offer things the niche tools may not: 30+ languages with automatic detection, voice cloning, REST APIs, and SOC 2/HIPAA/GDPR compliance options. They can be configured for insurance, but you're doing the configuration. 
+ElevenLabs
+Human judgment. A live operator handles an angry or confused caller more gracefully than any AI, and some clients (older policyholders especially) simply prefer a person.
+
+Things to weigh regardless of category
+
+Licensing limits. In most states, unlicensed staff (and any AI) can't bind coverage, quote premiums, or give coverage advice. Ask any vendor how the system is constrained from crossing that line and how it escalates. Some tools can be set to avoid making promises like binding coverage and route sensitive situations back to you. 
+SkipCalls
+Disclosure. Several states have or are adopting rules requiring callers be told they're talking to an AI. Check your state's position.
+Vendor bias. Nearly everything published on this comparison, including the sources here, comes from vendors selling one side of it. Claims like "60–80% cheaper" or "agencies miss 30% of calls" are marketing figures, not independent data.
+
+A reasonable way to decide: pull a week of your call logs and sort them by intent. If most are routine transactions you'd want closed on the spot and logged in your AMS, an insurance-specific tool likely earns its cost. If most are "have Dave call me back," a general service is probably enough.

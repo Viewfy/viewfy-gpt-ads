@@ -29,7 +29,10 @@ def _ad_row(platform: str, ad: Any, advertiser: str, domain: str) -> dict[str, A
         "ended_at": ad.ended_at,
         "is_active": ad.is_active,
         "source_url": ad.library_url,
-        "status": "active" if ad.is_active else "inactive",
+        "status": "active" if ad.is_active is True else "inactive" if ad.is_active is False else "unknown",
+        "last_shown_at": ad.last_shown_at,
+        "video_url": ad.video_url,
+        "evidence_type": "ad_library",
         "page_id": ad.page_id,
         "page_name": ad.page_name,
         "impressions": ad.impressions,
@@ -41,7 +44,7 @@ def _ad_row(platform: str, ad: Any, advertiser: str, domain: str) -> dict[str, A
 async def research_ads(brief: dict[str, Any]) -> dict[str, Any]:
     name = brief.get("name") or host_of(brief.get("domain"))
     domain = host_of(brief.get("domain"))
-    comps = approved_competitors(brief, 2)
+    comps = approved_competitors(brief, 30)
     specs = [SubjectSpec(kind="self", name=name, domain=domain, query=domain)]
     for c in comps:
         host = host_of(c.get("domain")) or host_of(c.get("name"))

@@ -1,0 +1,135 @@
+{
+  "domain": "getsuperagent.com",
+  "observed_at": "2026-09-08",
+  "channels": [
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "kind": "social",
+      "url": "https://www.linkedin.com/company/getsuperagent/",
+      "description": "Company page linked from the official news footer, with public product posts and live-event invitations.",
+      "items": [
+        {
+          "id": "linkedin-introducing-superagent-7363956199349723137",
+          "kind": "post",
+          "title": "Introducing SUPERAGENT: AI sales assistant for insurance agents",
+          "summary": "The company introduces its insurance sales assistant and invites readers to follow product previews, customer stories and updates about recruiting, training and retention.",
+          "url": "https://www.linkedin.com/posts/getsuperagent_superagent-linkedin-activity-7363956199349723137-cnIN",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "linkedin-quoting-agent-7424529513595707392",
+          "kind": "post",
+          "title": "Meet Quoting AI Agent for Insurance Agencies",
+          "summary": "A company video post promotes its Quoting AI Agent and explains how it works with inbound and outbound agents to support quoting and cross-selling conversations.",
+          "url": "https://www.linkedin.com/posts/getsuperagent_insuranceagents-ai-automation-activity-7424529513595707392-waMA",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "linkedin-live-announcement-7428182851126255617",
+          "kind": "event",
+          "title": "February 17 YouTube live announcement",
+          "summary": "SUPERAGENT invites insurance agencies to a live product announcement on YouTube on February 17, 2026, at 8 a.m. Pacific. The post supplies a registration or viewing link.",
+          "url": "https://www.linkedin.com/posts/getsuperagent_liveevent-insurance-getsuperagent-activity-7428182851126255617-Xx22",
+          "observed_at": "2026-09-08"
+        }
+      ]
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "icon": "play",
+      "kind": "social",
+      "url": "https://www.youtube.com/@getsuperagent",
+      "description": "Official video channel linked in the company's Business Wire release; launch videos are embedded on its website and press releases.",
+      "items": [
+        {
+          "id": "youtube-getsuperagent-profile",
+          "kind": "profile",
+          "title": "SUPERAGENT AI on YouTube",
+          "summary": "The company's August 2026 Business Wire release identifies @getsuperagent as its YouTube profile. Its website directs visitors to watch the 3.0 launch keynote.",
+          "url": "https://www.youtube.com/@getsuperagent",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "youtube-30-launch-keynote-kljoeigfwhs",
+          "kind": "video",
+          "title": "SUPERAGENT 3.0 Launch Keynote",
+          "summary": "Launch keynote embedded on the official 3.0 product page, which presents the company's conversational workflow, campaign creation and producer-training capabilities.",
+          "url": "https://www.youtube.com/watch?v=KLjoEigfwHs",
+          "observed_at": "2026-09-08"
+        }
+      ]
+    },
+    {
+      "id": "website",
+      "label": "Website & resources",
+      "icon": "external",
+      "kind": "owned",
+      "url": "https://getsuperagent.com/",
+      "description": "Owned product pages, customer evidence and integration resources support evaluation alongside the company blog.",
+      "items": [
+        {
+          "id": "website-superagent-30",
+          "kind": "page",
+          "title": "SUPERAGENT 3.0 — AI Business Partner",
+          "summary": "Product landing page explaining the company's conversational agency workflows, campaign creation, call analysis and producer training. It includes a launch keynote and describes human approval before changes.",
+          "url": "https://getsuperagent.com/3-0",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "website-rightsure-case-study",
+          "kind": "page",
+          "title": "RightSure x SUPERAGENT AI case study",
+          "summary": "Company-published case study describing RightSure's use of Training AI Agent and Analytics AI Agent. It presents the company's claims about onboarding speed and sales outcomes from a training pilot.",
+          "url": "https://getsuperagent.com/rightsure-x-superagent-case-study",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "website-integrations",
+          "kind": "page",
+          "title": "Connect SUPERAGENT to your insurance tools",
+          "summary": "Integration directory listing agency management systems, CRMs, telephony and productivity tools. The page describes how the company says these connections support its inbound, outbound, training and quoting agents.",
+          "url": "https://getsuperagent.com/integrations",
+          "observed_at": "2026-09-08"
+        }
+      ]
+    },
+    {
+      "id": "press",
+      "label": "Press releases",
+      "icon": "pen",
+      "kind": "owned",
+      "url": "https://www.einpresswire.com/sources/u638839",
+      "description": "Company-issued announcements distributed through newswires. These are press releases, not evidence of independent editorial coverage or paid ad activity.",
+      "items": [
+        {
+          "id": "press-30-businesswire-20260811522053",
+          "kind": "press",
+          "title": "Business Wire: SUPERAGENT AI 3.0 launches",
+          "summary": "Company announcement introducing the 3.0 conversational business partner, campaign workflows and producer training. It highlights approval controls and directs readers to the launch keynote.",
+          "url": "https://www.businesswire.com/news/home/20260811522053/en/SUPERAGENT-AI-3.0-Launches-the-AI-Business-Partner-for-Insurance-Agencies-Available-to-the-Public-Today",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "press-platform-20-businesswire-20260429006611",
+          "kind": "press",
+          "title": "Business Wire: SUPERAGENT launches Platform 2.0",
+          "summary": "Company release announcing a platform combining telephony, SMS, email, quoting and AI agents. It describes product capabilities and includes a customer statement from McGinnis Insurance Services.",
+          "url": "https://www.businesswire.com/news/home/20260429006611/en/SUPERAGENT-AI-Launches-Platform-2.0-Integrating-Telephony-SMS-Email-and-AI-Agents",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "press-30-event-prweb-302846519",
+          "kind": "press",
+          "title": "PRWeb: invitation to the August 11 launch keynote",
+          "summary": "Company-issued event announcement inviting viewers to the August 11, 2026 YouTube keynote. It previews conversational agency work and links to the launch registration page.",
+          "url": "https://www.prweb.com/releases/superagent-to-unveil-3-0-tomorrow-the-first-glimpse-of-what-vertical-agi-in-insurance-looks-like-302846519.html",
+          "published_at": "2026-08-10",
+          "observed_at": "2026-09-08"
+        }
+      ]
+    }
+  ]
+}

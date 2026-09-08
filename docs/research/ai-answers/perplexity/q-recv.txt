@@ -1,0 +1,16 @@
+For a **small insurance agency**, the strongest default choice is **Sonant** if your priority is an insurance-specific phone receptionist with tight workflow fit; several insurance-focused roundups place it at or near the top for independent P&C agencies, especially when the agency wants fast call handling and insurance-context triage.[1][10][15]
+
+If your agency is *very* small and budget-sensitive, **Eden** and **My AI Front Desk** are the main lower-cost alternatives mentioned for solo agents and small shops.[2][6][14] If you need a more premium option with human backup, **Smith.ai** is the better-known hybrid receptionist service.[17]
+
+A practical way to choose is by the main gap you need to fix:
+- **Phone only:** Sonant or Eden.[1][6][10]
+- **Phone + human backup:** Smith.ai.[17]
+- **Lowest starting cost:** My AI Front Desk or Eden.[2][6]
+- **Insurance-native workflow / AMS fit:** Sonant is repeatedly highlighted for insurance agencies, including Applied Epic-oriented workflows.[1][10][15]
+
+For a small agency, I would narrow it to:
+- **Sonant** if you want the best insurance-specific fit and expect steady call volume.[1][15]
+- **Eden** if you want something simpler and cheaper.[6][14]
+- **Smith.ai** if missed calls are costly and you want live backup.[17]
+
+One important caveat: many vendor pages are promotional, so “best” depends on whether you value **cost**, **insurance specialization**, or **human escalation** most.[1][4][13] If you tell me your agency size, AMS/CRM, and whether you need after-hours only or full-time coverage, I can give you a tighter recommendation.

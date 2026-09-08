@@ -1,0 +1,15 @@
+Most small agencies use some mix of these, roughly in order of how common they are:
+
+Voicemail with a triage message. The default. The greeting tells callers office hours, points claims to the carrier's 24/7 claims line (the big one — most after-hours calls are claims or roadside), and promises a next-business-day callback. Cheap, but you lose some prospects who just call the next agency.
+
+Carrier claims lines. Nearly every carrier (State Farm, Progressive, Travelers, etc.) runs a 24/7 claims and roadside number. Agencies lean on this heavily; the voicemail greeting or website basically redirects urgent calls there.
+
+Live answering services. Services like Ruby, Smith.ai, or insurance-specific ones (e.g., Nexa, AnswerConnect) take messages, screen for emergencies, and text/email the agent. Typically $100–$400/month depending on call volume. Popular with agencies of 2–10 people who want a human but not a night shift.
+
+AI phone agents. Newer and growing fast — tools that answer, collect the caller's name/policy/issue, answer basic questions (hours, how to file a claim, certificate requests), and text a summary to the agent. Cheaper than live services and available instantly, though quality varies and some clients dislike talking to a bot.
+
+Call forwarding to a cell. Common at the smallest agencies (solo or 2-person). The owner or a rotating staff member takes calls personally. Works until it doesn't — burnout and boundary problems are the usual complaint.
+
+Text and web fallbacks. Auto-reply texts when a call is missed ("Sorry we missed you — reply here and we'll get back first thing"), plus a client portal or app for ID cards and payments so many after-hours needs never become calls. Agency management systems (EZLynx, HawkSoft, Applied) often have this built in or via integrations.
+
+A typical setup for a 5-person independent agency: voicemail greeting that routes claims to carriers, a missed-call auto-text, and either an answering service or AI agent for everything else. The main tradeoff is cost versus how many leads and renewals they're willing to lose to the first ring that gets answered elsewhere.

@@ -1,65 +1,86 @@
 {
   "brand": {
     "name": "SUPERAGENT",
-    "one_liner": "AI that helps US insurance agencies answer the phone and book the work they already paid to generate.",
+    "one_liner": "AI agents for insurance call handling, follow-up, producer training, retention and quoting.",
     "logo_url": "https://www.google.com/s2/favicons?domain=getsuperagent.com&sz=128",
     "colors": [
       "#111827",
       "#F59E0B",
       "#F8F5F1"
     ],
-    "category": "AI receptionist for insurance agencies"
+    "category": "AI workforce for insurance agencies"
   },
   "pages": [
     {
       "kind": "home",
       "url": "https://getsuperagent.com/",
       "status": "ok",
-      "excerpt": "SUPERAGENT helps insurance agencies adopt AI. Owners stop missing inbound calls. The agency keeps the conversation.",
-      "error": null
-    },
-    {
-      "kind": "about",
-      "url": "https://getsuperagent.com/about",
-      "status": "ok",
-      "excerpt": "Founded by Vadym Shashkov. Built for independent and captive US insurance agencies, not consumers shopping for a policy.",
-      "error": null
+      "excerpt": "The homepage offers six agents for insurance agencies and a 14-day trial. Product examples span call capture, follow-up and producer coaching.",
+      "error": null,
+      "observed_at": "2026-09-08"
     },
     {
       "kind": "products",
-      "url": "https://getsuperagent.com/",
+      "url": "https://getsuperagent.com/outbound-ai-agent",
       "status": "ok",
-      "excerpt": "An AI agent that answers agency phones, books appointments, and follows up when a producer is out.",
-      "error": null
+      "excerpt": "Lead lists, new form submissions and dormant accounts feed multi-touch campaigns across phone, SMS and email. Qualified replies are handed to producers. This supports a follow-through campaign direction.",
+      "error": null,
+      "observed_at": "2026-09-08"
     },
     {
       "kind": "pricing",
       "url": "https://getsuperagent.com/pricing",
-      "status": "missing",
-      "excerpt": "",
-      "error": "thin page"
+      "status": "ok",
+      "excerpt": "Monthly plans: restricted Starter $299; Pro $499; Scale $999; Enterprise from $2,499. Pro includes 1,350 inbound/outbound minutes and 1,050 quotes. Starter applicants need approval; overage packs are extra.",
+      "error": null,
+      "observed_at": "2026-09-08"
     },
     {
       "kind": "faq",
-      "url": "https://getsuperagent.com/faq",
-      "status": "missing",
-      "excerpt": "",
-      "error": "thin page"
+      "url": "https://getsuperagent.com/inbound-ai-agent",
+      "status": "ok",
+      "excerpt": "The agent qualifies calls, routes service/claims/billing/sales requests, books appointments and provides a contextual human handoff. The FAQ lists Starter at $249, inconsistent with the pricing page.",
+      "error": null,
+      "observed_at": "2026-09-08"
+    },
+    {
+      "kind": "integrations",
+      "url": "https://getsuperagent.com/integrations",
+      "status": "ok",
+      "excerpt": "Listed connections include Applied Epic, EZLynx, HawkSoft, QQCatalyst and AMS360. The page describes call logging, CRM contact creation, appointment booking and follow-up email workflows.",
+      "error": null,
+      "observed_at": "2026-09-08"
     }
   ],
   "nodes": [
     {
       "id": "p1",
       "branch": "products",
-      "text": "AI phone agent that answers inbound agency calls and books the appointment",
+      "text": "Insurance AI agents for inbound, outbound, training, live calls, retention and quoting",
       "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "p2",
+      "branch": "products",
+      "text": "Qualify inbound calls, book appointments, and hand context to a human producer",
+      "source_url": "https://getsuperagent.com/inbound-ai-agent",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "p3",
+      "branch": "products",
+      "text": "Work new and dormant leads through phone, SMS, email and voicemail sequences",
+      "source_url": "https://getsuperagent.com/outbound-ai-agent",
       "provenance": "website",
       "domain": ""
     },
     {
       "id": "c1",
       "branch": "customers",
-      "text": "Owners and sales leaders at independent and captive US insurance agencies with 1 to 10 producers",
+      "text": "Independent and captive US insurance agencies",
       "source_url": "https://getsuperagent.com/",
       "provenance": "website",
       "domain": ""
@@ -67,40 +88,64 @@
     {
       "id": "c2",
       "branch": "customers",
-      "text": "Not consumers shopping for a policy, and not carriers",
-      "source_url": "https://getsuperagent.com/",
+      "text": "Plans cover individual producers, small teams and enterprise agencies",
+      "source_url": "https://getsuperagent.com/pricing",
       "provenance": "website",
       "domain": ""
     },
     {
       "id": "pr1",
       "branch": "problems",
-      "text": "Inbound calls go to voicemail when the desk is busy. Paid leads die in the queue.",
-      "source_url": "https://getsuperagent.com/",
+      "text": "Missed overflow calls and incomplete lead follow-up",
+      "source_url": "https://getsuperagent.com/inbound-ai-agent",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "pr2",
+      "branch": "problems",
+      "text": "Producers spend time on routine dialing and document collection",
+      "source_url": "https://getsuperagent.com/outbound-ai-agent",
       "provenance": "website",
       "domain": ""
     },
     {
       "id": "o1",
       "branch": "offers",
-      "text": "Put an AI agent on the agency phone so a person still owns the book of business",
+      "text": "14-day free trial on the homepage; personalized product demo",
       "source_url": "https://getsuperagent.com/",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "o2",
+      "branch": "offers",
+      "text": "Pro $499/month; Scale $999/month; usage allowances apply",
+      "source_url": "https://getsuperagent.com/pricing",
       "provenance": "website",
       "domain": ""
     },
     {
       "id": "d1",
       "branch": "differentiators",
-      "text": "Built for insurance agencies, not a generic AI SDR that cold-emails a B2B list",
+      "text": "Insurance workflows spanning reception, outbound follow-up and producer development",
       "source_url": "https://getsuperagent.com/",
-      "provenance": "inference",
+      "provenance": "website",
+      "domain": ""
+    },
+    {
+      "id": "d2",
+      "branch": "differentiators",
+      "text": "Connections to AMS, CRM, telephony and calendar tools",
+      "source_url": "https://getsuperagent.com/integrations",
+      "provenance": "website",
       "domain": ""
     },
     {
       "id": "v1",
       "branch": "voice",
-      "text": "Direct, operator-to-operator. No hype adjectives.",
-      "source_url": "https://getsuperagent.com/",
+      "text": "Test clear agency workflow demonstrations with specific handoff details",
+      "source_url": "https://getsuperagent.com/inbound-ai-agent",
       "provenance": "inference",
       "domain": ""
     },
@@ -113,188 +158,446 @@
       "domain": ""
     },
     {
+      "id": "sonant",
+      "branch": "competitors",
+      "text": "Sonant",
+      "domain": "sonant.ai",
+      "source_url": "https://sonant.ai",
+      "provenance": "inference"
+    },
+    {
       "id": "smith",
       "branch": "competitors",
       "text": "Smith.ai",
+      "domain": "smith.ai",
       "source_url": "https://smith.ai",
-      "provenance": "confirmed",
-      "domain": "smith.ai"
+      "provenance": "inference"
     },
     {
       "id": "ruby",
       "branch": "competitors",
       "text": "Ruby",
-      "source_url": "https://callruby.com",
-      "provenance": "confirmed",
-      "domain": "callruby.com"
+      "domain": "ruby.com",
+      "source_url": "https://ruby.com",
+      "provenance": "inference"
     },
     {
       "id": "goodcall",
       "branch": "competitors",
       "text": "Goodcall",
+      "domain": "goodcall.com",
       "source_url": "https://goodcall.com",
-      "provenance": "confirmed",
-      "domain": "goodcall.com"
+      "provenance": "inference"
     },
     {
       "id": "frontdesk",
       "branch": "competitors",
       "text": "My AI Front Desk",
+      "domain": "myaifrontdesk.com",
       "source_url": "https://myaifrontdesk.com",
-      "provenance": "confirmed",
-      "domain": "myaifrontdesk.com"
+      "provenance": "inference"
     },
     {
       "id": "rosie",
       "branch": "competitors",
       "text": "Rosie",
+      "domain": "heyrosie.com",
       "source_url": "https://heyrosie.com",
-      "provenance": "confirmed",
-      "domain": "heyrosie.com"
+      "provenance": "inference"
     },
     {
       "id": "retell",
       "branch": "competitors",
-      "text": "Retell",
+      "text": "Retell AI",
+      "domain": "retellai.com",
       "source_url": "https://retellai.com",
-      "provenance": "confirmed",
-      "domain": "retellai.com"
+      "provenance": "inference"
     },
     {
       "id": "synthflow",
       "branch": "competitors",
       "text": "Synthflow",
+      "domain": "synthflow.ai",
       "source_url": "https://synthflow.ai",
-      "provenance": "confirmed",
-      "domain": "synthflow.ai"
+      "provenance": "inference"
     },
     {
       "id": "bland",
       "branch": "competitors",
       "text": "Bland",
+      "domain": "bland.ai",
       "source_url": "https://bland.ai",
-      "provenance": "confirmed",
-      "domain": "bland.ai"
+      "provenance": "inference"
     },
     {
       "id": "answerconnect",
       "branch": "competitors",
       "text": "AnswerConnect",
+      "domain": "answerconnect.com",
       "source_url": "https://answerconnect.com",
-      "provenance": "confirmed",
-      "domain": "answerconnect.com"
+      "provenance": "inference"
     },
     {
       "id": "patlive",
       "branch": "competitors",
       "text": "PATLive",
+      "domain": "patlive.com",
       "source_url": "https://patlive.com",
-      "provenance": "confirmed",
-      "domain": "patlive.com"
+      "provenance": "inference"
     }
   ],
   "missing": [
-    "pricing",
-    "faq"
+    "Resolve the Starter price discrepancy between pricing and inbound FAQ.",
+    "Private competitor spend and conversion data are unavailable."
   ],
   "insights": [
     {
-      "title": "What they keep repeating",
-      "observation": "Smith.ai and Ruby keep selling a generic receptionist. Never miss a call. A real person every time.",
-      "recommendation": "Talk to the agency owner mid-missed-call. Do not copy the horizontal receptionist hook.",
+      "title": "Insurance reception is already contested",
+      "observation": "Sonant explicitly targets P&C agencies in Meta copy and insurance claims in Google search. Its website also promises agency-system updates and human escalation. Insurance specialization alone is shared positioning.",
+      "recommendation": "Show the complete workflow: capture intent, add the agency context, and hand off to the producer. Compare the actual workflow rather than claiming nobody serves insurance.",
       "because": [
-        "Never miss another call",
-        "A real person, every time"
+        "meta-922158907633073",
+        "google-CR05277865004001918977",
+        "sonant-integrations",
+        "superagent-inbound"
       ],
-      "signals": [
-        "repetition"
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "meta-922158907633073",
+          "subject": "Sonant",
+          "url": "https://www.facebook.com/ads/library/?id=922158907633073",
+          "title": "Sonant · Meta ad 922158907633073"
+        },
+        {
+          "source_id": "google-CR05277865004001918977",
+          "subject": "Sonant",
+          "url": "https://adstransparency.google.com/advertiser/AR18197182593793785857/creative/CR05277865004001918977?region=anywhere",
+          "title": "Sonant · Google creative CR05277865004001918977"
+        },
+        {
+          "source_id": "sonant-integrations",
+          "subject": "Sonant",
+          "url": "https://www.sonant.ai/integrations",
+          "title": "Sonant AMS integrations"
+        },
+        {
+          "source_id": "superagent-inbound",
+          "subject": "SUPERAGENT",
+          "url": "https://getsuperagent.com/inbound-ai-agent",
+          "title": "SUPERAGENT inbound agent"
+        }
       ]
     },
     {
-      "title": "What has stayed up",
-      "observation": "Smith and Ruby receptionist cards have been up for months. Longevity, not performance.",
-      "recommendation": "Keep the insurance-agency claim if the site still stands behind it.",
+      "title": "The missed paid lead is not an untouched angle",
+      "observation": "Smith.ai Meta ads describe marketing money wasted when calls go unanswered. SUPERAGENT already runs a missed-call video alongside outbound-agent image creative.",
+      "recommendation": "Test an original inbound-to-follow-up demonstration against the existing missed-call message. Judge the test on qualified appointments, not how common the hook is.",
       "because": [
-        "Never miss another call",
-        "US-based receptionists"
+        "meta-1423368539639995",
+        "google-CR04590494933256765441",
+        "google-CR11501690773921857537"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "meta-1423368539639995",
+          "subject": "Smith.ai",
+          "url": "https://www.facebook.com/ads/library/?id=1423368539639995",
+          "title": "Smith.ai · Meta ad 1423368539639995"
+        },
+        {
+          "source_id": "google-CR04590494933256765441",
+          "subject": "SUPERAGENT",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR04590494933256765441?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR04590494933256765441"
+        },
+        {
+          "source_id": "google-CR11501690773921857537",
+          "subject": "SUPERAGENT",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR11501690773921857537?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR11501690773921857537"
+        }
+      ]
+    },
+    {
+      "title": "Workflow breadth is a stronger test than another receptionist slogan",
+      "observation": "SUPERAGENT’s Google image ad promotes outbound automation; its product pages connect old lead lists, new inquiries and multiple follow-up channels. Frontdesk also sells a broader customer platform.",
+      "recommendation": "Test a specific insurance workflow such as quote follow-up with a producer handoff. Demonstrate it; do not present platform breadth as exclusive.",
+      "because": [
+        "google-CR11501690773921857537",
+        "superagent-outbound",
+        "frontdesk-home"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "google-CR11501690773921857537",
+          "subject": "SUPERAGENT",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR11501690773921857537?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR11501690773921857537"
+        },
+        {
+          "source_id": "superagent-outbound",
+          "subject": "SUPERAGENT",
+          "url": "https://getsuperagent.com/outbound-ai-agent",
+          "title": "SUPERAGENT outbound workflows"
+        },
+        {
+          "source_id": "frontdesk-home",
+          "subject": "My AI Front Desk",
+          "url": "https://www.myaifrontdesk.com/",
+          "title": "Frontdesk official homepage"
+        }
+      ]
+    },
+    {
+      "title": "Human reassurance is part of the competition",
+      "observation": "AnswerConnect uses a named receptionist and human-service imagery in Google ads. Smith.ai promotes AI reception with live-agent help. These creatives directly address trust and handoff.",
+      "recommendation": "Show a real call example and the moment a person takes over. Test caller confidence separately from time-saving claims.",
+      "because": [
+        "google-CR08714765316787273729",
+        "google-CR03865500098595127297",
+        "smith-meta-1528061168490375"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "google-CR08714765316787273729",
+          "subject": "AnswerConnect",
+          "url": "https://adstransparency.google.com/advertiser/AR16276437828492066817/creative/CR08714765316787273729?region=anywhere",
+          "title": "AnywhereWorks Canada, INC. — Google creative CR08714765316787273729"
+        },
+        {
+          "source_id": "google-CR03865500098595127297",
+          "subject": "AnswerConnect",
+          "url": "https://adstransparency.google.com/advertiser/AR03799266737908613121/creative/CR03865500098595127297?region=anywhere",
+          "title": "ANSWERCONNECT — Google creative CR03865500098595127297"
+        },
+        {
+          "source_id": "smith-meta-1528061168490375",
+          "subject": "Smith.ai",
+          "url": "https://www.facebook.com/ads/library/?id=1528061168490375",
+          "title": "Smith.ai Meta ad 1528061168490375"
+        }
+      ]
+    },
+    {
+      "title": "Advertised entry prices hide different jobs and units",
+      "observation": "PATLive’s $49 entry plan includes no minutes; Goodcall bills by distinct monthly callers. Rosie’s $49 tier sends scheduling links, while direct calendar booking starts at $149.",
+      "recommendation": "Compare a fixed call workload and required features before writing savings copy. A low base price is not a comparable cost per booked appointment.",
+      "because": [
+        "patlive-pricing",
+        "goodcall-pricing",
+        "rosie-pricing"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "patlive-pricing",
+          "subject": "PATLive",
+          "url": "https://www.patlive.com/pricing/",
+          "title": "PATLive official pricing"
+        },
+        {
+          "source_id": "goodcall-pricing",
+          "subject": "Goodcall",
+          "url": "https://www.goodcall.com/pricing",
+          "title": "Goodcall pricing"
+        },
+        {
+          "source_id": "rosie-pricing",
+          "subject": "Rosie",
+          "url": "https://heyrosie.com/pricing",
+          "title": "Rosie plans and pricing"
+        }
+      ]
+    },
+    {
+      "title": "Resolve Superagent’s price mismatch before advertising it",
+      "observation": "SUPERAGENT’s pricing page lists restricted Starter at $299/month, while its inbound FAQ still says $249/month. The main Pro plan is $499.",
+      "recommendation": "Use the verified trial or a demo CTA for now. Reconcile the public pricing pages before sending paid traffic to a price-specific promise.",
+      "because": [
+        "superagent-pricing",
+        "superagent-inbound"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Two public pages disagree at the time of capture; the correct checkout charge was not independently confirmed.",
+      "evidence": [
+        {
+          "source_id": "superagent-pricing",
+          "subject": "SUPERAGENT",
+          "url": "https://getsuperagent.com/pricing",
+          "title": "SUPERAGENT plans and eligibility"
+        },
+        {
+          "source_id": "superagent-inbound",
+          "subject": "SUPERAGENT",
+          "url": "https://getsuperagent.com/inbound-ai-agent",
+          "title": "SUPERAGENT inbound agent"
+        }
+      ]
+    },
+    {
+      "title": "Comparison content is an observed acquisition tactic",
+      "observation": "Synthflow has a Google creative explicitly offering a Retell review. The offer captures buyers comparing features and price rather than only broad AI-receptionist demand.",
+      "recommendation": "Build a factual Superagent-versus-Sonant workflow comparison with current feature and pricing sources. Treat paid promotion as a test, not a proven winner.",
+      "because": [
+        "google-CR10933541917207560193",
+        "sonant-home",
+        "superagent-home"
+      ],
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Interpretation of observed messaging; no spend, CTR or conversion performance was obtained.",
+      "evidence": [
+        {
+          "source_id": "google-CR10933541917207560193",
+          "subject": "Synthflow",
+          "url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR10933541917207560193?region=anywhere",
+          "title": "AgentFlow AI GmbH — Google creative CR10933541917207560193"
+        },
+        {
+          "source_id": "sonant-home",
+          "subject": "Sonant",
+          "url": "https://www.sonant.ai/",
+          "title": "Sonant insurance receptionist"
+        },
+        {
+          "source_id": "superagent-home",
+          "subject": "SUPERAGENT",
+          "url": "https://getsuperagent.com/",
+          "title": "SUPERAGENT current product and trial"
+        }
+      ]
+    },
+    {
+      "title": "Repeated ad IDs are not independent winning ideas",
+      "observation": "All eight captured Sonant Meta records use the same hiring-oriented headline and core body. Two were listed active; one began July 8. Variations and historical records inflate the apparent number of ideas.",
+      "recommendation": "Group creatives by message before planning tests. Use repetition and observed age to identify messaging worth studying, without inferring conversion performance.",
+      "because": [
+        "meta-889062990345042",
+        "meta-922158907633073",
+        "meta-824229660558866"
       ],
       "signals": [
+        "repetition",
         "longevity"
+      ],
+      "confidence": "high",
+      "limitation": "A point-in-time library sample does not show uninterrupted delivery, spend or ad-level outcomes.",
+      "evidence": [
+        {
+          "source_id": "meta-889062990345042",
+          "subject": "Sonant",
+          "url": "https://www.facebook.com/ads/library/?id=889062990345042",
+          "title": "Sonant · Meta ad 889062990345042"
+        },
+        {
+          "source_id": "meta-922158907633073",
+          "subject": "Sonant",
+          "url": "https://www.facebook.com/ads/library/?id=922158907633073",
+          "title": "Sonant · Meta ad 922158907633073"
+        },
+        {
+          "source_id": "meta-824229660558866",
+          "subject": "Sonant",
+          "url": "https://www.facebook.com/ads/library/?id=824229660558866",
+          "title": "Sonant · Meta ad 824229660558866"
+        }
       ]
     },
     {
-      "title": "A gap we can own",
-      "observation": "Nobody in the set talks to a 1-to-10 producer agency that already paid for the lead.",
-      "recommendation": "Write the ChatGPT card from the missed inbound call, not from a generic SDR hook.",
+      "title": "ChatGPT cannot be treated as an empty channel",
+      "observation": "An independent ad-capture service records two Smith.ai placements in ChatGPT. These are third-party observations, not an official advertiser or delivery feed.",
+      "recommendation": "Remove the no-competitors claim. Treat ChatGPT as an unmeasured test channel and evaluate your own campaign results.",
       "because": [
-        "Owners and sales leaders at independent and captive US insurance agencies",
-        "Put an AI agent on the agency phone"
+        "smith-chatgpt-13532",
+        "smith-chatgpt-187158"
       ],
-      "signals": []
+      "signals": [],
+      "confidence": "high",
+      "limitation": "Independent captures were observed; current delivery, targeting and completeness cannot be established.",
+      "evidence": [
+        {
+          "source_id": "smith-chatgpt-13532",
+          "subject": "Smith.ai",
+          "url": "https://www.chatgptadlibrary.com/ad/13532",
+          "title": "Smith.ai AI Legal Receptionist observed ChatGPT ad"
+        },
+        {
+          "source_id": "smith-chatgpt-187158",
+          "subject": "Smith.ai",
+          "url": "https://www.chatgptadlibrary.com/ad/187158",
+          "title": "Smith.ai AI Legal Receptionist observed ChatGPT ad"
+        }
+      ]
     }
   ],
   "concepts": [
     {
       "id": "a",
-      "name": "The buyer, mid-problem",
-      "angle": "Agency owners who miss inbound calls",
-      "why": "The approved buyer is the agency owner. Category ads talk around that person. This card speaks to them.",
-      "headline": "Stop missing inbound calls",
-      "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
-      "cta": "See how it works",
-      "visual": "Empty agency at dusk, official Superagent head mark on a card, ringing desk phone"
+      "name": "Your old leads have unfinished business.",
+      "angle": "Reactivate dormant insurance leads across phone, text and email",
+      "why": "Our captured Smith.ai and SUPERAGENT ads already use the missed-call angle. SUPERAGENT’s outbound product page describes working existing lead lists across phone, text and email. The frozen-lead visual turns that specific workflow into a memorable demo without promising a conversion result.",
+      "headline": "Your old leads have unfinished business.",
+      "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
+      "cta": "See Superagent in action",
+      "visual": "Insurance lead cards suspended inside a giant block of ice. An amber pulse cracks it open, connecting one lead through a call, text and email. Charcoal background, dramatic light, real SUPERAGENT logo. Lead details are illustrative."
     },
     {
       "id": "b",
-      "name": "The offer, said plainly",
-      "angle": "An AI agent on the agency phone",
-      "why": "The confirmed offer is the phone agent. Competitor ads stay vague. Say the offer.",
-      "headline": "Not a generic receptionist",
-      "body": "Built for insurance agencies. The conversation stays with the producer.",
-      "cta": "Get the walkthrough",
-      "visual": "Black poster, official Superagent head mark, lime speed streak, no desk"
-    },
-    {
-      "id": "c",
-      "name": "The difference",
-      "angle": "Built for insurance agencies",
-      "why": "The brief names insurance agencies, not a generic AI SDR. Competitor ads do not.",
-      "headline": "Built for insurance agencies",
-      "body": "Not a generic AI SDR. SUPERAGENT answers the phone you already paid for.",
-      "cta": "Talk to us",
-      "visual": "Simple contrast: one calm agency desk vs generic SDR clutter"
+      "name": "Don’t make them start over.",
+      "angle": "Give the producer context for a useful human handoff",
+      "why": "Captured AnswerConnect and Smith.ai ads emphasize human reassurance, while buyer discussions question whether AI produces useful next steps. SUPERAGENT’s inbound page describes qualification and producer handoff. This concept makes the handoff visible through the caller’s needs and context, without claiming that competitors lack it.",
+      "headline": "Don’t make them start over.",
+      "body": "Superagent qualifies the call and gives your producer the context to pick up the conversation.",
+      "cta": "See the handoff",
+      "visual": "A caller’s voice becomes a flowing amber ribbon carrying Auto quote, Two vehicles and Renewal next month into a human producer’s hands. Warm editorial photography, crisp overlays, real SUPERAGENT logo. Caller details are illustrative."
     }
   ],
   "creative": {
     "id": "sa-1",
     "concept_id": "a",
-    "title": "Stop missing inbound calls",
-    "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
-    "cta": "See how it works",
-    "target_url": "https://getsuperagent.com",
-    "image_url": "/superagent-ads.png",
+    "title": "Your old leads have unfinished business.",
+    "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
+    "cta": "See Superagent in action",
+    "target_url": "https://getsuperagent.com/outbound-ai-agent",
+    "image_url": "/demo-ads/frozen-leads.png",
     "format": "chat_card"
   },
   "creatives": [
     {
       "id": "sa-1",
       "concept_id": "a",
-      "title": "Stop missing inbound calls",
-      "body": "After hours and overflow, the inbound agent picks up. A person still owns the book.",
-      "cta": "See how it works",
-      "target_url": "https://getsuperagent.com",
-      "image_url": "/superagent-ads.png",
+      "title": "Your old leads have unfinished business.",
+      "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
+      "cta": "See Superagent in action",
+      "target_url": "https://getsuperagent.com/outbound-ai-agent",
+      "image_url": "/demo-ads/frozen-leads.png",
       "format": "chat_card"
     },
     {
       "id": "sa-2",
       "concept_id": "b",
-      "title": "Not a generic receptionist",
-      "body": "Built for insurance agencies. The conversation stays with the producer.",
-      "cta": "Get the walkthrough",
-      "target_url": "https://getsuperagent.com",
-      "image_url": "/superagent-ads-2.png",
+      "title": "Don’t make them start over.",
+      "body": "Superagent qualifies the call and gives your producer the context to pick up the conversation.",
+      "cta": "See the handoff",
+      "target_url": "https://getsuperagent.com/inbound-ai-agent",
+      "image_url": "/demo-ads/context-handoff.png",
       "format": "chat_card"
     }
-  ]
+  ],
+  "research_version": "2026-09-08.1"
 }

@@ -1,0 +1,361 @@
+{
+  "observed_at": "2026-09-08",
+  "identity_note": "The requested Sonnant spelling resolves to two businesses. Sonant (sonant.ai) is the insurance competitor included here. Sonnant (sonnant.com) is a separate programmatic audio advertising marketplace; reviewed and excluded from the insurance comparison.",
+  "identity_source": "https://sonnant.com/",
+  "subjects": [
+    {
+      "domain": "getsuperagent.com",
+      "name": "SUPERAGENT",
+      "kind": "self",
+      "profile": {
+        "category": "Insurance AI workforce",
+        "summary": "Insurance platform spanning inbound, outbound, training, live-call support, retention and quoting.",
+        "audience": "Independent and captive US insurance agencies, from individual producers to multi-office teams.",
+        "positioning": "An integrated insurance workflow across acquisition, producer development and policy servicing.",
+        "offer": "14-day trial on the homepage; demonstration-led plan selection.",
+        "pricing": "Pro $499/month; Scale $999/month; Enterprise $2,499+/month. Starter $299/month requires eligibility approval; usage allowances and overages apply.",
+        "cta": "Start 14-day free trial / Book a demo",
+        "differentiators": [
+          "Insurance-specific inbound and outbound workflows",
+          "Training, quoting and retention in the same suite",
+          "AMS, CRM, telephony and calendar integrations"
+        ],
+        "limitations": [
+          "The inbound product FAQ still states $249/month while the pricing page states $299 for restricted Starter. Resolve the discrepancy before putting a price in an ad.",
+          "Published customer outcomes are vendor claims, not paid-ad performance."
+        ],
+        "source_ids": [
+          "superagent-home",
+          "superagent-pricing",
+          "superagent-inbound",
+          "superagent-outbound",
+          "superagent-integrations"
+        ]
+      },
+      "sources": [
+        {
+          "id": "superagent-home",
+          "url": "https://getsuperagent.com/",
+          "title": "SUPERAGENT current product and trial",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "The homepage offers six agents for insurance agencies and a 14-day trial. Product examples span call capture, follow-up and producer coaching.",
+          "quotes": []
+        },
+        {
+          "id": "superagent-pricing",
+          "url": "https://getsuperagent.com/pricing",
+          "title": "SUPERAGENT plans and eligibility",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Monthly plans: restricted Starter $299; Pro $499; Scale $999; Enterprise from $2,499. Pro includes 1,350 inbound/outbound minutes and 1,050 quotes. Starter applicants need approval; overage packs are extra.",
+          "quotes": []
+        },
+        {
+          "id": "superagent-inbound",
+          "url": "https://getsuperagent.com/inbound-ai-agent",
+          "title": "SUPERAGENT inbound agent",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "The agent qualifies calls, routes service/claims/billing/sales requests, books appointments and provides a contextual human handoff. The FAQ lists Starter at $249, inconsistent with the pricing page.",
+          "quotes": []
+        },
+        {
+          "id": "superagent-outbound",
+          "url": "https://getsuperagent.com/outbound-ai-agent",
+          "title": "SUPERAGENT outbound workflows",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Lead lists, new form submissions and dormant accounts feed multi-touch campaigns across phone, SMS and email. Qualified replies are handed to producers. This supports a follow-through campaign direction.",
+          "quotes": []
+        },
+        {
+          "id": "superagent-integrations",
+          "url": "https://getsuperagent.com/integrations",
+          "title": "SUPERAGENT insurance integrations",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Listed connections include Applied Epic, EZLynx, HawkSoft, QQCatalyst and AMS360. The page describes call logging, CRM contact creation, appointment booking and follow-up email workflows.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR03604644357929435137",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR03604644357929435137?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR03604644357929435137",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Verified Google advertiser; video format and four variations confirmed. Media playback failed, so no video script or headline was inferred.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR15323140055841636353",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR15323140055841636353?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR15323140055841636353",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR11501690773921857537",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR11501690773921857537?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR11501690773921857537",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Visible image creative, first of three variations. CTA: Book a Demo. Preview promotes an outbound agent and an old-leads campaign; no performance data exposed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR04590494933256765441",
+          "url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR04590494933256765441?region=anywhere",
+          "title": "SUPERAGENT · Google creative CR04590494933256765441",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Visible sponsored video card, first of three variations. Body is visibly truncated; no missing words or full video script inferred.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR03604644357929435137",
+          "platform": "google",
+          "advertiser": "SUPERAGENT AI, Inc.",
+          "headline": null,
+          "body": null,
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR03604644357929435137?region=anywhere",
+          "link_url": null,
+          "format": "video",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-09-07",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Verified Google advertiser; video format and four variations confirmed. Media playback failed, so no video script or headline was inferred.",
+          "source_id": "google-CR03604644357929435137",
+          "image_url": null
+        },
+        {
+          "id": "CR15323140055841636353",
+          "platform": "google",
+          "advertiser": "SUPERAGENT AI, Inc.",
+          "headline": "SUPERAGENT AI Agent - The Official SUPERAGENT AI",
+          "body": "SUPERAGENT AI — the autonomous AI workforce for independent insurance agencies.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR15323140055841636353?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-09-07",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "source_id": "google-CR15323140055841636353",
+          "image_url": null
+        },
+        {
+          "id": "CR11501690773921857537",
+          "platform": "google",
+          "advertiser": "SUPERAGENT AI, Inc.",
+          "headline": "Outbound AI Agent built for Insurance Agencies",
+          "body": "Turn Your Insurance Leads into Customers",
+          "cta": "Book a Demo",
+          "source_url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR11501690773921857537?region=anywhere",
+          "link_url": null,
+          "format": "image",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-09-04",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Visible image creative, first of three variations. CTA: Book a Demo. Preview promotes an outbound agent and an old-leads campaign; no performance data exposed. Original image URL extracted from the visible ad preview.",
+          "source_id": "google-CR11501690773921857537",
+          "image_url": "https://tpc.googlesyndication.com/archive/simgad/11707616919845492464"
+        },
+        {
+          "id": "CR04590494933256765441",
+          "platform": "google",
+          "advertiser": "SUPERAGENT AI, Inc.",
+          "headline": "Stop Losing Leads to Missed Calls.",
+          "body": "Insurance Agencies: one AI Agent answers calls, another follows every…",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR03298006370422358017/creative/CR04590494933256765441?region=anywhere",
+          "link_url": null,
+          "format": "video",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-09-04",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Visible sponsored video card, first of three variations. Body is visibly truncated; no missing words or full video script inferred.",
+          "source_id": "google-CR04590494933256765441",
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "meta",
+          "url": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&search_type=page&view_all_page_id=677644648769982",
+          "status": "no_results_in_checked_scope",
+          "checked_at": "2026-09-08",
+          "note": "Rechecked after a user reported seeing Meta ads. The official website links to @getsuperagent, page 677644648769982. Browser checks of that advertiser with worldwide filters and a US scraper check returned no records. The reported ads remain unresolved; this does not establish that the brand has no Meta advertising."
+        },
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=getsuperagent.com",
+          "status": "ok",
+          "note": "Domain search displayed 37 ads, any time / anywhere. Four exact creative detail pages inspected; this snapshot is a sample, not the total inventory."
+        }
+      ],
+      "insights": [
+        "Current paid creatives already connect inbound answering to outbound follow-up. Test a concrete lead-to-handoff workflow instead of claiming insurance reception is an empty category."
+      ]
+    },
+    {
+      "domain": "sonant.ai",
+      "name": "Sonant",
+      "kind": "competitor",
+      "aliases": [
+        "Sonnant (requested spelling; insurance competitor interpreted as Sonant)"
+      ],
+      "profile": {
+        "category": "Insurance AI receptionist",
+        "summary": "P&C-focused receptionist for call triage, quote intake, scheduling and agency-system updates.",
+        "audience": "P&C agencies, brokers and insurance distributors; dedicated mid-market and enterprise pages.",
+        "positioning": "Protect licensed staff time by automating routine incoming calls and agency administration.",
+        "offer": "Personalized demo of insurance-specific call handling.",
+        "pricing": "Custom quote; no public plan price on the reviewed homepage.",
+        "cta": "Book a demo",
+        "differentiators": [
+          "P&C terminology and agency-specific routing",
+          "Quote intake and notes written to agency systems",
+          "AMS integrations and multilingual calls"
+        ],
+        "limitations": [
+          "Website case-study results are vendor-reported.",
+          "Google ads were last shown in February 2026; this does not establish current delivery."
+        ],
+        "source_ids": [
+          "sonant-home",
+          "sonant-integrations",
+          "sonant-midmarket",
+          "sonant-team"
+        ]
+      },
+      "sources": [
+        {
+          "id": "sonant-home",
+          "url": "https://www.sonant.ai/",
+          "title": "Sonant insurance receptionist",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Sonant sells routine-call automation to insurance agencies, including human transfer, quote intake, scheduling and multilingual support. It emphasizes production time and staff capacity. No public plan price is displayed.",
+          "quotes": []
+        },
+        {
+          "id": "sonant-integrations",
+          "url": "https://www.sonant.ai/integrations",
+          "title": "Sonant AMS integrations",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Official integration list includes Applied Epic, AMS360, EZLynx, HawkSoft, Momentum, QQCatalyst, calendars and Zapier.",
+          "quotes": []
+        },
+        {
+          "id": "sonant-midmarket",
+          "url": "https://www.sonant.ai/agencies/mid-market",
+          "title": "Sonant mid-market P&C agencies",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "A dedicated page targets growing P&C agencies and offers call triage that frees producers for production and CSRs for service.",
+          "quotes": []
+        },
+        {
+          "id": "sonant-team",
+          "url": "https://www.sonant.ai/blog/ai-virtual-receptionist-insurance",
+          "title": "Sonant co-founder and product explanation",
+          "kind": "website",
+          "observed_at": "2026-09-08",
+          "summary": "Byline identifies Diogo Bragança as co-founder and Head of Agent Resources. The guide frames phone automation as overflow coverage with escalation to licensed staff. This corroborates the Google advertiser name.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR05277865004001918977",
+          "url": "https://adstransparency.google.com/advertiser/AR18197182593793785857/creative/CR05277865004001918977?region=anywhere",
+          "title": "Sonant · Google creative CR05277865004001918977",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR16302948170529243137",
+          "url": "https://adstransparency.google.com/advertiser/AR18197182593793785857/creative/CR16302948170529243137?region=anywhere",
+          "title": "Sonant · Google creative CR16302948170529243137",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR05277865004001918977",
+          "platform": "google",
+          "advertiser": "Diogo Pinto Leite de Braganca",
+          "headline": "AI for Insurance Claims",
+          "body": "Handle routine claims calls with AI built for insurance agencies.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR18197182593793785857/creative/CR05277865004001918977?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-02-10",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "source_id": "google-CR05277865004001918977",
+          "image_url": null
+        },
+        {
+          "id": "CR16302948170529243137",
+          "platform": "google",
+          "advertiser": "Diogo Pinto Leite de Braganca",
+          "headline": "Best AI for Insurance Agents",
+          "body": "Let Sonant AI handle routine incoming calls so agents focus on selling.",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR18197182593793785857/creative/CR16302948170529243137?region=anywhere",
+          "link_url": null,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "last_shown_at": "2026-02-10",
+          "is_active": null,
+          "evidence_type": "ad_library",
+          "observed_at": "2026-09-08",
+          "verification_note": "Copy transcribed from the visible Google Ads Transparency preview. Current activity and first-shown date are not exposed.",
+          "source_id": "google-CR16302948170529243137",
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=sonant.ai",
+          "status": "ok",
+          "note": "Two text creatives for Sonant AI, registered advertiser Diogo Pinto Leite de Braganca. Brand and destination match; official Sonant byline identifies Diogo Bragança as co-founder."
+        }
+      ],
+      "insights": [
+        "Sonant directly overlaps insurance reception and protecting producer time. Insurance-specific messaging alone is not a unique claim."
+      ]
+    }
+  ]
+}

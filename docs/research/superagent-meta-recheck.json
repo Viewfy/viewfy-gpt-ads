@@ -1,0 +1,53 @@
+{
+  "domain": "getsuperagent.com",
+  "query_url": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=US&view_all_page_id=677644648769982&search_type=page",
+  "observed_at": "2026-09-08",
+  "cost_usd": "0",
+  "raw": [
+    {
+      "inputUrl": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=US&view_all_page_id=677644648769982&search_type=page",
+      "pageInfo": {
+        "adLibrarySystemStatus": {
+          "systemStatus": {
+            "status": "NO_KNOWN_ISSUES",
+            "activeIssues": [
+              {
+                "product": "Ad Library",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Ad Library Report",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Ad Library API",
+                "status": "NO_KNOWN_ISSUES"
+              },
+              {
+                "product": "Branded Content",
+                "status": "NO_KNOWN_ISSUES"
+              }
+            ]
+          }
+        },
+        "xfbAdLibraryIsCaptchaRequired": false,
+        "adLibraryPageInfo": {
+          "pageInfo": {
+            "relatedPages": [],
+            "hasBlankAds": false,
+            "hiddenAds": 0,
+            "pageIsDeleted": false
+          }
+        },
+        "page": {
+          "name": "Superagent",
+          "id": "677644648769982"
+        },
+        "adLibraryUser": null
+      },
+      "isResultComplete": true,
+      "results": [],
+      "totalCount": 0
+    }
+  ]
+}

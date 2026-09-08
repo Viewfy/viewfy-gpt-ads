@@ -1,0 +1,1166 @@
+[
+  {
+    "provider": "Perplexity",
+    "source_label": "Perplexity Sonar API",
+    "capture_method": "Direct API request",
+    "endpoint": "https://api.perplexity.ai/v1/sonar",
+    "prompt_index": 1,
+    "prompt": "Best AI receptionist for a small insurance agency",
+    "request": {
+      "model": "sonar",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer in approximately 250 words."
+        },
+        {
+          "role": "user",
+          "content": "Best AI receptionist for a small insurance agency"
+        }
+      ],
+      "max_tokens": 600
+    },
+    "requested_at": "2026-09-08T20:15:27.615560Z",
+    "collected_at": "2026-09-08T20:15:33.486659Z",
+    "model": "sonar",
+    "response_id": "18d502e6-6fa6-48ba-9253-e7123fd66a72",
+    "provider_created_at": "2026-09-08T20:15:33Z",
+    "response_text": "For a **small insurance agency**, the strongest default choice is **Sonant** if your priority is an insurance-specific phone receptionist with tight workflow fit; several insurance-focused roundups place it at or near the top for independent P&C agencies, especially when the agency wants fast call handling and insurance-context triage.[1][10][15]\n\nIf your agency is *very* small and budget-sensitive, **Eden** and **My AI Front Desk** are the main lower-cost alternatives mentioned for solo agents and small shops.[2][6][14] If you need a more premium option with human backup, **Smith.ai** is the better-known hybrid receptionist service.[17]\n\nA practical way to choose is by the main gap you need to fix:\n- **Phone only:** Sonant or Eden.[1][6][10]\n- **Phone + human backup:** Smith.ai.[17]\n- **Lowest starting cost:** My AI Front Desk or Eden.[2][6]\n- **Insurance-native workflow / AMS fit:** Sonant is repeatedly highlighted for insurance agencies, including Applied Epic-oriented workflows.[1][10][15]\n\nFor a small agency, I would narrow it to:\n- **Sonant** if you want the best insurance-specific fit and expect steady call volume.[1][15]\n- **Eden** if you want something simpler and cheaper.[6][14]\n- **Smith.ai** if missed calls are costly and you want live backup.[17]\n\nOne important caveat: many vendor pages are promotional, so “best” depends on whether you value **cost**, **insurance specialization**, or **human escalation** most.[1][4][13] If you tell me your agency size, AMS/CRM, and whether you need after-hours only or full-time coverage, I can give you a tighter recommendation.",
+    "citations": [
+      {
+        "id": 1,
+        "url": "https://www.sonant.ai/blog/best-ai-receptionists-for-insurance-agencies",
+        "title": "The Best AI Receptionists for Insurance Agencies in 2026",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-06",
+        "last_updated": "2026-08-20"
+      },
+      {
+        "id": 2,
+        "url": "https://www.cloudtalk.io/blog/best-ai-receptionist-for-insurance-agencies/",
+        "title": "10 Best AI Receptionists for Insurance Agencies in 2026",
+        "domain": "www.cloudtalk.io",
+        "date": "2026-08-28",
+        "last_updated": "2026-09-01"
+      },
+      {
+        "id": 3,
+        "url": "https://xassure.co/blog/best-ai-receptionist-for-insurance-agents-7-tools-compared/",
+        "title": "Best AI Receptionist for Insurance Agents: 7 Tools Compared (2026)",
+        "domain": "xassure.co",
+        "date": "2026-04-20",
+        "last_updated": "2026-08-21"
+      },
+      {
+        "id": 4,
+        "url": "https://insurvoice.ai/best-ai-receptionist",
+        "title": "Best AI Receptionist in 2026",
+        "domain": "insurvoice.ai",
+        "date": null,
+        "last_updated": "2026-08-19"
+      },
+      {
+        "id": 5,
+        "url": "https://insuramateai.com/blog/best-ai-receptionist-for-insurance-agencies/",
+        "title": "Insuramate Ai: Best For A...",
+        "domain": "insuramateai.com",
+        "date": "2026-05-31",
+        "last_updated": "2026-08-28"
+      },
+      {
+        "id": 6,
+        "url": "https://solvea.cx/glossary/best-ai-receptionist-for-insurance-agencies",
+        "title": "7 Best AI Receptionists for Insurance Agencies in 2026 - Solvea",
+        "domain": "solvea.cx",
+        "date": "2026-03-25",
+        "last_updated": "2026-04-28"
+      },
+      {
+        "id": 7,
+        "url": "https://www.sonant.ai/",
+        "title": "Sonant - The AI Receptionist For Insurance",
+        "domain": "www.sonant.ai",
+        "date": null,
+        "last_updated": "2026-08-12"
+      },
+      {
+        "id": 8,
+        "url": "https://callbirdai.com/blog-ai-receptionist-for-insurance-agencies",
+        "title": "AI Receptionist for Insurance Agencies [2026]",
+        "domain": "callbirdai.com",
+        "date": "2026-07-02",
+        "last_updated": "2026-08-16"
+      },
+      {
+        "id": 9,
+        "url": "https://www.cloudtalk.io/blog/best-ai-voice-agents-for-insurance/",
+        "title": "10 Best AI Voice Agents for Insurance in 2026",
+        "domain": "www.cloudtalk.io",
+        "date": "2026-09-04",
+        "last_updated": "2026-09-05"
+      },
+      {
+        "id": 10,
+        "url": "https://catalyit.com/techtips/introducing-sonant-the-ai-receptionist-for-insurance-agencies",
+        "title": "Introducing Sonant: The AI Receptionist for Insurance ...",
+        "domain": "catalyit.com",
+        "date": "2025-02-17",
+        "last_updated": "2026-08-21"
+      },
+      {
+        "id": 11,
+        "url": "https://anvevoice.app/faq/best-ai-receptionist-for-insurance",
+        "title": "What is the best AI receptionist for insurance agencies? - AnveVoice",
+        "domain": "anvevoice.app",
+        "date": "2026-05-31",
+        "last_updated": "2026-06-02"
+      },
+      {
+        "id": 12,
+        "url": "https://insurvoice.ai/",
+        "title": "Insurvoice — AI Receptionist for Independent Insurance Agencies ...",
+        "domain": "insurvoice.ai",
+        "date": null,
+        "last_updated": "2026-08-27"
+      },
+      {
+        "id": 13,
+        "url": "https://botphonic.ai/the-best-ai-receptionist-solutions-for-insurance-agencies/",
+        "title": "The Best AI Receptionist Solutions for Insurance Agencies in 2026",
+        "domain": "botphonic.ai",
+        "date": "2025-09-26",
+        "last_updated": "2026-05-18"
+      },
+      {
+        "id": 14,
+        "url": "https://ringeden.com/blog/best-ai-receptionist-for-insurance-agents",
+        "title": "Best AI Receptionist for Insurance Agents (2025)",
+        "domain": "ringeden.com",
+        "date": "2025-11-07",
+        "last_updated": "2026-05-14"
+      },
+      {
+        "id": 15,
+        "url": "https://www.sonant.ai/blog/best-ai-receptionist-insurance-brokers",
+        "title": "Best AI Receptionist for Insurance Brokers in 2026",
+        "domain": "www.sonant.ai",
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07"
+      },
+      {
+        "id": 16,
+        "url": "https://upfirst.ai/blog/ai-tools-for-insurance-agencies",
+        "title": "How Ai Helps With Insurance...",
+        "domain": "upfirst.ai",
+        "date": "2026-05-07",
+        "last_updated": "2026-08-19"
+      },
+      {
+        "id": 17,
+        "url": "https://smith.ai/industries/independent-insurance-agents-answering-service",
+        "title": "Insurance Answering Service with 24/7 Virtual Receptionists",
+        "domain": "smith.ai",
+        "date": null,
+        "last_updated": "2026-09-04"
+      },
+      {
+        "id": 18,
+        "url": "https://agentzap.ai/industries/insurance",
+        "title": "AI Receptionist for Insurance Agencies | 24/7 Answering",
+        "domain": "agentzap.ai",
+        "date": null,
+        "last_updated": "2026-08-28"
+      },
+      {
+        "id": 19,
+        "url": "https://floatbot.ai/ai-insurance-agency",
+        "title": "AI Agents & AI Receptionist for Insurance Agencies",
+        "domain": "floatbot.ai",
+        "date": null,
+        "last_updated": "2026-08-31"
+      },
+      {
+        "id": 20,
+        "url": "https://dialzara.com/industries/insurance-agents",
+        "title": "AI Answering Service for Insurance Agents",
+        "domain": "dialzara.com",
+        "date": null,
+        "last_updated": "2026-06-25"
+      }
+    ],
+    "search_results": [
+      {
+        "date": "2026-08-06",
+        "last_updated": "2026-08-20",
+        "place_metadata": null,
+        "snippet": "For retail P&C agencies between 5 and 500 employees with AMS write-back as a hard requirement, the practical shortlist is Sonant, Liberate (if carrier-scale FNOL is the use case), and Cara.",
+        "source": "web",
+        "title": "The Best AI Receptionists for Insurance Agencies in 2026",
+        "url": "https://www.sonant.ai/blog/best-ai-receptionists-for-insurance-agencies"
+      },
+      {
+        "date": "2026-08-28",
+        "last_updated": "2026-09-01",
+        "place_metadata": null,
+        "snippet": "|**Tool Name**|**Best For**|**Starting Price**|**Key Feature**|\n...\n|My AI Front Desk|Solo agents and small agencies|$0–$99/month|Omnichannel lead capture with unified inbox|",
+        "source": "web",
+        "title": "10 Best AI Receptionists for Insurance Agencies in 2026",
+        "url": "https://www.cloudtalk.io/blog/best-ai-receptionist-for-insurance-agencies/"
+      },
+      {
+        "date": "2026-04-20",
+        "last_updated": "2026-08-21",
+        "place_metadata": null,
+        "snippet": "|AI Receptionists|Best For|Starting Price|AMS Integration|Insurance-Specific Training|Human Handoff|",
+        "source": "web",
+        "title": "Best AI Receptionist for Insurance Agents: 7 Tools Compared (2026)",
+        "url": "https://xassure.co/blog/best-ai-receptionist-for-insurance-agents-7-tools-compared/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-19",
+        "place_metadata": null,
+        "snippet": "|Product|Best for|Voice|Intelligence|Actions|Integrations|Compliance|Price/value|Total /30|\n...\n|**Insurvoice**|Insurance agencies (inbound + outbound)|5|5*|5|5 (AMS-native)|5|4|**29** *|\n...\n### 1.\nInsurvoice — for insurance agencies, full stop\n...\nFor a general small business: Rosie (budget) or Sm...",
+        "source": "web",
+        "title": "Best AI Receptionist in 2026",
+        "url": "https://insurvoice.ai/best-ai-receptionist"
+      },
+      {
+        "date": "2026-05-31",
+        "last_updated": "2026-08-28",
+        "place_metadata": null,
+        "snippet": "If you run an independent insurance agency and you are shopping for an AI receptionist in 2026, the honest answer is that the best one depends on what you need it to do: just answer the phone, or run the whole front desk across calls, email, and text.\nThere is no single winner for every agency.\n...\n...",
+        "source": "web",
+        "title": "Insuramate Ai: Best For A...",
+        "url": "https://insuramateai.com/blog/best-ai-receptionist-for-insurance-agencies/"
+      },
+      {
+        "date": "2026-03-25",
+        "last_updated": "2026-04-28",
+        "place_metadata": null,
+        "snippet": "|Tool|Best for|Starting price|Key advantage|\n...\nEden is the right choice for solo agents and small shops where AI reception needs to be cheap, reliable, and require no ongoing management.",
+        "source": "web",
+        "title": "7 Best AI Receptionists for Insurance Agencies in 2026 - Solvea",
+        "url": "https://solvea.cx/glossary/best-ai-receptionist-for-insurance-agencies"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-12",
+        "place_metadata": null,
+        "snippet": "Our AI receptionist offers 24/7 availability, instant response times, and consistent service quality.",
+        "source": "web",
+        "title": "Sonant - The AI Receptionist For Insurance",
+        "url": "https://www.sonant.ai/"
+      },
+      {
+        "date": "2026-07-02",
+        "last_updated": "2026-08-16",
+        "place_metadata": null,
+        "snippet": "|Option|Monthly Cost|24/7 Coverage|Caller Speaks to Someone|Books Appointments|Emergency Escalation|",
+        "source": "web",
+        "title": "AI Receptionist for Insurance Agencies [2026]",
+        "url": "https://callbirdai.com/blog-ai-receptionist-for-insurance-agencies"
+      },
+      {
+        "date": "2026-09-04",
+        "last_updated": "2026-09-05",
+        "place_metadata": null,
+        "snippet": "### Best AI Voice Agents for Small Insurance Agencies and Independent Brokers\nSmall agencies and independent brokers don't have an implementation team, so the tools that fit best are the ones that go live fast and connect to the systems already in use.",
+        "source": "web",
+        "title": "10 Best AI Voice Agents for Insurance in 2026",
+        "url": "https://www.cloudtalk.io/blog/best-ai-voice-agents-for-insurance/"
+      },
+      {
+        "date": "2025-02-17",
+        "last_updated": "2026-08-21",
+        "place_metadata": null,
+        "snippet": "Sonant is an AI-powered phone receptionist specifically designed for independent property and casualty (P&C) insurance agencies and brokers.",
+        "source": "web",
+        "title": "Introducing Sonant: The AI Receptionist for Insurance ...",
+        "url": "https://catalyit.com/techtips/introducing-sonant-the-ai-receptionist-for-insurance-agencies"
+      },
+      {
+        "date": "2026-05-31",
+        "last_updated": "2026-06-02",
+        "place_metadata": null,
+        "snippet": "AnveVoice is the best AI receptionist for insurance agencies.\n...\nAnveVoice is the top choice — deploy in 2 minutes, free plan available.",
+        "source": "web",
+        "title": "What is the best AI receptionist for insurance agencies? - AnveVoice",
+        "url": "https://anvevoice.app/faq/best-ai-receptionist-for-insurance"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-27",
+        "place_metadata": null,
+        "snippet": "Innovative AI receptionist handles cold dialing, after-hours follow-ups, and tedious",
+        "source": "web",
+        "title": "Insurvoice — AI Receptionist for Independent Insurance Agencies ...",
+        "url": "https://insurvoice.ai/"
+      },
+      {
+        "date": "2025-09-26",
+        "last_updated": "2026-05-18",
+        "place_metadata": null,
+        "snippet": "**Best for:** Small and mid-sized insurance agencies seeking low-cost, scalable, easy-to-use front desk automation without forfeiting the client experience.\n...\nBotphonic AI is the best AI receptionist software for insurance agents.\nWith features like CRM sync, 24/7 response, compliance (HIPAA/SOC2)...",
+        "source": "web",
+        "title": "The Best AI Receptionist Solutions for Insurance Agencies in 2026",
+        "url": "https://botphonic.ai/the-best-ai-receptionist-solutions-for-insurance-agencies/"
+      },
+      {
+        "date": "2025-11-07",
+        "last_updated": "2026-05-14",
+        "place_metadata": null,
+        "snippet": "When it comes to AI receptionists specifically built for insurance agencies, Eden stands out as the best overall choice for most small-to-midsize independent agencies in 2025.",
+        "source": "web",
+        "title": "Best AI Receptionist for Insurance Agents (2025)",
+        "url": "https://ringeden.com/blog/best-ai-receptionist-for-insurance-agents"
+      },
+      {
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07",
+        "place_metadata": null,
+        "snippet": "## Key Takeaways (TL;DR)\n- **The best overall AI receptionist for insurance brokers:** Sonant is the fit for Canadian property and casualty (P&C) brokerages, because Sonant’s voice AI is an Applied-certified vendor for Applied Epic, and it triages every call into an Epic activity instead of a messag...",
+        "source": "web",
+        "title": "Best AI Receptionist for Insurance Brokers in 2026",
+        "url": "https://www.sonant.ai/blog/best-ai-receptionist-insurance-brokers"
+      },
+      {
+        "date": "2026-05-07",
+        "last_updated": "2026-08-19",
+        "place_metadata": null,
+        "snippet": "Just choose the service you think will work best for you, set up call forwarding with your current phone provider, and calls will then be answered by your virtual receptionist service.\nHere’s a simple way many small agencies begin:\n1. **Add your most common FAQs.**\nTeach the AI how to answer billing...",
+        "source": "web",
+        "title": "How Ai Helps With Insurance...",
+        "url": "https://upfirst.ai/blog/ai-tools-for-insurance-agencies"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-04",
+        "place_metadata": null,
+        "snippet": "(650) 727-6484\n...\nSmith.ai provides AI receptionists and live virtual receptionists so you can focus on client relationships and claims while they handle calls 24/7, qualify prospects and schedule appointments.",
+        "source": "web",
+        "title": "Insurance Answering Service with 24/7 Virtual Receptionists",
+        "url": "https://smith.ai/industries/independent-insurance-agents-answering-service"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-28",
+        "place_metadata": null,
+        "snippet": "An AI receptionist for insurance agencies is a virtual assistant that handles all inbound calls 24/7.",
+        "source": "web",
+        "title": "AI Receptionist for Insurance Agencies | 24/7 Answering",
+        "url": "https://agentzap.ai/industries/insurance"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-31",
+        "place_metadata": null,
+        "snippet": "Agencies typically see reduced operational costs, increased efficiency, and improved conversion rates.",
+        "source": "web",
+        "title": "AI Agents & AI Receptionist for Insurance Agencies",
+        "url": "https://floatbot.ai/ai-insurance-agency"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-06-25",
+        "place_metadata": null,
+        "snippet": "Your AI receptionist is ready to serve your clients today.\n1. **Share Your Agency Profile** — Tell us your lines of business, carrier appointments, and how you want calls handled.",
+        "source": "web",
+        "title": "AI Answering Service for Insurance Agents",
+        "url": "https://dialzara.com/industries/insurance-agents"
+      }
+    ],
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 394,
+      "cost": {
+        "input_tokens_cost": 2e-05,
+        "output_tokens_cost": 0.00039,
+        "request_cost": 0.005,
+        "total_cost": 0.00541
+      },
+      "prompt_tokens": 16,
+      "search_context_size": "low",
+      "total_tokens": 410
+    },
+    "raw_response_file": "perplexity/prompt-1.raw.json",
+    "http_status": 200,
+    "documentation_url": "https://docs.perplexity.ai/api-reference/sonar-post"
+  },
+  {
+    "provider": "Perplexity",
+    "source_label": "Perplexity Sonar API",
+    "capture_method": "Direct API request",
+    "endpoint": "https://api.perplexity.ai/v1/sonar",
+    "prompt_index": 2,
+    "prompt": "How do small insurance agencies handle missed calls after hours?",
+    "request": {
+      "model": "sonar",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer in approximately 250 words."
+        },
+        {
+          "role": "user",
+          "content": "How do small insurance agencies handle missed calls after hours?"
+        }
+      ],
+      "max_tokens": 600
+    },
+    "requested_at": "2026-09-08T20:15:33.488471Z",
+    "collected_at": "2026-09-08T20:15:38.972165Z",
+    "model": "sonar",
+    "response_id": "7f3ec439-b196-452c-b2c8-e718c1c034df",
+    "provider_created_at": "2026-09-08T20:15:38Z",
+    "response_text": "Small insurance agencies typically handle after-hours missed calls with a mix of **automation, voicemail, text-back, and next-day callback workflows** rather than relying on live staff coverage.[1][2][4] The common goal is to capture the caller’s details immediately, classify the request, and make sure someone follows up as soon as business opens.[1][9]\n\nMost agencies use one of these approaches after hours:\n\n- **Voicemail or call screening** that captures name, number, ZIP, line of business, and urgency.[4][5]\n- **Missed-call text-back** sent within about a minute or very soon after the call, often acknowledging the call and promising a callback window.[2][9][15][20]\n- **After-hours answering services or AI receptionists** that answer live, collect intake details, and route urgent matters to an on-call agent.[2][3][11][17]\n- **Overflow routing** to another agent, virtual receptionist, or licensed answering service when the agency cannot staff the phones directly.[5][10][13]\n\nFor insurance specifically, agencies often treat calls differently based on urgency. **Claims, accidents, property damage, and first-notice-of-loss calls** are flagged for immediate attention, sometimes by texting an on-call agent right away.[3][11][18] **Routine billing or policy questions** are usually queued for morning follow-up.[20]\n\nA typical workflow is: the call is missed, an SMS or voicemail response is sent, the event is logged in the CRM or AMS, a task is created for the right producer or CSR, and the team reviews overnight captures first thing in the morning.[1][2][9] Agencies also track metrics like after-hours capture volume, contact-to-quote rate, and quote-to-bind rate to measure whether the process is working.[1]\n\nIf you want, I can also outline a practical after-hours workflow for a 3–10 person independent agency.",
+    "citations": [
+      {
+        "id": 1,
+        "url": "https://bolttech.io/insights/how-to-capture-after-hours-insurance-leads/",
+        "title": "How to Capture More After-Hours Insurance Leads",
+        "domain": "bolttech.io",
+        "date": "2026-03-10",
+        "last_updated": "2026-08-19"
+      },
+      {
+        "id": 2,
+        "url": "https://blog.salescaptain.com/how-to-reduce-missed-calls-for-insurance-agencies-2025/",
+        "title": "How to Reduce Missed Calls for Insurance Agencies (2025)",
+        "domain": "blog.salescaptain.com",
+        "date": "2026-05-01",
+        "last_updated": "2026-05-16"
+      },
+      {
+        "id": 3,
+        "url": "https://www.sonant.ai/blog/best-after-hours-answering-insurance-agencies",
+        "title": "Best after-hours answering solutions for insurance agencies",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-03",
+        "last_updated": "2026-08-26"
+      },
+      {
+        "id": 4,
+        "url": "https://skipcalls.com/resources/call-handling/insurance-agent",
+        "title": "Call Handling Best Practices for Insurance Agents (2026)",
+        "domain": "skipcalls.com",
+        "date": null,
+        "last_updated": "2026-08-10"
+      },
+      {
+        "id": 5,
+        "url": "https://www.messagingservice.com/industry-solutions/insurance-answering-service/",
+        "title": "Answering Service for Insurance Agents",
+        "domain": "www.messagingservice.com",
+        "date": "2025-05-21",
+        "last_updated": "2026-06-27"
+      },
+      {
+        "id": 6,
+        "url": "https://natlawreview.com/press-releases/insurvoiceai-opens-early-adopter-program-help-insurance-agencies-stop-losing",
+        "title": "Insurvoice.ai Opens Early Adopter Program to Help ...",
+        "domain": "natlawreview.com",
+        "date": "2026-01-05",
+        "last_updated": "2026-06-10"
+      },
+      {
+        "id": 7,
+        "url": "https://skipcalls.com/resources/no-show-follow-up/insurance-agent",
+        "title": "No-Show Follow-Up Templates for Insurance Agents",
+        "domain": "skipcalls.com",
+        "date": "2026-03-11",
+        "last_updated": "2026-08-17"
+      },
+      {
+        "id": 8,
+        "url": "https://www.sonant.ai/blog/reduce-missed-calls-insurance",
+        "title": "How to Reduce Missed Calls in Insurance (2026)",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-11",
+        "last_updated": "2026-08-23"
+      },
+      {
+        "id": 9,
+        "url": "https://ustechautomations.com/resources/blog/automate-missed-call-followup-for-insurance-agencies-2026",
+        "title": "Automate Missed Call Follow-Up for Insurance Agencies 2026",
+        "domain": "ustechautomations.com",
+        "date": "2026-06-13",
+        "last_updated": "2026-09-04"
+      },
+      {
+        "id": 10,
+        "url": "https://www.answerunited.com/industries/insurance-claim-overflow-call-center/",
+        "title": "Insurance Claim Overflow Call Center & 24/7 Answering ...",
+        "domain": "www.answerunited.com",
+        "date": "2025-11-17",
+        "last_updated": "2026-08-03"
+      },
+      {
+        "id": 11,
+        "url": "https://www.layer3labs.io/guides/ai-answering-service-for-insurance",
+        "title": "AI Answering Service for Insurance Agents & Agencies",
+        "domain": "www.layer3labs.io",
+        "date": "2026-05-14",
+        "last_updated": "2026-09-06"
+      },
+      {
+        "id": 12,
+        "url": "https://www.withallo.com/industries/insurance-agencies",
+        "title": "Insurance agency phone system for quotes and claims - Allo",
+        "domain": "www.withallo.com",
+        "date": null,
+        "last_updated": "2026-08-08"
+      },
+      {
+        "id": 13,
+        "url": "https://goodhelpai.ca/blog/insurance-broker-after-hours-calls/",
+        "title": "Insurance Broker After Hours Calls: Stop Missing 47% of...",
+        "domain": "goodhelpai.ca",
+        "date": "2026-05-01",
+        "last_updated": "2026-05-18"
+      },
+      {
+        "id": 14,
+        "url": "https://www.sonant.ai/blog/missed-call-text-back",
+        "title": "Best Missed Call Text Back Software in 2026 (Compared)",
+        "domain": "www.sonant.ai",
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07"
+      },
+      {
+        "id": 15,
+        "url": "https://www.startkadence.com/blog/after-hours-call-answering-insurance-leads",
+        "title": "How After-Hours Call Answering Recovers Lost Insurance Leads",
+        "domain": "www.startkadence.com",
+        "date": "2026-06-07",
+        "last_updated": "2026-08-19"
+      },
+      {
+        "id": 16,
+        "url": "https://skipcalls.com/guides/insurance-agent",
+        "title": "AI Answering Service for Insurance Agents | Stop Missing Calls",
+        "domain": "skipcalls.com",
+        "date": null,
+        "last_updated": "2026-08-25"
+      },
+      {
+        "id": 17,
+        "url": "https://www.sonant.ai/blog/after-hours-answering-service-small-business",
+        "title": "Best Insurance After Hours Answering Service for Small ...",
+        "domain": "www.sonant.ai",
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07"
+      },
+      {
+        "id": 18,
+        "url": "https://www.nextiva.com/industry/insurance",
+        "title": "AI-powered Insurance Communication Software",
+        "domain": "www.nextiva.com",
+        "date": "2026-07-31",
+        "last_updated": "2026-08-26"
+      },
+      {
+        "id": 19,
+        "url": "https://www.getnextphone.com/blog/insurance-answering-service",
+        "title": "Insurance Answering Service Cost: Full Pricing Breakdown",
+        "domain": "www.getnextphone.com",
+        "date": "2026-01-23",
+        "last_updated": "2026-04-04"
+      },
+      {
+        "id": 20,
+        "url": "https://ustechautomations.com/resources/blog/reduce-stop-missed-calls-losing-jobs-in-insurance-2026",
+        "title": "Why Are Missed Calls Killing Insurance Jobs in 2026?",
+        "domain": "ustechautomations.com",
+        "date": "2026-06-11",
+        "last_updated": "2026-09-04"
+      }
+    ],
+    "search_results": [
+      {
+        "date": "2026-03-10",
+        "last_updated": "2026-08-19",
+        "place_metadata": null,
+        "snippet": "- Prioritize leads and assign them to the correct personnel\n- Follow up within a clearly defined period to avoid leads going cold\n...\nIf you’re ready to turn your after-hours insurance leads from afterthoughts to revenue drivers, these simple steps will help you get started.\n- Define your after-hour...",
+        "source": "web",
+        "title": "How to Capture More After-Hours Insurance Leads",
+        "url": "https://bolttech.io/insights/how-to-capture-after-hours-insurance-leads/"
+      },
+      {
+        "date": "2026-05-01",
+        "last_updated": "2026-05-16",
+        "place_metadata": null,
+        "snippet": "To reduce missed calls for insurance agencies, implement an automated call handling system that captures every inbound call with voicemail, call routing, or AI receptionists—even after hours.\n...\nInsurance agencies reduce missed calls by implementing multi-channel answering systems that capture call...",
+        "source": "web",
+        "title": "How to Reduce Missed Calls for Insurance Agencies (2025)",
+        "url": "https://blog.salescaptain.com/how-to-reduce-missed-calls-for-insurance-agencies-2025/"
+      },
+      {
+        "date": "2026-08-03",
+        "last_updated": "2026-08-26",
+        "place_metadata": null,
+        "snippet": "That is why the best after-hours answering solution for an insurance agency is the one that does more than take a message: it captures claim details, texts the carrier claims link, flags urgent calls, and logs everything so your team walks into a documented morning.",
+        "source": "web",
+        "title": "Best after-hours answering solutions for insurance agencies",
+        "url": "https://www.sonant.ai/blog/best-after-hours-answering-insurance-agencies"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-10",
+        "place_metadata": null,
+        "snippet": "If you can’t staff after-hours, use an overflow option that can capture the basics (name, phone, ZIP, what they need, and urgency) and book a call-back time.\n...\nKey takeaway: Aim for 2–3 rings; answer live for quote shoppers and emergencies, and only use voicemail when you truly cannot talk—then ca...",
+        "source": "web",
+        "title": "Call Handling Best Practices for Insurance Agents (2026)",
+        "url": "https://skipcalls.com/resources/call-handling/insurance-agent"
+      },
+      {
+        "date": "2025-05-21",
+        "last_updated": "2026-06-27",
+        "place_metadata": null,
+        "snippet": "With after-hours calls, you’re in control of how you handle them.\nSend calls to voicemail, forward them to another agent, or set up call screening to flag them as emergencies.\nWe’ll set up your system to work exactly how you need it, even outside business hours.",
+        "source": "web",
+        "title": "Answering Service for Insurance Agents",
+        "url": "https://www.messagingservice.com/industry-solutions/insurance-answering-service/"
+      },
+      {
+        "date": "2026-01-05",
+        "last_updated": "2026-06-10",
+        "place_metadata": null,
+        "snippet": "Insurvoice.ai ensures every one of those calls is answered within seconds, with a voice agent trained on insurance-specific knowledge.",
+        "source": "web",
+        "title": "Insurvoice.ai Opens Early Adopter Program to Help ...",
+        "url": "https://natlawreview.com/press-releases/insurvoiceai-opens-early-adopter-program-help-insurance-agencies-stop-losing"
+      },
+      {
+        "date": "2026-03-11",
+        "last_updated": "2026-08-17",
+        "place_metadata": null,
+        "snippet": "- 1.Always send a text immediately after a missed call; insurance shoppers often prefer SMS over voicemail.\n...\n- 3.Reference the specific dollar amount they could save (e.g., 'the $400 savings we found') to remind them why the call matters.\n- 4.Record a personalized video message (30 seconds) and t...",
+        "source": "web",
+        "title": "No-Show Follow-Up Templates for Insurance Agents",
+        "url": "https://skipcalls.com/resources/no-show-follow-up/insurance-agent"
+      },
+      {
+        "date": "2026-08-11",
+        "last_updated": "2026-08-23",
+        "place_metadata": null,
+        "snippet": "**Week 2 -select vendor.** Apply 5-question demo framework.\n...\n**Week 3 -pilot on overflow.** Route the 15–20% of spilled calls to AI vendor.\nDo not touch primary flow.\n...\nExpand if metrics validate.\n**Day 30 -add after-hours and weekend coverage.** Route 24/7 to AI.\nVoicemail goes away as the pri...",
+        "source": "web",
+        "title": "How to Reduce Missed Calls in Insurance (2026)",
+        "url": "https://www.sonant.ai/blog/reduce-missed-calls-insurance"
+      },
+      {
+        "date": "2026-06-13",
+        "last_updated": "2026-09-04",
+        "place_metadata": null,
+        "snippet": "**TL;DR:** Missed-call follow-up automation connects your phone system's missed-call event to an immediate SMS, a CRM record update, and a producer task—all within 3 minutes of the missed call, without any manual action.\n...\n|After-hours call|Timestamp outside 8am–6pm|Delayed SMS at 8am next day|Cre...",
+        "source": "web",
+        "title": "Automate Missed Call Follow-Up for Insurance Agencies 2026",
+        "url": "https://ustechautomations.com/resources/blog/automate-missed-call-followup-for-insurance-agencies-2026"
+      },
+      {
+        "date": "2025-11-17",
+        "last_updated": "2026-08-03",
+        "place_metadata": null,
+        "snippet": "Our trained agents step in instantly to manage overflow, after-hours calls, and large-scale claim surges caused by storms, natural disasters, or unexpected events.",
+        "source": "web",
+        "title": "Insurance Claim Overflow Call Center & 24/7 Answering ...",
+        "url": "https://www.answerunited.com/industries/insurance-claim-overflow-call-center/"
+      },
+      {
+        "date": "2026-05-14",
+        "last_updated": "2026-09-06",
+        "place_metadata": null,
+        "snippet": "After-hours emergencies (auto accident, property damage) get texted to the on-call agent immediately.",
+        "source": "web",
+        "title": "AI Answering Service for Insurance Agents & Agencies",
+        "url": "https://www.layer3labs.io/guides/ai-answering-service-for-insurance"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-08",
+        "place_metadata": null,
+        "snippet": "Allo answers 24/7, takes the first notice of loss and logs it for the morning.",
+        "source": "web",
+        "title": "Insurance agency phone system for quotes and claims - Allo",
+        "url": "https://www.withallo.com/industries/insurance-agencies"
+      },
+      {
+        "date": "2026-05-01",
+        "last_updated": "2026-05-18",
+        "place_metadata": null,
+        "snippet": "First, look at your call data.\nIf you have any kind of call tracking or even just your phone’s call log, check when calls are coming in that you’re not answering.\n...\nSecond, pick your coverage model.\n...\nYou can rotate evening availability among your team, forward calls to a virtual receptionist se...",
+        "source": "web",
+        "title": "Insurance Broker After Hours Calls: Stop Missing 47% of...",
+        "url": "https://goodhelpai.ca/blog/insurance-broker-after-hours-calls/"
+      },
+      {
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07",
+        "place_metadata": null,
+        "snippet": "- **The best overall missed call text back software:** Sonant is the fit for independent property and casualty (P&C) insurance agencies, because it answers the call instead of texting an apology afterwards, pulls the caller's policy record live, and writes the request into the agency management syst...",
+        "source": "web",
+        "title": "Best Missed Call Text Back Software in 2026 (Compared)",
+        "url": "https://www.sonant.ai/blog/missed-call-text-back"
+      },
+      {
+        "date": "2026-06-07",
+        "last_updated": "2026-08-19",
+        "place_metadata": null,
+        "snippet": "After-hours call answering recovers lost insurance leads by replacing an unanswered ring or voicemail with an immediate live or AI response that captures name, policy interest, and intent before the caller dials a competitor.\n...\nA missed-call text-back closes part of that gap by sending an instant ...",
+        "source": "web",
+        "title": "How After-Hours Call Answering Recovers Lost Insurance Leads",
+        "url": "https://www.startkadence.com/blog/after-hours-call-answering-insurance-leads"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-25",
+        "place_metadata": null,
+        "snippet": "SkipCalls provides 24/7 coverage, answering calls nights and weekends so you capture every opportunity.",
+        "source": "web",
+        "title": "AI Answering Service for Insurance Agents | Stop Missing Calls",
+        "url": "https://skipcalls.com/guides/insurance-agent"
+      },
+      {
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07",
+        "place_metadata": null,
+        "snippet": "An after hours answering service for small business answers inbound calls outside working hours, on nights, weekends, and holidays, then either handles the request or passes it to your team with the details captured.",
+        "source": "web",
+        "title": "Best Insurance After Hours Answering Service for Small ...",
+        "url": "https://www.sonant.ai/blog/after-hours-answering-service-small-business"
+      },
+      {
+        "date": "2026-07-31",
+        "last_updated": "2026-08-26",
+        "place_metadata": null,
+        "snippet": "XBert answers and routes to the right licensed agent.\n...\nFor after-hours claims, XBert captures everything and flags it for priority review the next morning.",
+        "source": "web",
+        "title": "AI-powered Insurance Communication Software",
+        "url": "https://www.nextiva.com/industry/insurance"
+      },
+      {
+        "date": "2026-01-23",
+        "last_updated": "2026-04-04",
+        "place_metadata": null,
+        "snippet": "An answering service makes you available 24/7/365 without requiring you to be on-call personally.",
+        "source": "web",
+        "title": "Insurance Answering Service Cost: Full Pricing Breakdown",
+        "url": "https://www.getnextphone.com/blog/insurance-answering-service"
+      },
+      {
+        "date": "2026-06-11",
+        "last_updated": "2026-09-04",
+        "place_metadata": null,
+        "snippet": "1. **Audit your call drop points.** Pull 30 days of call data from your VoIP provider (not your AMS — the AMS only knows calls that were logged).\n...\n2. **Classify inquiry types.** New business inquiries and claims first-notices are high-urgency.\nBilling questions and certificate requests can tolera...",
+        "source": "web",
+        "title": "Why Are Missed Calls Killing Insurance Jobs in 2026?",
+        "url": "https://ustechautomations.com/resources/blog/reduce-stop-missed-calls-losing-jobs-in-insurance-2026"
+      }
+    ],
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 424,
+      "cost": {
+        "input_tokens_cost": 2e-05,
+        "output_tokens_cost": 0.00042,
+        "request_cost": 0.005,
+        "total_cost": 0.00544
+      },
+      "prompt_tokens": 18,
+      "search_context_size": "low",
+      "total_tokens": 442
+    },
+    "raw_response_file": "perplexity/prompt-2.raw.json",
+    "http_status": 200,
+    "documentation_url": "https://docs.perplexity.ai/api-reference/sonar-post"
+  },
+  {
+    "provider": "Perplexity",
+    "source_label": "Perplexity Sonar API",
+    "capture_method": "Direct API request",
+    "endpoint": "https://api.perplexity.ai/v1/sonar",
+    "prompt_index": 3,
+    "prompt": "How do insurance-specific AI receptionists compare with general answering services?",
+    "request": {
+      "model": "sonar",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer in approximately 250 words."
+        },
+        {
+          "role": "user",
+          "content": "How do insurance-specific AI receptionists compare with general answering services?"
+        }
+      ],
+      "max_tokens": 600
+    },
+    "requested_at": "2026-09-08T20:15:38.975846Z",
+    "collected_at": "2026-09-08T20:15:46.224917Z",
+    "model": "sonar",
+    "response_id": "aae8af1b-44c9-4a45-a7c3-9af58d40530c",
+    "provider_created_at": "2026-09-08T20:15:46Z",
+    "response_text": "Insurance-specific AI receptionists are generally **better at handling insurance workflows end-to-end**, while general answering services are better at **basic message-taking and human judgment** for unusual or sensitive calls.[1][2][12]\n\nThe main differences are:\n\n- **Insurance-specific AI receptionists** can connect to an agency management system (AMS), identify caller intent, capture structured details, and often complete routine tasks like quote intake, FNOL capture, renewal handling, appointment booking, and note creation back into the client record.[1][2][5][6]\n- **General answering services** usually answer the phone, follow a script, and take messages or route calls, but they typically cannot pull policy data, issue certificates, or resolve coverage questions without handing the work back to staff.[1][2][6][12]\n- **Capacity:** AI receptionists can answer many calls at once and provide 24/7 consistency, while human services are limited by staffing and can queue during peak times.[1][2][3]\n- **Insurance language:** Insurance-trained AI is designed to understand terms like deductibles, endorsements, declarations pages, and claims workflows; general services are more dependent on scripts and escalation.[2][8][9]\n- **Cost model:** Traditional answering services are often billed per minute or by live coverage, while AI receptionists are commonly sold as flat monthly software, which can be cheaper at higher call volume.[1][2][8][13]\n\nWhere general answering services still have an edge:\n- **Edge cases** that require empathy, discretion, or nuanced judgment.[19]\n- **Complex or compliance-sensitive calls** that need a human to interpret context beyond configured workflows.[12][19]\n\nIn practice, the choice is usually this: if you want **message-taking and overflow coverage**, use a general answering service; if you want **insurance-specific call handling with automation and AMS write-back**, an insurance-specific AI receptionist is the stronger fit.[1][6][14]",
+    "citations": [
+      {
+        "id": 1,
+        "url": "https://www.sonant.ai/blog/ai-receptionist-vs-answering-service-insurance",
+        "title": "AI Receptionist vs Answering Service",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-03",
+        "last_updated": "2026-08-28"
+      },
+      {
+        "id": 2,
+        "url": "https://insurvoice.ai/insurance-answering-service",
+        "title": "Insurance Answering Service: Human vs. AI Options for ... - Insurvoice",
+        "domain": "insurvoice.ai",
+        "date": null,
+        "last_updated": "2026-08-17"
+      },
+      {
+        "id": 3,
+        "url": "https://www.sonant.ai/blog/ai-answering-service-for-insurance-agents",
+        "title": "AI Answering Service for Insurance Agents",
+        "domain": "www.sonant.ai",
+        "date": "2026-07-31",
+        "last_updated": "2026-08-28"
+      },
+      {
+        "id": 4,
+        "url": "https://claudessa.com/insurance-answering-service",
+        "title": "Insurance Answering Service: 8 Options for Agents Compared (2026)",
+        "domain": "claudessa.com",
+        "date": "2026-04-09",
+        "last_updated": "2026-04-12"
+      },
+      {
+        "id": 5,
+        "url": "https://insuramateai.com/blog/ai-receptionist-vs-answering-service/",
+        "title": "AI receptionist vs. answering service: Smith.ai, Ruby, PatLive",
+        "domain": "insuramateai.com",
+        "date": "2026-05-19",
+        "last_updated": "2026-08-22"
+      },
+      {
+        "id": 6,
+        "url": "https://www.sonant.ai/blog/sonant-vs-answerconnect-insurance",
+        "title": "Sonant vs AnswerConnect for insurance agencies",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-03",
+        "last_updated": "2026-08-21"
+      },
+      {
+        "id": 7,
+        "url": "https://insuramateai.com/ai-receptionist-for-insurance/",
+        "title": "AI Receptionist for Insurance Agents - InsuraMate AI",
+        "domain": "insuramateai.com",
+        "date": null,
+        "last_updated": "2026-09-08"
+      },
+      {
+        "id": 8,
+        "url": "https://www.voicecharm.ai/blog/ai-receptionist-for-insurance-agencies",
+        "title": "Frequently Asked Questions",
+        "domain": "www.voicecharm.ai",
+        "date": "2026-04-04",
+        "last_updated": "2026-07-01"
+      },
+      {
+        "id": 9,
+        "url": "https://xassure.co/blog/best-ai-receptionist-for-insurance-agents-7-tools-compared/",
+        "title": "Best AI Receptionist for Insurance Agents: 7 Tools Compared (2026)",
+        "domain": "xassure.co",
+        "date": "2026-04-20",
+        "last_updated": "2026-08-21"
+      },
+      {
+        "id": 10,
+        "url": "https://agentzap.ai/blog/best-answering-service-for-ezlynx-insurance-agencies-ai-vs-live-vs-hybrid-2026",
+        "title": "Best Answering Service for EZLynx Insurance Agencies",
+        "domain": "agentzap.ai",
+        "date": "2026-04-05",
+        "last_updated": "2026-07-17"
+      },
+      {
+        "id": 11,
+        "url": "https://dapta.ai/blog-posts/ai-answering-service-insurance-agency/",
+        "title": "AI Answering Service for Insurance Agents: Live in 48 Hours",
+        "domain": "dapta.ai",
+        "date": "2026-06-17",
+        "last_updated": "2026-08-24"
+      },
+      {
+        "id": 12,
+        "url": "https://yourcall.ai/articles/en/ai-receptionist-vs-telephone-answering-service.html",
+        "title": "AI Receptionist vs Telephone Answering Service - Yourcall",
+        "domain": "yourcall.ai",
+        "date": "2026-07-11",
+        "last_updated": "2026-07-22"
+      },
+      {
+        "id": 13,
+        "url": "https://www.sonant.ai/blog/virtual-receptionist-insurance-agency",
+        "title": "Virtual Receptionist Insurance Agency | 24/7 Call Handling - Sonant AI",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-12",
+        "last_updated": "2026-09-05"
+      },
+      {
+        "id": 14,
+        "url": "https://agentzap.ai/industries/insurance",
+        "title": "AI Receptionist for Insurance Agencies | 24/7 Answering",
+        "domain": "agentzap.ai",
+        "date": null,
+        "last_updated": "2026-08-28"
+      },
+      {
+        "id": 15,
+        "url": "https://www.whippy.ai/blog/insurance-answering-service-with-ai",
+        "title": "24/7 Insurance Answering Service with AI",
+        "domain": "www.whippy.ai",
+        "date": "2026-01-07",
+        "last_updated": "2026-08-19"
+      },
+      {
+        "id": 16,
+        "url": "https://www.sonant.ai/blog/virtual-assistant-for-insurance-agency-vs-ai-receptionist",
+        "title": "Virtual Assistant for Insurance Agency vs AI Receptionist - Sonant AI",
+        "domain": "www.sonant.ai",
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07"
+      },
+      {
+        "id": 17,
+        "url": "https://dialnote.com/en/blog/ai-receptionist-insurance-growth/",
+        "title": "How Can AI Receptionist Help Grow Your Insurance ...",
+        "domain": "dialnote.com",
+        "date": "2026-07-07",
+        "last_updated": "2026-09-06"
+      },
+      {
+        "id": 18,
+        "url": "https://ringeden.com/blog/best-ai-receptionist-for-insurance-agents",
+        "title": "Best AI Receptionist for Insurance Agents (2025)",
+        "domain": "ringeden.com",
+        "date": "2025-11-07",
+        "last_updated": "2026-05-14"
+      },
+      {
+        "id": 19,
+        "url": "https://salesai.com/blog/ai-receptionist-vs-answering-service",
+        "title": "AI Receptionist vs. Answering Service: An Honest ...",
+        "domain": "salesai.com",
+        "date": "2026-08-12",
+        "last_updated": "2026-09-03"
+      },
+      {
+        "id": 20,
+        "url": "https://www.sonant.ai/blog/insurance-answering-service-vs-virtual-assistant",
+        "title": "Insurance Answering Service vs Virtual Assistant: 2026 Guide",
+        "domain": "www.sonant.ai",
+        "date": "2026-08-03",
+        "last_updated": "2026-09-05"
+      }
+    ],
+    "search_results": [
+      {
+        "date": "2026-08-03",
+        "last_updated": "2026-08-28",
+        "place_metadata": null,
+        "snippet": "An AI receptionist connects to your AMS, resolves routine requests on the call, and writes a note to the client record afterward.\n...\n## Key Takeaways\n- A traditional answering service takes messages; an AI receptionist resolves routine insurance requests and documents them in your AMS.\n- Answering ...",
+        "source": "web",
+        "title": "AI Receptionist vs Answering Service",
+        "url": "https://www.sonant.ai/blog/ai-receptionist-vs-answering-service-insurance"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-17",
+        "place_metadata": null,
+        "snippet": "An insurance answering service picks up your agency's calls when your staff can't — after hours, weekends, and overflow.\nThe modern version must do more than take messages: real quote intake, FNOL capture, renewal handling, and notes written into your AMS.\nThat last requirement is where most general...",
+        "source": "web",
+        "title": "Insurance Answering Service: Human vs. AI Options for ... - Insurvoice",
+        "url": "https://insurvoice.ai/insurance-answering-service"
+      },
+      {
+        "date": "2026-07-31",
+        "last_updated": "2026-08-28",
+        "place_metadata": null,
+        "snippet": "- An AI answering service for insurance agents answers calls, identifies caller intent, captures structured details, and routes or books - 24/7, without staff.\n- The core difference from a human service is capacity and consistency: AI answers every call at once, follows the same script, and writes n...",
+        "source": "web",
+        "title": "AI Answering Service for Insurance Agents",
+        "url": "https://www.sonant.ai/blog/ai-answering-service-for-insurance-agents"
+      },
+      {
+        "date": "2026-04-09",
+        "last_updated": "2026-04-12",
+        "place_metadata": null,
+        "snippet": "|#|Service|Entry Price|At 50 Calls/Mo|Type|Insurance Focus|\n...\nAI answering services for insurance agents start at $9.99/mo (Claudessa) up to $79/mo (Goodcall).",
+        "source": "web",
+        "title": "Insurance Answering Service: 8 Options for Agents Compared (2026)",
+        "url": "https://claudessa.com/insurance-answering-service"
+      },
+      {
+        "date": "2026-05-19",
+        "last_updated": "2026-08-22",
+        "place_metadata": null,
+        "snippet": "- **Speak natively.** Voice quality is now indistinguishable from a real receptionist for most callers.\n- **Pull from your AMS in real time.** Customer identification, policy lookup, claim history, all happening live during the call.\n- **Handle workflows end-to-end.** Quotes, claim calls answered an...",
+        "source": "web",
+        "title": "AI receptionist vs. answering service: Smith.ai, Ruby, PatLive",
+        "url": "https://insuramateai.com/blog/ai-receptionist-vs-answering-service/"
+      },
+      {
+        "date": "2026-08-03",
+        "last_updated": "2026-08-21",
+        "place_metadata": null,
+        "snippet": "AnswerConnect is a human-staffed live answering and virtual receptionist service used across many industries; it greets callers, takes messages, and routes calls.\nSonant is an AI receptionist built specifically for P&C insurance agencies that connects to your agency management system, resolves routi...",
+        "source": "web",
+        "title": "Sonant vs AnswerConnect for insurance agencies",
+        "url": "https://www.sonant.ai/blog/sonant-vs-answerconnect-insurance"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-08",
+        "place_metadata": null,
+        "snippet": "A horizontal AI answering service can read a script and take a message.\nAn insurance\nagency needs something that knows the customer, the policy, and the workflow, and finishes\nthe certificate, the call note and the inbox inside the AMS.\n...\nAn AI receptionist is software that answers your agency’s p...",
+        "source": "web",
+        "title": "AI Receptionist for Insurance Agents - InsuraMate AI",
+        "url": "https://insuramateai.com/ai-receptionist-for-insurance/"
+      },
+      {
+        "date": "2026-04-04",
+        "last_updated": "2026-07-01",
+        "place_metadata": null,
+        "snippet": "The key difference from a generic answering service: an AI receptionist trained for insurance understands terms like \"declarations page,\" \"deductible,\" \"endorsement,\" and \"binder.\"\nIt doesn't stumble through insurance conversations — it handles them naturally.\n...\nFor a typical independent agency ha...",
+        "source": "web",
+        "title": "Frequently Asked Questions",
+        "url": "https://www.voicecharm.ai/blog/ai-receptionist-for-insurance-agencies"
+      },
+      {
+        "date": "2026-04-20",
+        "last_updated": "2026-08-21",
+        "place_metadata": null,
+        "snippet": "This is the difference between a generic answering service and an insurance-specific one.\nA general AI tool might ask “What can I help you with?” and leave it at that.\nAn insurance-trained AI knows to ask whether the caller is looking for personal or commercial lines, what their current deductible i...",
+        "source": "web",
+        "title": "Best AI Receptionist for Insurance Agents: 7 Tools Compared (2026)",
+        "url": "https://xassure.co/blog/best-ai-receptionist-for-insurance-agents-7-tools-compared/"
+      },
+      {
+        "date": "2026-04-05",
+        "last_updated": "2026-07-17",
+        "place_metadata": null,
+        "snippet": "AgentZap is an AI-powered receptionist that answers calls 24/7 with natural conversation, insurance-specific intelligence, and direct EZLynx integration.\n...\n|Feature|Live Answering|AgentZap (AI)|Hybrid|\n|--|--|--|--|\n|Monthly cost|$300-$1,500|$109 flat|$400-$2,000+|\n...\n|EZLynx integration|None (ma...",
+        "source": "web",
+        "title": "Best Answering Service for EZLynx Insurance Agencies",
+        "url": "https://agentzap.ai/blog/best-answering-service-for-ezlynx-insurance-agencies-ai-vs-live-vs-hybrid-2026"
+      },
+      {
+        "date": "2026-06-17",
+        "last_updated": "2026-08-24",
+        "place_metadata": null,
+        "snippet": "An AI answering service for insurance agents is a natural-sounding voice agent that answers your agency’s calls automatically, talks with the caller, and captures everything your producers need, without anyone on your team picking up.",
+        "source": "web",
+        "title": "AI Answering Service for Insurance Agents: Live in 48 Hours",
+        "url": "https://dapta.ai/blog-posts/ai-answering-service-insurance-agency/"
+      },
+      {
+        "date": "2026-07-11",
+        "last_updated": "2026-07-22",
+        "place_metadata": null,
+        "snippet": "An AI receptionist uses configured knowledge, rules and integrations to handle defined call types and authorised actions.\nA telephone answering service uses people to answer under an agreed script or service model, which can provide broader judgement but remains dependent on staffing, training and a...",
+        "source": "web",
+        "title": "AI Receptionist vs Telephone Answering Service - Yourcall",
+        "url": "https://yourcall.ai/articles/en/ai-receptionist-vs-telephone-answering-service.html"
+      },
+      {
+        "date": "2026-08-12",
+        "last_updated": "2026-09-05",
+        "place_metadata": null,
+        "snippet": "Traditional live answering services employ staff who take your messages.\nThey're human, they're slow, and they're expensive.\nA live answering service charges $1,500-$3,000 monthly and still requires your team to follow up on every message.\nCalls aren't answered faster; they're simply transferred to ...",
+        "source": "web",
+        "title": "Virtual Receptionist Insurance Agency | 24/7 Call Handling - Sonant AI",
+        "url": "https://www.sonant.ai/blog/virtual-receptionist-insurance-agency"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-28",
+        "place_metadata": null,
+        "snippet": "An AI receptionist for insurance agencies is a virtual assistant that handles all inbound calls 24/7.\nIt captures quote requests with complete prospect information, schedules appointments with agents, takes initial claims reports, handles policy inquiries, and routes urgent matters to the appropriat...",
+        "source": "web",
+        "title": "AI Receptionist for Insurance Agencies | 24/7 Answering",
+        "url": "https://agentzap.ai/industries/insurance"
+      },
+      {
+        "date": "2026-01-07",
+        "last_updated": "2026-08-19",
+        "place_metadata": null,
+        "snippet": "An insurance answering service is a call-handling solution that answers inbound calls for an insurance agency or insurance company, collects caller information, routes urgent issues, schedules appointments, and ensures 24/7 coverage for your insurance business.",
+        "source": "web",
+        "title": "24/7 Insurance Answering Service with AI",
+        "url": "https://www.whippy.ai/blog/insurance-answering-service-with-ai"
+      },
+      {
+        "date": "2026-09-07",
+        "last_updated": "2026-09-07",
+        "place_metadata": null,
+        "snippet": "- **Primary difference:** A virtual assistant works your queues during a shift, so you buy hours.\nAn AI receptionist answers your phone continuously, so you buy coverage.\n- **Best overall choice:** For the phone line, an insurance-native AI receptionist, because it covers all 168 hours of the week, ...",
+        "source": "web",
+        "title": "Virtual Assistant for Insurance Agency vs AI Receptionist - Sonant AI",
+        "url": "https://www.sonant.ai/blog/virtual-assistant-for-insurance-agency-vs-ai-receptionist"
+      },
+      {
+        "date": "2026-07-07",
+        "last_updated": "2026-09-06",
+        "place_metadata": null,
+        "snippet": "- **Capture lead details** including contact info, insurance type needed, and current carrier",
+        "source": "web",
+        "title": "How Can AI Receptionist Help Grow Your Insurance ...",
+        "url": "https://dialnote.com/en/blog/ai-receptionist-insurance-growth/"
+      },
+      {
+        "date": "2025-11-07",
+        "last_updated": "2026-05-14",
+        "place_metadata": null,
+        "snippet": "Compared to hiring full-time staff or contracting a human answering service, AI receptionists are extremely cost-effective.",
+        "source": "web",
+        "title": "Best AI Receptionist for Insurance Agents (2025)",
+        "url": "https://ringeden.com/blog/best-ai-receptionist-for-insurance-agents"
+      },
+      {
+        "date": "2026-08-12",
+        "last_updated": "2026-09-03",
+        "place_metadata": null,
+        "snippet": "- **An answering service is a human team, and people still win the calls that need judgment:** emotionally charged, high-stakes, or compliance-sensitive conversations.",
+        "source": "web",
+        "title": "AI Receptionist vs. Answering Service: An Honest ...",
+        "url": "https://salesai.com/blog/ai-receptionist-vs-answering-service"
+      },
+      {
+        "date": "2026-08-03",
+        "last_updated": "2026-09-05",
+        "place_metadata": null,
+        "snippet": "AI receptionists provide true 24/7 coverage with identical performance at 3 AM and 3 PM.\n...\nAI receptionists built specifically for insurance integrate directly with agency management systems.\nThey access real-time policy information, understand insurance-specific workflows, and converse naturally ...",
+        "source": "web",
+        "title": "Insurance Answering Service vs Virtual Assistant: 2026 Guide",
+        "url": "https://www.sonant.ai/blog/insurance-answering-service-vs-virtual-assistant"
+      }
+    ],
+    "finish_reason": "stop",
+    "usage": {
+      "completion_tokens": 427,
+      "cost": {
+        "input_tokens_cost": 2e-05,
+        "output_tokens_cost": 0.00043,
+        "request_cost": 0.005,
+        "total_cost": 0.00545
+      },
+      "prompt_tokens": 20,
+      "search_context_size": "low",
+      "total_tokens": 447
+    },
+    "raw_response_file": "perplexity/prompt-3.raw.json",
+    "http_status": 200,
+    "documentation_url": "https://docs.perplexity.ai/api-reference/sonar-post"
+  }
+]

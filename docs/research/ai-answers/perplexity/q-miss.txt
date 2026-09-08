@@ -1,0 +1,14 @@
+Small insurance agencies typically handle after-hours missed calls with a mix of **automation, voicemail, text-back, and next-day callback workflows** rather than relying on live staff coverage.[1][2][4] The common goal is to capture the caller’s details immediately, classify the request, and make sure someone follows up as soon as business opens.[1][9]
+
+Most agencies use one of these approaches after hours:
+
+- **Voicemail or call screening** that captures name, number, ZIP, line of business, and urgency.[4][5]
+- **Missed-call text-back** sent within about a minute or very soon after the call, often acknowledging the call and promising a callback window.[2][9][15][20]
+- **After-hours answering services or AI receptionists** that answer live, collect intake details, and route urgent matters to an on-call agent.[2][3][11][17]
+- **Overflow routing** to another agent, virtual receptionist, or licensed answering service when the agency cannot staff the phones directly.[5][10][13]
+
+For insurance specifically, agencies often treat calls differently based on urgency. **Claims, accidents, property damage, and first-notice-of-loss calls** are flagged for immediate attention, sometimes by texting an on-call agent right away.[3][11][18] **Routine billing or policy questions** are usually queued for morning follow-up.[20]
+
+A typical workflow is: the call is missed, an SMS or voicemail response is sent, the event is logged in the CRM or AMS, a task is created for the right producer or CSR, and the team reviews overnight captures first thing in the morning.[1][2][9] Agencies also track metrics like after-hours capture volume, contact-to-quote rate, and quote-to-bind rate to measure whether the process is working.[1]
+
+If you want, I can also outline a practical after-hours workflow for a 3–10 person independent agency.

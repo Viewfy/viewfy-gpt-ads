@@ -1,0 +1,106 @@
+{
+  "domain": "getsuperagent.com",
+  "observed_at": "2026-09-08",
+  "channels": [
+    {
+      "id": "blog",
+      "label": "Blog / News",
+      "icon": "pen",
+      "kind": "owned",
+      "url": "https://news.getsuperagent.com/",
+      "description": "SUPERAGENT's official publication covering insurance-agency workflows, AI product updates, and practical guides for agency owners and producers.",
+      "items": [
+        {
+          "id": "best-ai-tools-insurance-agencies-2026",
+          "kind": "article",
+          "title": "10 AI Tools for Insurance Agencies to Lookout in 2026",
+          "summary": "Compares ten tools for agency work, including general assistants, agency systems, client intake, and relationship marketing. Describes where each fits and what to check before purchase, while identifying SUPERAGENT as the publisher's own platform.",
+          "url": "https://news.getsuperagent.com/best-ai-tools-insurance-agencies-2026",
+          "published_at": "2026-09-04",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "cross-sell-personal-lines-insurance",
+          "kind": "article",
+          "title": "Cross-Sell Insurance Like Your Top 1% of Agents: A Playbook for Personal Lines Books",
+          "summary": "A personal-lines cross-selling guide covering policy-gap segmentation, life-event signals, scheduled coverage reviews, producer practice, and a 90-day rollout. Describes tracking missed opportunities and coordinating outreach with renewal conversations.",
+          "url": "https://news.getsuperagent.com/cross-sell-personal-lines-insurance",
+          "published_at": "2026-08-28",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "superagent-3-0-is-here",
+          "kind": "article",
+          "title": "SUPERAGENT 3.0 Is Here: What It Really Means to Talk to Your Agency",
+          "summary": "Explains SUPERAGENT 3.0's conversational interface with examples for owners, managers, and producers. Describes approval cards, campaign controls, and prompts for reviewing calls, following up with leads, supporting retention, and training.",
+          "url": "https://news.getsuperagent.com/superagent-3.0-is-here",
+          "published_at": "2026-08-13",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "why-ai-hasnt-run-an-insurance-agency-yet",
+          "kind": "article",
+          "title": "Why AI Hasn’t Actually Run an Insurance Agency Yet, and What Just Changed",
+          "summary": "Argues that useful agency AI needs access to agency data, integration with operational systems, human approval, and defined pilot goals. Explains why isolated chat tools may leave the underlying workflow unchanged.",
+          "url": "https://news.getsuperagent.com/why-ai-hasnt-run-an-insurance-agency-yet",
+          "published_at": "2026-08-10",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "the-insurance-software-tax",
+          "kind": "article",
+          "title": "Why More Software Makes Your Insurance Agency Busier: The Tool Tax",
+          "summary": "Offers an audit of the work involved in operating an agency's software: duplicate entry, switching systems, maintenance, and training. Includes a 30-day process for measuring overhead and testing one workflow change.",
+          "url": "https://news.getsuperagent.com/the-insurance-software-tax",
+          "published_at": "2026-08-06",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "work-every-insurance-lead-without-hiring",
+          "kind": "article",
+          "title": "How to Work Every Insurance Lead Without Hiring More Producers",
+          "summary": "Examines gaps in initial contact and follow-up, then describes coordinated outreach across calls, texts, and email. Extends the workflow to lost leads and existing customers, with human review before activating campaigns.",
+          "url": "https://news.getsuperagent.com/work-every-insurance-lead-without-hiring",
+          "published_at": "2026-08-04",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "ai-playbook-for-insurance-agencies",
+          "kind": "article",
+          "title": "The 2026 AI Playbook for Insurance Agencies",
+          "summary": "Organizes agency AI around inbound calls, lead follow-up, producer training, call review, and retention. Suggests starting with one workflow, choosing a measurement, and keeping people involved in customer-facing decisions.",
+          "url": "https://news.getsuperagent.com/ai-playbook-for-insurance-agencies",
+          "published_at": "2026-07-31",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "what-is-vertical-ai-insurance",
+          "kind": "article",
+          "title": "What is Vertical AI? And Why Insurance Is the Perfect First Vertical",
+          "summary": "Explains the distinction between general AI assistants and systems built around an industry's terminology, data, and workflows. Uses insurance examples to discuss agency context, system connections, and human oversight.",
+          "url": "https://news.getsuperagent.com/what-is-vertical-ai-insurance",
+          "published_at": "2026-07-28",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "ai-vendor-evaluation-for-insurance-agencies",
+          "kind": "article",
+          "title": "Buyer's Guide: How Insurance Agencies Should Evaluate AI Vendors in 2026",
+          "summary": "Provides an eight-part vendor evaluation covering insurance knowledge, integrations, customer experience, privacy, producer handoffs, pricing, implementation, and track record. Includes questions for vendors and a framework for testing a product in an agency's own workflow.",
+          "url": "https://news.getsuperagent.com/ai-vendor-evaluation-for-insurance-agencies",
+          "published_at": "2026-07-16",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "id": "cut-insurance-producer-ramp-time",
+          "kind": "article",
+          "title": "How to Cut Insurance Producer Ramp Time From Months to Weeks",
+          "summary": "Outlines a producer onboarding approach combining product and system learning, simulated sales conversations, supervised calls, and structured feedback. Describes practice volume as a training constraint and recommends comparing later hiring cohorts with an agency's own baseline.",
+          "url": "https://news.getsuperagent.com/cut-insurance-producer-ramp-time",
+          "published_at": "2026-06-30",
+          "observed_at": "2026-09-08"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+Small insurance agencies usually handle after-hours missed calls with some combination of voicemail, call forwarding, and next-business-day follow-up.
+
+The most common setups are:
+
+Voicemail + callback queue: The caller leaves a message, and staff return it the next morning. This is cheapest, but leads can go cold quickly.
+
+Forwarding to the owner or producer: Calls ring a personal cell after hours. This can work for very small agencies, but it gets intrusive fast.
+
+Answering service: A live receptionist takes the caller’s name, number, reason for calling, and urgency, then sends the agency a message or escalates emergencies.
+
+Automated text-back: If a call is missed, the system immediately texts something like, “Sorry we missed you—are you calling about a quote, policy change, claim, or something else?” This is increasingly useful for capturing leads without staffing phones all night.
+
+AI/virtual receptionist: Some agencies use a phone agent that can answer basic questions, collect quote information, schedule callbacks, and route urgent matters.
+
+Carrier claims routing: For an actual accident, loss, or roadside issue, the after-hours message often directs the customer to the insurance carrier’s 24/7 claims line rather than trying to handle the claim at the agency.
+
+A good small-agency workflow is usually: answer immediately if possible → capture the caller’s intent → distinguish new lead vs. existing customer vs. claim → send urgent claims to the carrier → create a callback task for everything else.
+
+The biggest business issue is usually new quote calls. Someone shopping for auto, home, or commercial insurance may call several agencies in a row, so a missed call that sits in voicemail until the next morning can easily become a lost sale.
+
+If you're looking at this from a business/automation angle, I can also break down exactly what a 5–20 person insurance agency typically needs in an after-hours call system, including what they would realistically pay for it.

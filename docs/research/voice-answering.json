@@ -1,0 +1,1196 @@
+{
+  "observed_at": "2026-09-08",
+  "methodology": {
+    "collection": "Google Ads Transparency Center inspected via live browser; primary websites read via web retrieval; publisher creative images inspected in browser.",
+    "scope": "Five requested competitors. Three Google creatives per brand plus two historical Bland newsletter sponsorships.",
+    "sampling": "Convenience sample from first visible domain results, not exhaustive or representative of budget allocation.",
+    "active_status": "Google last-shown dates are captured independently. is_active, started_at and ended_at remain null because last shown is neither campaign activation nor termination.",
+    "copy": "Headlines are short exact excerpts. body fields are explicitly paraphrased observations to avoid presenting invented ad text as exact transcription.",
+    "performance": "No spend or performance inferred from ad count, creative longevity or wording. Historical publisher campaign claims remain source-scoped.",
+    "destinations": "Google preview display URLs are recorded with link_url_kind=display_url; full redirect and final destination were not clicked.",
+    "ad_checks": "Only completed searches are recorded. Other platform checking is handled separately by the main task.",
+    "creative_images": "Google image URLs were matched to visible DOM image elements on the individually inspected creative page. Newsletter images come from the publisher's linked examples."
+  },
+  "subjects": [
+    {
+      "domain": "retellai.com",
+      "name": "Retell AI",
+      "profile": {
+        "category": "AI voice infrastructure and agent platform",
+        "positioning": "Usage-based platform for deploying customer-service and receptionist agents without mandatory annual commitment.",
+        "audience": [
+          "Developers building phone workflows",
+          "Support operations",
+          "Enterprise voice teams"
+        ],
+        "offer": "Self-serve voice agents, chat agents and enterprise deployments.",
+        "pricing": {
+          "currency": "USD",
+          "voice_minute_range": [
+            0.07,
+            0.31
+          ],
+          "chat_message_from": 0.002,
+          "free_credit": 10,
+          "concurrency_included": 20,
+          "enterprise": "Custom quote",
+          "conditions": "Voice cost depends on LLM, voice, telephony and optional features; price calculator separates components."
+        },
+        "features": [
+          "Templates",
+          "Analytics and transcripts",
+          "Simulation tests",
+          "API and webhooks",
+          "SIP integration messaging"
+        ],
+        "source_ids": [
+          "retell-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "retell-pricing",
+          "url": "https://www.retellai.com/pricing",
+          "title": "Retell AI official pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "No required commitment for self-serve. Voice agents cost $0.07–$0.31/min, chat starts at $0.002/message, with $10 credits and 20 concurrent calls included. Enterprise uses custom pricing. Options affect total cost.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR06706202557775085569",
+          "url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR06706202557775085569?region=anywhere",
+          "title": "Retell AI — Google creative CR06706202557775085569",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR07959611728579264513",
+          "url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR07959611728579264513?region=anywhere",
+          "title": "Retell AI — Google creative CR07959611728579264513",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR17802810080970670081",
+          "url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR17802810080970670081?region=anywhere",
+          "title": "Retell AI — Google creative CR17802810080970670081",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-07. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR06706202557775085569",
+          "platform": "Google",
+          "advertiser": "Retell AI",
+          "advertiser_id": "AR11699682744723308545",
+          "headline": "Humanlike AI Receptionist - AI Answers Every Call 24/7",
+          "body": "Uses scale claims of 3,000 businesses and over 30 million monthly calls to support receptionist automation, with a demo invitation and a lower-phone-cost promise. The rendered description is truncated.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Book a demo",
+          "source_url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR06706202557775085569?region=anywhere",
+          "link_url": "https://www.retellai.com/ai-receptionist",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR06706202557775085569",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "Advertiser verified in Google domain results.",
+            "The creative displays a 5.0 rating with 248 reviews and a sitelink claiming AI resolves 75% of calls; these are advertiser assertions, not measured ad performance."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR07959611728579264513",
+          "platform": "Google",
+          "advertiser": "Retell AI",
+          "advertiser_id": "AR11699682744723308545",
+          "headline": "Retell AI Voice Agent Platform - Enterprise Grade Voice AI",
+          "body": "Promotes handling calls and appointment booking while increasing capacity without hiring. Cites 600ms latency in the visible, truncated description.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR07959611728579264513?region=anywhere",
+          "link_url": "https://www.retellai.com/voice-ai/platform",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR07959611728579264513",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR17802810080970670081",
+          "platform": "Google",
+          "advertiser": "Retell AI",
+          "advertiser_id": "AR11699682744723308545",
+          "headline": "Support Customers 24/7 - AI For Customer Service",
+          "body": "Promises continuous support coverage, routine issue handling and prompt escalation. Reduces integration concerns by describing SIP connection to an existing phone line and keeping the current helpdesk.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Plans & Pricing",
+          "source_url": "https://adstransparency.google.com/advertiser/AR11699682744723308545/creative/CR17802810080970670081?region=anywhere",
+          "link_url": "https://www.retellai.com/ai-support",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-07",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR17802810080970670081",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "First of two Google variations inspected.",
+            "Rendered body truncates after the helpdesk reference."
+          ],
+          "visual_description": null,
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "Google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=retellai.com",
+          "status": "verified_ads_found",
+          "note": "Visible domain summary reported 40 ads at any time/anywhere. Sample contains three individually inspected text creatives; counts are not active-ad totals.",
+          "observed_at": "2026-09-08"
+        }
+      ],
+      "insights": [
+        {
+          "title": "Retell separates receptionist and enterprise buying paths",
+          "finding": "Receptionist copy leads with continuous coverage and social proof; enterprise copy leads with capacity and latency; customer-service copy answers integration concerns.",
+          "implication": "A generic AI receptionist pitch enters an established category. Test a specific workflow or measurable deployment outcome against generic availability.",
+          "source_ids": [
+            "google-CR06706202557775085569",
+            "google-CR07959611728579264513",
+            "google-CR17802810080970670081"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        },
+        {
+          "title": "No mandatory annual contract is a tangible pricing contrast",
+          "finding": "Retell's self-serve model differs from Synthflow's $30,000 annual enterprise starting point.",
+          "implication": "Segment prospects by willingness to implement and contract size instead of treating all voice platforms as equivalent SMB receptionist products.",
+          "source_ids": [
+            "retell-pricing",
+            "synthflow-pricing"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "domain": "synthflow.ai",
+      "name": "Synthflow",
+      "profile": {
+        "category": "Enterprise AI voice platform",
+        "positioning": "Enterprise voice automation with scoped implementation, telephony, integrations and security review.",
+        "audience": [
+          "Enterprise contact centers",
+          "Customer operations",
+          "Telephony and integration buyers"
+        ],
+        "offer": "Contracts start at $30,000 annually; detailed scope determines final price.",
+        "pricing": {
+          "currency": "USD",
+          "annual_contract_from": 30000,
+          "conditions": "Final contract depends on volume, concurrency, telephony, integrations, security and launch support."
+        },
+        "features": [
+          "Native telephony or SIP",
+          "Escalation and fallback",
+          "CRM and calendar integrations",
+          "Implementation and optimization"
+        ],
+        "source_ids": [
+          "synthflow-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "synthflow-pricing",
+          "url": "https://synthflow.ai/pricing",
+          "title": "Synthflow enterprise pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "Annual enterprise engagements start at $30,000. Volume, concurrency, infrastructure, integrations and support shape final pricing; rollout includes implementation and enterprise security review.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR10653096220819456001",
+          "url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR10653096220819456001?region=anywhere",
+          "title": "AgentFlow AI GmbH — Google creative CR10653096220819456001",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-01. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR10933541917207560193",
+          "url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR10933541917207560193?region=anywhere",
+          "title": "AgentFlow AI GmbH — Google creative CR10933541917207560193",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-01. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR04173791433762799617",
+          "url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR04173791433762799617?region=anywhere",
+          "title": "AgentFlow AI GmbH — Google creative CR04173791433762799617",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-01. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR10653096220819456001",
+          "platform": "Google",
+          "advertiser": "AgentFlow AI GmbH",
+          "advertiser_id": "AR02529980481760395265",
+          "headline": "Synthflow",
+          "body": "German-language creative offering improved business communication through enterprise-level AI voice agents.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR10653096220819456001?region=anywhere",
+          "link_url": "https://www.synthflow.ai/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-01",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR10653096220819456001",
+          "observed_at": "2026-09-08",
+          "language": "de",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "Creative visibly uses Synthflow name and synthflow.ai domain; Google advertiser legal name is AgentFlow AI GmbH."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR10933541917207560193",
+          "platform": "Google",
+          "advertiser": "AgentFlow AI GmbH",
+          "advertiser_id": "AR02529980481760395265",
+          "headline": "Honest Retell AI Review 2025: Pros, Cons, Features & Pricing",
+          "body": "Offers a review of competing Retell AI, comparing streaming voice APIs and engineering-oriented deployment tradeoffs for enterprise buyers.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR10933541917207560193?region=anywhere",
+          "link_url": "https://www.synthflow.ai/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-01",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR10933541917207560193",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "Paid competitor-comparison creative; do not attribute it to Retell merely because Retell appears in the headline.",
+            "2025 is in the ad headline even though Google last showed the creative in September 2026."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR04173791433762799617",
+          "platform": "Google",
+          "advertiser": "AgentFlow AI GmbH",
+          "advertiser_id": "AR02529980481760395265",
+          "headline": "AI-Driven Call Routing - Intelligent Call Routing - Automate 1M+ Calls Easily",
+          "body": "Positions in-house voice infrastructure as a way to avoid telecom limitations while handling high-volume intelligent routing.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR02529980481760395265/creative/CR04173791433762799617?region=anywhere",
+          "link_url": "https://www.synthflow.ai/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-01",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR04173791433762799617",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [],
+          "visual_description": null,
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "Google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=synthflow.ai",
+          "status": "verified_ads_found",
+          "note": "Found AgentFlow AI GmbH creatives visibly branded Synthflow. Three inspected, including German and Retell comparison messaging. Total count not captured.",
+          "observed_at": "2026-09-08"
+        }
+      ],
+      "insights": [
+        {
+          "title": "Synthflow buys competitor-evaluation intent",
+          "finding": "A Google ad names Retell and offers a review of its features, pricing and technical tradeoffs.",
+          "implication": "Comparison pages are a paid acquisition route. Create evidence-based comparisons with billing assumptions and deployment effort clearly stated.",
+          "source_ids": [
+            "google-CR10933541917207560193"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        },
+        {
+          "title": "Scale and infrastructure frame the sale",
+          "finding": "One creative promotes million-call routing capacity and in-house infrastructure; another is localized in German. Official packaging now starts with an annual enterprise contract.",
+          "implication": "Focus comparisons on enterprise rollout requirements rather than repeating outdated low-priced no-code positioning.",
+          "source_ids": [
+            "google-CR04173791433762799617",
+            "google-CR10653096220819456001",
+            "synthflow-pricing"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "domain": "bland.ai",
+      "name": "Bland",
+      "profile": {
+        "category": "Enterprise voice AI and developer platform",
+        "positioning": "Self-hosted voice infrastructure for scalable enterprise calling, with deployment support and developer access.",
+        "audience": [
+          "Enterprise sales and support",
+          "Regulated-industry operations",
+          "Voice developers"
+        ],
+        "offer": "AI calling with self-serve usage plans and enterprise implementation.",
+        "pricing": {
+          "currency": "USD",
+          "plans": [
+            {
+              "name": "Start",
+              "monthly_base": 0,
+              "per_minute": 0.14,
+              "transfer_per_minute": 0.05
+            },
+            {
+              "name": "Build",
+              "monthly_base": 299,
+              "per_minute": 0.12,
+              "transfer_per_minute": 0.04
+            },
+            {
+              "name": "Scale",
+              "monthly_base": 499,
+              "per_minute": 0.11,
+              "transfer_per_minute": 0.03
+            }
+          ],
+          "conditions": "LLM and speech included; telephony billed separately. BYOT avoids transfer fees. Two trial credits and an inbound number are advertised."
+        },
+        "features": [
+          "Call pathways",
+          "Lead qualification",
+          "Meeting booking",
+          "Enterprise implementation"
+        ],
+        "source_ids": [
+          "bland-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "bland-pricing",
+          "url": "https://www.bland.ai/pricing",
+          "title": "Bland pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "Start is $0 base plus $0.14/min; Build $299/month plus $0.12/min; Scale $499/month plus $0.11/min. Speech and LLM included, carrier cost separate. Transfer rates vary; BYOT has no transfer fee.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR12896692303371960321",
+          "url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR12896692303371960321?region=anywhere",
+          "title": "Intelliga Corporation — Google creative CR12896692303371960321",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR02407905115932459009",
+          "url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR02407905115932459009?region=anywhere",
+          "title": "Intelliga Corporation — Google creative CR02407905115932459009",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR11868872819456606209",
+          "url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR11868872819456606209?region=anywhere",
+          "title": "Intelliga Corporation — Google creative CR11868872819456606209",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "bland-tldr-case",
+          "url": "https://advertise.tldr.tech/case-studies/bland-ai-gains-slack-breaking-number-of-leads/",
+          "title": "TLDR Bland paid newsletter campaign case study",
+          "kind": "publisher_case_study",
+          "observed_at": "2026-09-08",
+          "summary": "Publisher confirms placements in TLDR Tech, AI and Marketing. Its 2024-06-24 case study reports over 20,000 clicks, reach to more than 2 million subscribers and CTR at 3–4 times its benchmark. Results are campaign-level publisher claims, not present-day Google ad metrics.",
+          "quotes": []
+        },
+        {
+          "id": "bland-tldr-human-creative",
+          "url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example2-blandai.avif",
+          "title": "Bland TLDR human-voice sponsor creative",
+          "kind": "publisher_ad_creative",
+          "observed_at": "2026-09-08",
+          "summary": "Publisher-linked image visibly labels the creative as a sponsorship.",
+          "quotes": []
+        },
+        {
+          "id": "bland-tldr-speed-creative",
+          "url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example-blandai.avif",
+          "title": "Bland TLDR speed-to-lead sponsor creative",
+          "kind": "publisher_ad_creative",
+          "observed_at": "2026-09-08",
+          "summary": "Publisher-linked image labels the lead-conversion claim as sponsored creative.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR12896692303371960321",
+          "platform": "Google",
+          "advertiser": "Intelliga Corporation",
+          "advertiser_id": "AR09209339416626069505",
+          "headline": "AI Outbound Calling - Human-Like AI Calls - Live in 30 Days",
+          "body": "Offers lead qualification and meeting booking at scale using the customer's infrastructure. Reinforces deployment speed and references SOC 2 and HIPAA as buying reassurance.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Check Pricing Details",
+          "source_url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR12896692303371960321?region=anywhere",
+          "link_url": "https://www.bland.ai/demo",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR12896692303371960321",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "First of two Google variations inspected.",
+            "Brand shown in the creative is Bland; Google uses legal advertiser name Intelliga Corporation."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR02407905115932459009",
+          "platform": "Google",
+          "advertiser": "Intelliga Corporation",
+          "advertiser_id": "AR09209339416626069505",
+          "headline": "Conversational AI Calls - Human-Like Voice AI",
+          "body": "Enterprise phone-agent ad emphasizing self-hosted infrastructure, compliance and sub-second response. Includes healthcare and custom-agent sitelinks alongside demo invitations.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Book a demo",
+          "source_url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR02407905115932459009?region=anywhere",
+          "link_url": "https://www.bland.ai/demo",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR02407905115932459009",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR11868872819456606209",
+          "platform": "Google",
+          "advertiser": "Intelliga Corporation",
+          "advertiser_id": "AR09209339416626069505",
+          "headline": "Human-Like AI Calls - Handle 100% of Calls - No More Press 1",
+          "body": "Uses an enterprise customer's claimed $750,000 savings from retiring IVR to promote automated answering and instant routing. The 100% claim describes the product promise, not ad results.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR09209339416626069505/creative/CR11868872819456606209?region=anywhere",
+          "link_url": "https://www.bland.ai/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR11868872819456606209",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "platform": "Newsletter",
+          "advertiser": "Bland AI",
+          "advertiser_id": null,
+          "body_text_type": "paraphrase_of_observed_creative",
+          "link_url": null,
+          "link_url_kind": null,
+          "destination_verified": false,
+          "format": "newsletter",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": null,
+          "evidence_type": "publisher_confirmed_paid_ad",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "Publisher's campaign case study dated 2024-06-24 identifies paid newsletter placements and links this example. Actual individual send date was not disclosed."
+          ],
+          "id": "bland-tldr-human-voice",
+          "headline": "AIs sound human now... and its already being used for phone calls... (Sponsor)",
+          "body": "Introduces an AI phone agent as fast and voice-flexible enough to automate sales, support and SDR work. Invites readers to call the product and try it themselves.",
+          "cta": "Try calling it yourself",
+          "source_url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example2-blandai.avif",
+          "source_id": "bland-tldr-human-creative",
+          "visual_description": "Plain-text newsletter sponsor placement with bold linked headline and inline action links.",
+          "image_url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example2-blandai.avif"
+        },
+        {
+          "platform": "Newsletter",
+          "advertiser": "Bland AI",
+          "advertiser_id": null,
+          "body_text_type": "paraphrase_of_observed_creative",
+          "link_url": null,
+          "link_url_kind": null,
+          "destination_verified": false,
+          "format": "newsletter",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": null,
+          "evidence_type": "publisher_confirmed_paid_ad",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "Publisher's campaign case study dated 2024-06-24 identifies paid newsletter placements and links this example. Actual individual send date was not disclosed."
+          ],
+          "id": "bland-tldr-speed-to-lead",
+          "headline": "AI Phone Calls are increasing lead conversions by 400%? (Sponsor)",
+          "body": "Frames instant lead response as the conversion opportunity, contrasting slow team follow-up with AI calling, qualification and calendar scheduling. The headline's 400% is an ad claim, not an observed campaign lift.",
+          "cta": null,
+          "source_url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example-blandai.avif",
+          "source_id": "bland-tldr-speed-creative",
+          "visual_description": "Longer plain-text sponsorship with bold emphasis on immediate follow-up, human-sounding voice and a reader signup invitation.",
+          "image_url": "https://advertise.tldr.tech/wp-content/uploads/2025/01/example-blandai.avif"
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "Google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=bland.ai",
+          "status": "verified_ads_found",
+          "note": "Domain summary reported 71 ads, any time/anywhere. Three current Google text creatives individually inspected under verified Intelliga Corporation.",
+          "observed_at": "2026-09-08"
+        },
+        {
+          "platform": "Newsletter",
+          "url": "https://advertise.tldr.tech/case-studies/bland-ai-gains-slack-breaking-number-of-leads/",
+          "status": "verified_ads_found",
+          "note": "Paid publisher case study with two visible sponsorship examples. Historical campaign evidence; individual send dates unavailable.",
+          "observed_at": "2026-09-08"
+        }
+      ],
+      "insights": [
+        {
+          "title": "Bland pairs enterprise reassurance with a deadline",
+          "finding": "Outbound creative combines lead qualification, infrastructure control and compliance references with a 30-day launch promise.",
+          "implication": "Test a concrete implementation timeline backed by delivery capability; buyers are being sold a path to production, not just a natural-sounding demo.",
+          "source_ids": [
+            "google-CR12896692303371960321",
+            "google-CR02407905115932459009"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        },
+        {
+          "title": "Speed to lead survives across formats",
+          "finding": "The historical newsletter promotes immediate qualification and scheduling; current Google outbound copy still emphasizes converting inbound interest into booked meetings.",
+          "implication": "Use lead response time and qualified meetings as hypotheses to test. The newsletter's 400% headline is not proof that a new campaign will achieve that result.",
+          "source_ids": [
+            "bland-tldr-speed-creative",
+            "google-CR12896692303371960321"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        },
+        {
+          "title": "Published clicks are historical and aggregate",
+          "finding": "TLDR reports over 20,000 clicks across its campaign, but gives no spend, CAC or attributable revenue.",
+          "implication": "Use the case study as evidence of paid newsletter distribution and response, not as a current performance benchmark or ROI forecast.",
+          "source_ids": [
+            "bland-tldr-case"
+          ],
+          "confidence": "high",
+          "type": "evidence_limit"
+        }
+      ]
+    },
+    {
+      "domain": "answerconnect.com",
+      "name": "AnswerConnect",
+      "profile": {
+        "category": "Human answering service",
+        "positioning": "Always-available human reception across phone and web chat, with lead capture and appointment scheduling.",
+        "audience": [
+          "Service businesses",
+          "Franchises",
+          "Legal and healthcare offices"
+        ],
+        "offer": "Monthly minutes with optional larger plans; interactions include after-call handling time.",
+        "pricing": {
+          "currency": "USD",
+          "plans": [
+            {
+              "name": "Entry",
+              "monthly_base": 350,
+              "included_minutes": 200,
+              "setup_fee": 49.99,
+              "extra_minute": 2.5
+            },
+            {
+              "name": "Growth",
+              "monthly_base": 395,
+              "included_minutes": 300,
+              "setup_fee": 0,
+              "extra_minute": 1.85
+            },
+            {
+              "name": "Standard",
+              "monthly_base": 575,
+              "included_minutes": 400,
+              "setup_fee": 49.99,
+              "extra_minute": 1.85
+            }
+          ],
+          "conditions": "Minute rounding applies. First 30 interactions shorter than 30 seconds are free per billing cycle. Handling time includes after-call work."
+        },
+        "features": [
+          "Human 24/7 coverage",
+          "CRM integration",
+          "Mobile notifications",
+          "Scheduling"
+        ],
+        "source_ids": [
+          "answerconnect-home"
+        ]
+      },
+      "sources": [
+        {
+          "id": "answerconnect-home",
+          "url": "https://www.answerconnect.com/",
+          "title": "AnswerConnect official service and plan page",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "Human phone and chat service. Published plans include 200 minutes at $350, 300 at $395 and 400 at $575 monthly, with different setup and overage rates. Billing rounds to whole minutes, includes after-call work and exempts the first 30 sub-30-second interactions.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR03865500098595127297",
+          "url": "https://adstransparency.google.com/advertiser/AR03799266737908613121/creative/CR03865500098595127297?region=anywhere",
+          "title": "ANSWERCONNECT — Google creative CR03865500098595127297",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: image. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR08714765316787273729",
+          "url": "https://adstransparency.google.com/advertiser/AR16276437828492066817/creative/CR08714765316787273729?region=anywhere",
+          "title": "AnywhereWorks Canada, INC. — Google creative CR08714765316787273729",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: image. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR12036038280966307841",
+          "url": "https://adstransparency.google.com/advertiser/AR03799266737908613121/creative/CR12036038280966307841?region=anywhere",
+          "title": "ANSWERCONNECT — Google creative CR12036038280966307841",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-08. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR03865500098595127297",
+          "platform": "Google",
+          "advertiser": "ANSWERCONNECT",
+          "advertiser_id": "AR03799266737908613121",
+          "headline": "Real People, Real Results",
+          "body": "Promotes turning inbound calls into customers, capturing leads around the clock and freeing the owner's time through human call handling.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Learn more",
+          "source_url": "https://adstransparency.google.com/advertiser/AR03799266737908613121/creative/CR03865500098595127297?region=anywhere",
+          "link_url": "https://answerconnect.com",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "image",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR03865500098595127297",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "First of three Google variations inspected."
+          ],
+          "visual_description": "Forest background, mobile message inbox mockup, turquoise brand accents and an embedded trial invitation.",
+          "image_url": "https://tpc.googlesyndication.com/archive/simgad/1083610437187221811"
+        },
+        {
+          "id": "CR08714765316787273729",
+          "platform": "Google",
+          "advertiser": "AnywhereWorks Canada, INC.",
+          "advertiser_id": "AR16276437828492066817",
+          "headline": "This is Sophia, how can I help you?",
+          "body": "Named receptionist and human portrait give a concrete face to the provider's human-service promise.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR16276437828492066817/creative/CR08714765316787273729?region=anywhere",
+          "link_url": null,
+          "link_url_kind": null,
+          "destination_verified": false,
+          "format": "image",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR08714765316787273729",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "The brand visible on the banner is AnswerConnect. Google identifies the advertiser as AnywhereWorks Canada, INC.",
+            "No destination URL or action button was readable in the banner."
+          ],
+          "visual_description": "Wide banner with smiling receptionist on a phone, short greeting on the left and AnswerConnect branding on the right.",
+          "image_url": "https://tpc.googlesyndication.com/archive/simgad/8521272358202150986"
+        },
+        {
+          "id": "CR12036038280966307841",
+          "platform": "Google",
+          "advertiser": "ANSWERCONNECT",
+          "advertiser_id": "AR03799266737908613121",
+          "headline": "Affordable Answering Service - Simple Transparent Pricing",
+          "body": "Bundles appointment scheduling, website chat and call screening in an affordability message. The preview description ends mid-sentence.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR03799266737908613121/creative/CR12036038280966307841?region=anywhere",
+          "link_url": "https://www.answerconnect.com/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-08",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR12036038280966307841",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [],
+          "visual_description": null,
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "Google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=answerconnect.com",
+          "status": "verified_ads_found",
+          "note": "Three creatives inspected: two ANSWERCONNECT ads and one AnywhereWorks Canada, INC. banner visibly branded AnswerConnect. Total domain count not captured.",
+          "observed_at": "2026-09-08"
+        }
+      ],
+      "insights": [
+        {
+          "title": "Human presence is the creative proof",
+          "finding": "One image ad shows a named receptionist; another pairs a real-people headline with a message inbox. The website explicitly commits to human service.",
+          "implication": "AI brands compete against emotional reassurance as well as labor cost. Show escalation, call examples and successful outcomes if targeting buyers concerned about caller experience.",
+          "source_ids": [
+            "google-CR03865500098595127297",
+            "google-CR08714765316787273729",
+            "answerconnect-home"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        },
+        {
+          "title": "Affordability depends on call mix",
+          "finding": "The search ad emphasizes simple pricing; published plans add minute rounding, after-call time and tier-specific overage charges.",
+          "implication": "Use identical handled-minute and call-duration assumptions before comparing this service with AI usage pricing.",
+          "source_ids": [
+            "google-CR12036038280966307841",
+            "answerconnect-home"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "domain": "patlive.com",
+      "name": "PATLive",
+      "profile": {
+        "category": "Human receptionist and answering service",
+        "positioning": "US-based live receptionists with flexible plans, a trial and broad business call workflows.",
+        "audience": [
+          "Small businesses",
+          "Home services",
+          "Legal firms",
+          "Businesses needing overflow or after-hours coverage"
+        ],
+        "offer": "14-day free trial across plans; phone, live chat and outbound have separate packages.",
+        "pricing": {
+          "currency": "USD",
+          "plans": [
+            {
+              "name": "Pay as you go",
+              "monthly_base": 49,
+              "included_minutes": 0,
+              "extra_minute": 2.99
+            },
+            {
+              "name": "50 minutes",
+              "monthly_base": 99,
+              "included_minutes": 50,
+              "extra_minute": 2.29
+            },
+            {
+              "name": "100 minutes",
+              "monthly_base": 189,
+              "included_minutes": 100,
+              "extra_minute": 2.09
+            },
+            {
+              "name": "200 minutes",
+              "monthly_base": 349,
+              "included_minutes": 200,
+              "extra_minute": 1.99
+            }
+          ],
+          "conditions": "Taxes and fees excluded. $49 advertised entry fee includes zero voice minutes."
+        },
+        "features": [
+          "24/7 live answering",
+          "Bilingual reception",
+          "Message taking",
+          "Appointment scheduling",
+          "Dispatch"
+        ],
+        "source_ids": [
+          "patlive-pricing"
+        ]
+      },
+      "sources": [
+        {
+          "id": "patlive-pricing",
+          "url": "https://www.patlive.com/pricing/",
+          "title": "PATLive official pricing",
+          "kind": "official_pricing",
+          "observed_at": "2026-09-08",
+          "summary": "14-day trial. Voice entry plan is $49/month with zero minutes and $2.99/min usage. Plans include 50 minutes/$99, 100/$189 and 200/$349, with lower overage rates; taxes and fees excluded.",
+          "quotes": []
+        },
+        {
+          "id": "patlive-hvac-case",
+          "url": "https://www.patlive.com/blog/patlive-joe-cools-hvac-case-study/",
+          "title": "PATLive Joe Cool's HVAC customer story",
+          "kind": "official_case_study",
+          "observed_at": "2026-09-08",
+          "summary": "Customer story ties answering-service demand to seasonal spikes, unreliable after-hours handling and Jobber integration. US staffing reassures callers and fits a local service brand.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR08706817316597268481",
+          "url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR08706817316597268481?region=anywhere",
+          "title": "PATLive, Inc. — Google creative CR08706817316597268481",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-07. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR14669356174084669441",
+          "url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR14669356174084669441?region=anywhere",
+          "title": "PATLive, Inc. — Google creative CR14669356174084669441",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-09-07. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        },
+        {
+          "id": "google-CR10769242727892647937",
+          "url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR10769242727892647937?region=anywhere",
+          "title": "PATLive, Inc. — Google creative CR10769242727892647937",
+          "kind": "ad_library",
+          "observed_at": "2026-09-08",
+          "summary": "Browser inspected creative. Format: text. Last shown 2026-08-02. Body field is a paraphrase; headline is transcribed.",
+          "quotes": []
+        }
+      ],
+      "ads": [
+        {
+          "id": "CR08706817316597268481",
+          "platform": "Google",
+          "advertiser": "PATLive, Inc.",
+          "advertiser_id": "AR14976614612567326721",
+          "headline": "Plans From Only $49/mo - Rated 4.9 Stars on Trustpilot - Affordable Pricing",
+          "body": "Combines an entry price, review-rating claim and a free-trial invitation to reduce the perceived risk of trying human answering.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR08706817316597268481?region=anywhere",
+          "link_url": "https://www.patlive.com/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-07",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR08706817316597268481",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "The official $49 monthly voice plan has no included minutes and adds $2.99/minute, excluding taxes and fees. Headline price is not a complete usage cost.",
+            "The ad's 4.9 rating is transcribed as an advertiser claim; review platform score was not independently audited."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR14669356174084669441",
+          "platform": "Google",
+          "advertiser": "PATLive, Inc.",
+          "advertiser_id": "AR14976614612567326721",
+          "headline": "Live Remote Receptionists - No Contracts, Cancel Anytime",
+          "body": "Connects US-based receptionist support with the owner's ability to concentrate on work. Flexibility and cancellation are the headline objection-handling devices.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": null,
+          "source_url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR14669356174084669441?region=anywhere",
+          "link_url": "https://www.patlive.com/",
+          "link_url_kind": "display_url",
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-09-07",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR14669356174084669441",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "The preview description is truncated."
+          ],
+          "visual_description": null,
+          "image_url": null
+        },
+        {
+          "id": "CR10769242727892647937",
+          "platform": "Google",
+          "advertiser": "PATLive, Inc.",
+          "advertiser_id": "AR14976614612567326721",
+          "headline": "PATLive - Highly Trained Receptionists",
+          "body": "Emphasizes US staffing, adaptable scripts and inclusive pricing; lists message taking and dispatch capabilities. Sitelinks reinforce affordable plans and a trial.",
+          "body_text_type": "paraphrase_of_observed_creative",
+          "cta": "Get A Free Trial",
+          "source_url": "https://adstransparency.google.com/advertiser/AR14976614612567326721/creative/CR10769242727892647937?region=anywhere",
+          "link_url": null,
+          "link_url_kind": null,
+          "destination_verified": false,
+          "format": "text",
+          "started_at": null,
+          "ended_at": null,
+          "is_active": null,
+          "last_shown_at": "2026-08-02",
+          "evidence_type": "ad_library_verified",
+          "source_id": "google-CR10769242727892647937",
+          "observed_at": "2026-09-08",
+          "language": "en",
+          "spend": null,
+          "impressions": null,
+          "clicks": null,
+          "ctr": null,
+          "notes": [
+            "First of two Google variations inspected.",
+            "This creative was last shown more than a month before observation; Google did not expose a confirmed end date or active status.",
+            "Display destination was outside the inspected crop, so link_url is null."
+          ],
+          "visual_description": null,
+          "image_url": null
+        }
+      ],
+      "ad_checks": [
+        {
+          "platform": "Google",
+          "url": "https://adstransparency.google.com/?region=anywhere&domain=patlive.com",
+          "status": "verified_ads_found",
+          "note": "Domain summary reported 12 ads at any time/anywhere, under verified PATLive, Inc. Three text creatives inspected; the sample includes one last shown August 2.",
+          "observed_at": "2026-09-08"
+        }
+      ],
+      "insights": [
+        {
+          "title": "The $49 hook needs usage context",
+          "finding": "PATLive's live Google creative leads with $49/month. That official entry plan includes no minutes; 100 minutes would cost $348 before tax if kept on that plan.",
+          "implication": "Compare included minutes and overage together. PATLive's published 100-minute package is $189, demonstrating why the entry price alone misrepresents likely cost.",
+          "source_ids": [
+            "google-CR08706817316597268481",
+            "patlive-pricing"
+          ],
+          "confidence": "high",
+          "type": "calculation",
+          "calculation": "49 + 100 × 2.99 = 348"
+        },
+        {
+          "title": "Flexible commitment and human staffing answer different objections",
+          "finding": "One creative sells cancellation flexibility while another stresses US-based trained receptionists. The trial reduces switching friction.",
+          "implication": "Test low-risk onboarding separately from service-quality reassurance rather than placing every benefit in one generic ad.",
+          "source_ids": [
+            "google-CR14669356174084669441",
+            "google-CR10769242727892647937",
+            "patlive-pricing"
+          ],
+          "confidence": "high",
+          "type": "inference"
+        }
+      ]
+    }
+  ]
+}
