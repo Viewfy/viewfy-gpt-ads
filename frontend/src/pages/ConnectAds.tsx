@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { ActionBar } from '../components/ActionBar'
+import { BrandLogo } from '../components/BrandLogo'
+import { api } from '../lib/api'
 import type { Run } from '../lib/types'
 
 export function ConnectAds({ run, saving, onContinue }: {
@@ -9,12 +11,16 @@ export function ConnectAds({ run, saving, onContinue }: {
 }) {
   const [continuing, setContinuing] = useState(false)
   const [error, setError] = useState('')
+  const [budget, setBudget] = useState(run.campaign.budget_usd > 0 ? run.campaign.budget_usd : 25)
+  const [geo, setGeo] = useState((run.campaign.geo || []).filter(Boolean).join(', ') || 'US')
 
   async function continueSetup() {
     if (saving || continuing) return
     setContinuing(true)
     setError('')
     try {
+      const places = geo.split(/[,\s]+/).map((x) => x.trim()).filter(Boolean)
+      await api.saveCampaign(run.id, budget || 25, places.length ? places : ['US'])
       await onContinue()
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : 'Could not continue. Please try again.')
@@ -31,23 +37,45 @@ export function ConnectAds({ run, saving, onContinue }: {
       </header>
       {error && <p role="alert" className="text-sm text-red-600 dark:text-red-300">{error}</p>}
       <section className="ui-card p-6 space-y-4">
-        <h3 className="font-display font-bold text-xl">Ready for the next step</h3>
-        <p className="ui-body">Your campaign settings are saved. Continue to your next steps and connect your ad account whenever you’re ready.</p>
-        <dl className="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <dt className="ui-muted">Daily budget</dt>
-            <dd className="mt-1 font-semibold ui-text">${run.campaign.budget_usd || 25}</dd>
-          </div>
-          <div>
-            <dt className="ui-muted">Geography</dt>
-            <dd className="mt-1 font-semibold ui-text">{run.campaign.geo?.filter(Boolean).join(', ') || 'US'}</dd>
-          </div>
-        </dl>
+        <button
+          type="button"
+          className="ui-secondary w-full !bg-white !border-0 !shadow-none font-display font-bold text-lg min-h-[45px] px-5"
+          disabled={saving || continuing}
+          onClick={continueSetup}
+        >
+          <BrandLogo brand="chatgpt" size={28} />
+          {saving || continuing ? 'Launching…' : 'Connect ChatGPT Ads Account'}
+        </button>
+        <div className="grid grid-cols-2 gap-3 text-xs">
+          <label className="ui-muted">
+            Daily budget
+            <span className="mt-1 flex items-center gap-1">
+              <span className="ui-faint">$</span>
+              <input
+                type="number"
+                min={1}
+                aria-label="Daily budget (USD)"
+                value={budget}
+                onChange={(e) => setBudget(Number(e.target.value))}
+                className="w-[4.5rem] ui-input px-2 py-1 text-sm font-semibold ui-text"
+              />
+            </span>
+          </label>
+          <label className="ui-muted">
+            Geography
+            <input
+              aria-label="Geography"
+              value={geo}
+              onChange={(e) => setGeo(e.target.value)}
+              className="mt-1 block w-20 ui-input px-2 py-1 text-sm font-semibold ui-text"
+            />
+          </label>
+        </div>
         <p className="text-sm ui-muted">Campaign submission is paused for now. Continuing saves your progress without publishing ads.</p>
       </section>
       <ActionBar title="Ready to continue" description="Save your setup and see what’s next.">
         <button type="button" className="btn-primary" disabled={saving || continuing} onClick={continueSetup}>
-          {saving || continuing ? 'Continuing…' : 'Continue to Next Steps'}
+          {saving || continuing ? 'Launching…' : 'Launch 🎉'}
         </button>
       </ActionBar>
     </div>

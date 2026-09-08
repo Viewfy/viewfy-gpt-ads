@@ -30,8 +30,8 @@ export function Launch({
   const c = run.creative
   const ads = run.creatives?.length ? run.creatives : c ? [c] : []
   const variantGroups = getCreativeVariantGroups(run)
-  const [budget, setBudget] = useState(run.campaign.budget_usd > 0 ? run.campaign.budget_usd : 25)
-  const [geo, setGeo] = useState((run.campaign.geo || []).filter(Boolean).join(', ') || 'US')
+  const budget = run.campaign.budget_usd > 0 ? run.campaign.budget_usd : 25
+  const geo = (run.campaign.geo || []).filter(Boolean).join(', ') || 'US'
   const [editingId, setEditingId] = useState<string | null>(null)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
@@ -67,34 +67,28 @@ export function Launch({
   }
 
   return (
-    <div className={`ui-page ${variantGroups.length ? 'ui-page--medium' : 'ui-page--narrow'} ui-page--actions space-y-4`}>
-      <h2 className="font-display font-extrabold text-3xl">Launch campaign</h2>
+    <div className={`ui-page ${ads.length > 1 || variantGroups.length ? '' : 'ui-page--narrow'} ui-page--actions space-y-4`}>
+      <h2 className="font-display font-extrabold text-3xl">Launch Your First Campaign</h2>
 
       {variantGroups.length > 0 && <CreativeVariantPicker key={run.id} groups={variantGroups} ads={ads} onSave={onSave} />}
 
       {ads.length > 0 && (
         <section>
-          <h3 className="font-display font-extrabold text-lg">Ads</h3>
-          <p className="text-sm ui-muted mt-0.5">
-            {ads.length === 1 ? 'Review your ChatGPT ad before continuing.' : `Review these ${ads.length} ChatGPT ads before continuing.`}
-          </p>
-          <div className="mt-3 grid sm:grid-cols-2 gap-2">
-            {ads.map((ad) => {
+          <div className="mt-2 grid sm:grid-cols-2 gap-4">
+            {ads.map((ad, i) => {
               const editing = editingId === ad.id
               const isDemo = ad.image_url?.startsWith('/demo-ads/')
                 || ['getsuperagent.com', 'www.getsuperagent.com'].includes(run.domain.toLowerCase())
                   && ['/superagent-ads.png', '/superagent-ads-2.png'].includes(ad.image_url || '')
               const concept = run.concepts.find((item) => item.id === ad.concept_id)
               const destinationUrl = safeExternalUrl(ad.target_url)
-              const artworkUrl = ad.image_url?.startsWith('/') && !ad.image_url.startsWith('//')
-                ? ad.image_url
-                : safeExternalUrl(ad.image_url)
               return (
-                <article key={ad.id} className="ui-card overflow-hidden">
+                <article key={ad.id} className="min-w-0">
+                  <h3 className="font-display font-extrabold text-lg tracking-tight mb-2">AD {i + 1}</h3>
+                  <div className="ui-card overflow-hidden">
                   {isDemo && (
-                    <div className="flex flex-wrap items-center justify-between gap-3 bg-[#faf9f6] px-4 py-3">
+                    <div className="flex flex-wrap items-center gap-3 bg-[#faf9f6] px-4 py-3">
                       <img src="/superagent-wordmark.svg" alt="Superagent" className="w-56 max-w-full h-auto" />
-                      <span className="text-[10px] font-semibold uppercase tracking-wide text-[#65665b]">Illustrative demo</span>
                     </div>
                   )}
                   {editing ? (
@@ -150,7 +144,7 @@ export function Launch({
                         <p className="font-display font-bold leading-tight">{ad.title}</p>
                         <p className="text-sm ui-body mt-1">{ad.body}</p>
                         {destinationUrl && (
-                          <a href={destinationUrl} target="_blank" rel="noreferrer" className="inline-flex mt-3 btn-accent text-sm min-h-0 py-2 px-3">
+                          <a href={destinationUrl} target="_blank" rel="noreferrer" className="inline-flex mt-3 ui-secondary !bg-white text-sm font-semibold min-h-0 py-2 px-3">
                             {ad.cta} ↗
                           </a>
                         )}
@@ -169,47 +163,17 @@ export function Launch({
                           >
                             Edit copy
                           </button>
-                          {artworkUrl && (
-                            <a href={artworkUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold ui-link underline underline-offset-2">
-                              View full artwork ↗
-                            </a>
-                          )}
                         </div>
                       </div>
                     </>
                   )}
+                  </div>
                 </article>
               )
             })}
           </div>
         </section>
       )}
-
-      <div className="flex flex-wrap items-end gap-3">
-        <label className="text-xs font-semibold ui-muted">
-          Budget
-          <span className="mt-1 flex items-center gap-1">
-            <span className="text-sm font-normal ui-faint">$</span>
-            <input
-              type="number"
-              min={1}
-              aria-label="Lifetime budget (USD)"
-              value={budget}
-              onChange={(e) => setBudget(Number(e.target.value))}
-              className="w-[4.5rem] ui-input px-2 py-1 text-sm font-normal ui-text"
-            />
-          </span>
-        </label>
-        <label className="text-xs font-semibold ui-muted">
-          Geo
-          <input
-            aria-label="Geography"
-            value={geo}
-            onChange={(e) => setGeo(e.target.value)}
-            className="mt-1 block w-20 ui-input px-2 py-1 text-sm font-normal ui-text"
-          />
-        </label>
-      </div>
 
       {live && (
         <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -249,7 +213,7 @@ export function Launch({
       {run.campaign.error && <p className="text-sm text-red-600 dark:text-red-300">{run.campaign.error}</p>}
       {refreshError && <p role="alert" className="text-sm text-red-600 dark:text-red-300">{refreshError}</p>}
       {onRun && trackingOn && <TrackingSetup run={run} onRun={onRun} />}
-      <ActionBar title="Launch campaign">
+      <ActionBar title="Launch Your First Campaign">
         <button
           type="button"
           className="btn-accent"
