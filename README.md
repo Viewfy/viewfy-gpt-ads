@@ -1,46 +1,41 @@
+<p align="center">
+  <img src="frontend/public/astra-hug-chatgpt.png" alt="Viewfy's blue star mascot hugging ChatGPT" width="320" />
+</p>
+
 # Viewfy 💙 GPT Ads
 
-Standalone app: one business domain becomes a researched ChatGPT Ads campaign.
+One business domain → an editable business map → competitor research → ad concepts → a ChatGPT ad creative. Confirm your map before research starts.
 
-Astra builds an editable mind map first. Ads are not fetched until **Confirm business map & research ads**. Then Meta Ad Library + Google Ads Transparency, three concepts, one GPT Image 2 `chat_card`, and launch (or a labeled demo export).
+**Built with Astra.** React + Vite frontend, FastAPI backend.
 
-## Run
+[Open Viewfy](https://ads.viewfy.ai) · [Explore the imagined designs](docs/design-concepts.md)
+
+## Run locally
 
 ```bash
-cp .env.example .env   # add keys
-python3 -m venv .venv && source .venv/bin/activate
+cp .env.example .env
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r backend/requirements.txt
-cd frontend && npm install && cd ..
+npm ci --prefix frontend
 
-# terminal 1 — no --reload; restart after Python changes
-cd backend && uvicorn app:app --port 9410 --host 127.0.0.1
+# Terminal 1, from the repository root
+.venv/bin/uvicorn app:app --app-dir backend --host 127.0.0.1 --port 9410
 
-# terminal 2
-cd frontend && npm run dev
+# Terminal 2, from the repository root
+npm --prefix frontend run dev
 ```
 
-Open http://localhost:5173
+Open [localhost:5173](http://localhost:5173) and try `getsuperagent.com`.
 
-`MOCK=1` is the default. Every step uses `fixtures/superagent/run.json` (map, ads, insights, concepts, creative). No crawl, Apify, OpenAI, or Ads API. Set `MOCK=0` for live calls.
+Superagent opens its reviewed business map and public-channel snapshot immediately. It does not start a new crawl or add a simulated loading delay. Other domains use the live website-reading flow.
 
-Pitch path: paste `getsuperagent.com`.
+## Campaign launch
 
-## Env
+Campaign submission is paused by default (`LIVE_CAMPAIGN_SUBMISSION_ENABLED=0`). The primary action saves the setup and continues to Next Steps without requiring an account connection or submitting ads. The server also defers requests to `/launch` from older pages, preserving the saved campaign and creative. Live submission requires explicitly enabling `LIVE_CAMPAIGN_SUBMISSION_ENABLED=1`; this does not change the current website’s save-and-continue flow.
 
-| Key | Used for |
-| --- | --- |
-| `OPENAI_API_KEY` | Brief, insights, concepts, GPT Image 2 |
-| `OPENAI_ADS_API_KEY` | `GET /ad_account` and launch. Missing key = Demo / export |
-| `APIFY_TOKEN` | Meta Ad Library + Google Ads Transparency |
+Research and generation use live integrations by default (`MOCK=0`). Add server-side keys to `.env`: `OPENAI_API_KEY` for text/images and `APIFY_TOKEN` for Meta + Google ad research. `OPENAI_ADS_API_KEY` configures the Ads Manager account for future live submission.
 
-Keys stay on the server. Launch is the only spend action.
+See [the research notes](docs/research/README.md) for coverage, advertiser identity, source limitations, and rebuilding the snapshot. Missing activity and performance data remain unknown; generated campaign concepts are separate from observed ads.
 
-## Steps
-
-Understanding → Confirmation → Research → Concepts → Creatives → Launch
-
-Copied from Viewfy: cream first screen, star mascot, dark radial map language (`frontend/public/demo/`), Meta scraper (`backend/meta_library.py`).
-
-## Hackathon cut
-
-One domain, two competitors, three concepts, one creative set, one campaign. Chat card limits: title 3–50, body 100.
+For development, `MOCK=1` selects fixture-backed research and creative generation; it does not enable campaign submission. Automated launch tests stub the network explicitly. See [.env.example](.env.example) for optional settings.
