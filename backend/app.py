@@ -8,18 +8,20 @@ from typing import Any
 from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from brief import BRANCHES, build_map, snapshot_brief
-from config import DATA_DIR, FRONTEND_ORIGIN, MOCK, ROOT
+from config import DATA_DIR, FRONTEND_ORIGIN, LIVE_CAMPAIGN_SUBMISSION_ENABLED, MOCK, ROOT
 from crawl import crawl_domain
 from creatives import make_creative
-from fixtures import apply_ads, apply_crawl, apply_creative, apply_github, apply_insights, apply_launch, apply_pixel_pr, hydrate_ads, hydrate_map, is_superagent
+from fixtures import apply_ads, apply_crawl, apply_creative, apply_insights, hydrate_ads, is_superagent
 from insights import build_insights
-from ads_key import save_key
-from openai_ads import ad_account, launch_campaign, refresh_campaign
+from ads_key import key_for, save_key
+from openai_ads import ad_account, launch_campaign, refresh_campaign, valid_external_id
 from research import research_ads
-from store import get, new_run, save, update
+from store import empty_tracking, get, new_run, save, update
 from tracking import record_event, snippet_for, tracking_of
 from util import brief_hash, host_of
 import github_oauth
@@ -36,6 +38,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/healthz", include_in_schema=False)
+async def readiness() -> dict[str, bool]:
+    """A deployment healthcheck that never depends on external integrations."""
+    return {"ok": True}
 
 
 class DomainIn(BaseModel):
@@ -81,10 +89,8 @@ class ConnectAdsIn(BaseModel):
 
 @app.get("/api/health")
 async def health() -> dict[str, Any]:
-    if MOCK:
-        return {"ok": True, "mock": True, "ads": {"ok": False, "mode": "demo", "error": "MOCK=1"}}
     acct = await ad_account()
-    return {"ok": True, "mock": False, "ads": acct}
+    return {"ok": True, "mock": MOCK, "ads": acct}
 
 
 @app.post("/api/runs")
@@ -93,6 +99,10 @@ async def create_run(body: DomainIn, tasks: BackgroundTasks) -> dict[str, Any]:
     if not host:
         raise HTTPException(400, "Enter a domain like getsuperagent.com")
     run = new_run(host)
+    if body.fixture or MOCK or is_superagent(host):
+        apply_crawl(run)
+        hydrate_ads(run)
+        return save(run)
     tasks.add_task(_understand, run["id"], body.fixture or MOCK)
     return run
 
@@ -102,6 +112,15 @@ async def read_run(run_id: str) -> dict[str, Any]:
     run = get(run_id)
     if not run:
         raise HTTPException(404, "Run not found")
+    if is_superagent(run["domain"]) and run.get("step") == "understanding" and run.get("status") == "crawling":
+        if _needs_initial_map(run):
+            draft = {key: run[key] for key in ("campaign", "creative") if key in run}
+            apply_crawl(run)
+            hydrate_ads(run)
+            run.update(draft)
+            return save(run)
+        # A custom map or confirmed run must not be replaced by recovery.
+        return run
     return hydrate_ads(run)
 
 
@@ -153,7 +172,10 @@ async def confirm(run_id: str, body: ConfirmIn, tasks: BackgroundTasks) -> dict[
     run["step"] = "research"
     run["status"] = "researching"
     run["stale"] = {"research": False, "concepts": False, "creatives": False}
-    run["ads"] = {"status": "running", "subjects": [], "error": None}
+    run["ads"] = {**run.get("ads", {}), "status": "running", "error": None}
+    run["concepts"] = []
+    run["selected_concept_id"] = None
+    run["error"] = None
     save(run)
     tasks.add_task(_research, run_id)
     return run
@@ -224,41 +246,44 @@ async def patch_campaign(run_id: str, body: CampaignIn) -> dict[str, Any]:
     return save(run)
 
 
+def _demo_flow(run: dict[str, Any]) -> bool:
+    return run.get("source") == "fixture" or is_superagent(str(run.get("domain") or ""))
+
+
 @app.post("/api/runs/{run_id}/ads/connect")
 async def connect_ads(run_id: str, body: ConnectAdsIn) -> dict[str, Any]:
     run = _need(run_id)
     campaign = dict(run.get("campaign") or {})
-    key = (body.key or "").strip()
-    if MOCK:
-        if not key:
-            campaign["error"] = "Paste a key"
-            campaign["connected"] = False
-            run["campaign"] = campaign
-            return save(run)
-        save_key(run_id, key)
-        campaign["account"] = {"id": "adacct_mock", "name": "SUPERAGENT Ads", "status": "active", "review": "approved"}
-        campaign["mode"] = "live"
-        campaign["connected"] = True
-        campaign["error"] = None
+    supplied_key = (body.key or "").strip()
+    if _demo_flow(run) and supplied_key:
+        campaign.update({
+            "status": "draft", "mode": "live", "connected": True, "preview": True,
+            "account": {"id": "acct_preview", "name": "Preview"},
+            "error": None, "note": None,
+        })
         run["campaign"] = campaign
         run["step"] = "ads"
+        run["status"] = "ready"
         return save(run)
-    if not key:
-        campaign["error"] = "Paste a key"
-        campaign["connected"] = False
-        run["campaign"] = campaign
-        return save(run)
+    key = supplied_key or key_for(run_id)
     health = await ad_account(key)
-    if not health.get("ok"):
-        campaign["connected"] = False
-        campaign["error"] = health.get("error") or "Could not verify that key"
+    run["step"] = "ads"
+    run["status"] = "ready"
+    if not health.get("ok") or not valid_external_id(health.get("id")):
+        campaign.update({
+            "status": "draft", "mode": "unconnected", "connected": False,
+            "account": None, "note": None,
+            "error": health.get("error") or "Could not verify the Ads Manager key",
+        })
         run["campaign"] = campaign
         return save(run)
-    save_key(run_id, key)
+    if supplied_key:
+        save_key(run_id, supplied_key)
     campaign["account"] = {k: health.get(k) for k in ("id", "name", "status", "currency", "review") if health.get(k)}
     campaign["mode"] = "live"
     campaign["connected"] = True
     campaign["error"] = None
+    campaign["note"] = None
     run["campaign"] = campaign
     run["step"] = "ads"
     return save(run)
@@ -266,6 +291,8 @@ async def connect_ads(run_id: str, body: ConnectAdsIn) -> dict[str, Any]:
 
 @app.post("/api/runs/{run_id}/launch")
 async def launch(run_id: str, body: LaunchIn) -> dict[str, Any]:
+    if not LIVE_CAMPAIGN_SUBMISSION_ENABLED:
+        return await skip_launch(run_id)
     run = _need(run_id)
     if not run.get("creative"):
         raise HTTPException(400, "Generate a creative first")
@@ -275,11 +302,14 @@ async def launch(run_id: str, body: LaunchIn) -> dict[str, Any]:
     run["campaign"] = campaign
     run["status"] = "launching"
     save(run)
-    if MOCK:
-        apply_launch(run, body.budget_usd, body.geo)
-        return save(run)
-    run["campaign"] = await launch_campaign(run)
-    run["step"] = "autopilot"
+    try:
+        run["campaign"] = await launch_campaign(run)
+    except Exception as exc:
+        log.exception("campaign launch failed")
+        campaign.update({"status": "failed", "error": str(exc)[:300] or "Campaign launch failed."})
+        run["campaign"] = campaign
+    submitted = _submitted_campaign(run["campaign"]) or bool((run.get("campaign") or {}).get("preview"))
+    run["step"] = "autopilot" if submitted else "ads"
     run["status"] = "ready"
     return save(run)
 
@@ -287,24 +317,54 @@ async def launch(run_id: str, body: LaunchIn) -> dict[str, Any]:
 @app.post("/api/runs/{run_id}/ads/refresh")
 async def refresh_ads(run_id: str) -> dict[str, Any]:
     run = _need(run_id)
-    if MOCK:
-        return run
     run["campaign"] = await refresh_campaign(run)
+    if not _submitted_campaign(run["campaign"]):
+        run["step"] = "ads"
+    run["status"] = "ready"
+    return save(run)
+
+
+@app.post("/api/runs/{run_id}/skip-launch")
+async def skip_launch(run_id: str) -> dict[str, Any]:
+    # Read the saved draft directly: skipping must not hydrate or submit it.
+    run = get(run_id)
+    if not run:
+        raise HTTPException(404, "Run not found")
+    if run.get("status") == "launching":
+        raise HTTPException(409, "Campaign submission is in progress. Wait for it to finish before skipping.")
+    campaign = dict(run.get("campaign") or {})
+    campaign["submission_deferred"] = True
+    run["campaign"] = campaign
+    run["step"] = "autopilot"
+    run["status"] = "ready"
     return save(run)
 
 
 @app.get("/api/runs/{run_id}/export")
 async def export_run(run_id: str) -> dict[str, Any]:
     run = _need(run_id)
+    campaign = run.get("campaign") or {}
+    status = campaign.get("status") or "draft"
     return {
-        "mode": "demo",
-        "label": "Demo / export. Not submitted to ChatGPT Ads.",
+        "mode": campaign.get("mode") or "unconnected",
+        "label": f"Campaign export · {status.replace('_', ' ')}",
         "brief": run.get("brief"),
+        "public_channels": run.get("public_channels"),
         "insights": run.get("insights"),
         "concept": next((c for c in run.get("concepts") or [] if c.get("id") == run.get("selected_concept_id")), None),
         "creative": run.get("creative"),
         "campaign": run.get("campaign"),
     }
+
+
+def _submitted_campaign(campaign: dict[str, Any]) -> bool:
+    ids = campaign.get("external_ids") or {}
+    return bool(
+        campaign.get("mode") == "live"
+        and campaign.get("status") in {"submitted", "under_review", "active"}
+        and campaign.get("review_status") != "rejected"
+        and all(valid_external_id(ids.get(key)) for key in ("campaign_id", "ad_group_id", "ad_id"))
+    )
 
 
 @app.get("/astra.js")
@@ -328,8 +388,8 @@ async def ingest_event(request: Request) -> dict[str, Any]:
 @app.get("/api/github/login")
 async def github_login(run_id: str) -> RedirectResponse:
     run = _need(run_id)
-    if MOCK or not github_oauth.configured():
-        apply_github(run)
+    if not github_oauth.configured():
+        run["tracking"] = {**empty_tracking(), "status": "error", "error": "GitHub OAuth is not configured. Configure it before connecting a repository."}
         save(run)
         return RedirectResponse(github_oauth.frontend_return(run_id))
     return RedirectResponse(github_oauth.login_url(run_id))
@@ -369,9 +429,8 @@ async def start_tracking(run_id: str, body: TrackingIn, tasks: BackgroundTasks) 
     if "/" not in repo:
         raise HTTPException(400, "Pick a GitHub repo")
     track = tracking_of(run)
-    if track.get("status") not in {"connected", "pr_ready", "error", "running"} and not MOCK:
-        if not github_oauth.token_for(run_id):
-            raise HTTPException(400, "Connect GitHub first")
+    if not github_oauth.token_for(run_id):
+        raise HTTPException(400, "Connect GitHub first")
     default_branch = next((r.get("default_branch") or "main" for r in track.get("repos") or [] if r.get("full_name") == repo), "main")
     track.update({"status": "running", "repo": repo, "pr_url": None, "snippet": snippet_for(run_id), "error": None, "note": "GPT6 Astra is reading the repo and adding the pixel…"})
     run["tracking"] = track
@@ -382,8 +441,8 @@ async def start_tracking(run_id: str, body: TrackingIn, tasks: BackgroundTasks) 
 
 @app.get("/api/files/{name}")
 async def files(name: str) -> FileResponse:
-    path = Path(DATA_DIR) / name
-    if not path.exists() or path.suffix.lower() not in {".png", ".jpg", ".webp"}:
+    path = (Path(DATA_DIR) / name).resolve()
+    if path.parent != Path(DATA_DIR).resolve() or not path.is_file() or path.suffix.lower() not in {".png", ".jpg", ".webp"}:
         raise HTTPException(404, "File not found")
     return FileResponse(path)
 
@@ -395,53 +454,44 @@ def _need(run_id: str) -> dict[str, Any]:
     return hydrate_ads(run)
 
 
+def _needs_initial_map(run: dict[str, Any]) -> bool:
+    return bool(
+        run.get("step") == "understanding"
+        and run.get("status") == "crawling"
+        and not run.get("confirmed_at")
+        and not (run.get("map") or {}).get("nodes")
+    )
+
+
 async def _understand(run_id: str, force_fixture: bool) -> None:
     run = get(run_id)
-    if not run:
+    if not run or not _needs_initial_map(run):
         return
     domain = run["domain"]
     try:
-        if MOCK or force_fixture:
-            run["pages"] = [
-                {"kind": kind, "url": "", "status": "crawling", "excerpt": "", "error": None}
-                for kind in ("home", "about", "products", "pricing", "faq")
-            ]
-            save(run)
-            await asyncio.sleep(1.1)
-            run = get(run_id) or run
+        if MOCK or force_fixture or is_superagent(domain):
             apply_crawl(run)
+            hydrate_ads(run)
             save(run)
             return
-        if is_superagent(domain):
-            try:
-                crawl = await asyncio.wait_for(crawl_domain(domain), timeout=20)
-            except Exception:
-                apply_crawl(run)
-                save(run)
-                return
-        else:
-            crawl = await crawl_domain(domain)
+        crawl = await crawl_domain(domain)
+        built = await build_map(crawl)
+        run = get(run_id)
+        if not run or not _needs_initial_map(run):
+            return
         run["brand"] = crawl["brand"]
         run["pages"] = crawl["pages"]
-        built = await build_map(crawl)
         run["brand"]["category"] = built.get("category") or run["brand"].get("category")
         run["map"] = {"nodes": built.get("nodes") or [], "missing": built.get("missing") or []}
-        if not run["map"]["nodes"] and is_superagent(domain):
-            apply_crawl(run)
-        else:
-            run["status"] = "ready"
-            run["step"] = "confirmation"
-            run["source"] = "live"
-            if is_superagent(domain):
-                hydrate_map(run)
+        run["status"] = "ready"
+        run["step"] = "confirmation"
+        run["source"] = "live"
         save(run)
     except Exception as e:
         log.exception("understand failed")
-        if is_superagent(domain):
-            apply_crawl(run)
-            save(run)
-            return
-        update(run_id, status="error", error=str(e)[:300])
+        current = get(run_id)
+        if current and _needs_initial_map(current):
+            update(run_id, status="error", error=str(e)[:300])
 
 
 async def _research(run_id: str) -> None:
@@ -466,12 +516,14 @@ async def _research(run_id: str) -> None:
         ) if ads.get("subjects") else True
         if (live_empty or live_error) and is_superagent(run["domain"]):
             apply_ads(run)
-            run["ads"]["source"] = "fixture"
+            apply_insights(run)
+            run["ads"]["fallback_reason"] = "Live libraries returned no verified creatives; showing the dated public research snapshot."
             save(run)
+            return
         else:
             ads["brief_version"] = run.get("brief_version")
             run["ads"] = ads
-            run["status"] = "ready"
+            run["status"] = "writing"
             run["step"] = "research"
             save(run)
         pack = await build_insights(run["brief"], (run.get("ads") or {}).get("subjects") or [])
@@ -484,10 +536,8 @@ async def _research(run_id: str) -> None:
         log.exception("research failed")
         if is_superagent(run["domain"]):
             apply_ads(run)
-            pack = await build_insights(run["brief"], (run.get("ads") or {}).get("subjects") or [])
-            run["insights"] = pack["insights"]
-            run["concepts"] = pack["concepts"]
-            run["ads"]["source"] = "fixture"
+            apply_insights(run)
+            run["ads"]["fallback_reason"] = "Live library research was unavailable; showing the dated public research snapshot."
             save(run)
             return
         update(run_id, status="error", error=str(e)[:300], ads={"status": "error", "subjects": [], "error": str(e)[:300]})
@@ -541,12 +591,8 @@ async def _instrument(run_id: str, repo: str, default_branch: str) -> None:
     if not run:
         return
     try:
-        if MOCK:
-            await asyncio.sleep(1.4)
-            run = get(run_id) or run
-            apply_pixel_pr(run, repo)
-            save(run)
-            return
+        if not github_oauth.token_for(run_id):
+            raise RuntimeError("Connect GitHub before installing conversion tracking.")
         from codex import instrument
 
         run = await instrument(run, repo, default_branch)
@@ -558,3 +604,22 @@ async def _instrument(run_id: str, repo: str, default_branch: str) -> None:
         track.update({"status": "error", "error": str(e)[:300]})
         run["tracking"] = track
         save(run)
+
+
+class FrontendFiles(StaticFiles):
+    """Serve the built SPA while preserving API and missing-asset 404s."""
+
+    async def get_response(self, path: str, scope: dict[str, Any]):
+        if path == "api" or path.startswith("api/"):
+            raise HTTPException(404, "Not found")
+        try:
+            return await super().get_response(path, scope)
+        except StarletteHTTPException as exc:
+            if exc.status_code != 404 or Path(path).suffix:
+                raise
+            return await super().get_response("index.html", scope)
+
+
+frontend_dist = ROOT / "frontend" / "dist"
+if frontend_dist.is_dir():
+    app.mount("/", FrontendFiles(directory=frontend_dist, html=True), name="frontend")

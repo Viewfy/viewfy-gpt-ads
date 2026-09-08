@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import re
 import uuid
 from pathlib import Path
 from typing import Any
@@ -37,19 +38,21 @@ def budget_micros(usd: float) -> int:
     return max(1_000_000, int(round(float(usd or 0) * 1_000_000)))
 
 
+def valid_external_id(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip()) and not re.search(r"(?:^|[_-])(?:demo|mock|fixture)(?:$|[_-])", value, re.I)
+
+
 def map_status(campaign_status: str | None, review: str | None) -> str:
     review = (review or "").lower()
     status = (campaign_status or "").lower()
     if review == "rejected" or status in {"failed", "error"}:
         return "failed"
-    if review == "in_review":
+    if review in {"in_review", "under_review", "pending", "pending_review"}:
         return "under_review"
-    if status == "active" and review in {"approved", ""}:
+    if status == "active" and review == "approved":
         return "active"
-    if status == "paused":
+    if status in {"paused", "submitted", "active"}:
         return "submitted"
-    if status == "active":
-        return "active"
     return "draft"
 
 
@@ -98,13 +101,15 @@ def _err(r: httpx.Response) -> str:
 async def ad_account(token: str | None = None) -> dict[str, Any]:
     tok = (token or key_for()).strip()
     if not tok:
-        return {"ok": False, "mode": "demo", "error": "No Ads Manager key"}
+        return {"ok": False, "mode": "unconnected", "error": "No Ads Manager key is configured. Connect an ad account before launching."}
     try:
         async with httpx.AsyncClient(timeout=20.0) as c:
             r = await c.get(f"{ADS}/ad_account", headers=_headers(tok))
         if r.status_code >= 400:
-            return {"ok": False, "mode": "demo", "error": f"{r.status_code}: {_err(r)}"}
+            return {"ok": False, "mode": "unconnected", "error": f"{r.status_code}: {_err(r)}"}
         data = r.json()
+        if not isinstance(data, dict) or not valid_external_id(data.get("id")):
+            return {"ok": False, "mode": "unconnected", "error": "Ads Manager returned no ad account ID. The connection could not be verified."}
         return {
             "ok": True,
             "mode": "live",
@@ -118,7 +123,15 @@ async def ad_account(token: str | None = None) -> dict[str, Any]:
         }
     except Exception as e:
         log.warning("ad_account failed: %r", e)
-        return {"ok": False, "mode": "demo", "error": str(e)[:240]}
+        return {"ok": False, "mode": "unconnected", "error": str(e)[:240] or "Ads Manager is unavailable"}
+
+
+def _unconnected(campaign: dict[str, Any], error: str) -> dict[str, Any]:
+    campaign.update({
+        "status": "draft", "mode": "unconnected", "connected": False,
+        "account": None, "note": None, "error": error,
+    })
+    return campaign
 
 
 async def lookup_location(query: str, token: str | None = None) -> dict[str, str] | None:
@@ -209,21 +222,18 @@ async def _post(c: httpx.AsyncClient, path: str, body: dict[str, Any], *, token:
 
 
 async def launch_campaign(run: dict[str, Any]) -> dict[str, Any]:
+    campaign = dict(run.get("campaign") or {})
+    if campaign.get("preview"):
+        campaign.update({"error": None, "note": None, "connected": True, "mode": "live"})
+        return campaign
     token = key_for(run.get("id"))
     health = await ad_account(token)
     creative = run.get("creative") or {}
     campaign = dict(run.get("campaign") or {})
     campaign["account"] = {k: health.get(k) for k in ("id", "name", "status", "currency", "review") if health.get(k)}
     if not health.get("ok"):
-        campaign.update(
-            {
-                "status": "draft",
-                "mode": "demo",
-                "error": None,
-                "note": "Demo / export. Ads API is not connected. Nothing was submitted or spent.",
-            }
-        )
-        return campaign
+        return _unconnected(campaign, health.get("error") or "Connect an Ads Manager account before launching.")
+    campaign.update({"mode": "live", "connected": True, "error": None, "note": None})
 
     micros = budget_micros(campaign.get("budget_usd") or 25)
     places = [str(x).strip() for x in (campaign.get("geo") or ["US"]) if str(x).strip()]
@@ -248,6 +258,10 @@ async def launch_campaign(run: dict[str, Any]) -> dict[str, Any]:
                 idem=idem,
             )
             campaign_id = cmpn.get("id")
+            if not valid_external_id(campaign_id):
+                raise RuntimeError("Ads Manager did not return a campaign ID. Submission could not be verified.")
+            ids = {"campaign_id": campaign_id, "file_id": file_id}
+            campaign["external_ids"] = ids
             grp = await _post(
                 c,
                 "/ad_groups",
@@ -262,6 +276,9 @@ async def launch_campaign(run: dict[str, Any]) -> dict[str, Any]:
                 idem=f"{idem}-group",
             )
             group_id = grp.get("id")
+            if not valid_external_id(group_id):
+                raise RuntimeError("Ads Manager did not return an ad group ID. Submission could not be verified.")
+            ids["ad_group_id"] = group_id
             title = (creative.get("title") or "See this")[:50]
             body = (creative.get("body") or "")[:100]
             ad = await _post(
@@ -282,26 +299,26 @@ async def launch_campaign(run: dict[str, Any]) -> dict[str, Any]:
                 token=token,
                 idem=f"{idem}-ad",
             )
+            ad_id = ad.get("id")
+            if not valid_external_id(ad_id):
+                raise RuntimeError("Ads Manager did not return an ad ID. Submission could not be verified.")
+            ids["ad_id"] = ad_id
             act = await c.post(f"{ADS}/campaigns/{campaign_id}/activate", headers=_headers(token))
-            act_status = "active" if act.status_code < 400 else "paused"
+            activated = 200 <= act.status_code < 300
+            act_status = "active" if activated else "paused"
             review = ad.get("review_status")
             campaign.update(
                 {
-                    "status": map_status(act_status, review),
+                    "status": map_status(act_status, review) if activated or review == "rejected" else "submitted",
                     "mode": "live",
                     "error": None,
-                    "note": None,
-                    "external_ids": {
-                        "campaign_id": campaign_id,
-                        "ad_group_id": group_id,
-                        "ad_id": ad.get("id"),
-                        "file_id": file_id,
-                    },
+                    "note": None if activated else f"Campaign submitted but remains paused. Activation failed: {act.status_code}: {_err(act)}",
+                    "external_ids": ids,
                     "review_status": review,
                     "locations": locations,
                 }
             )
-            campaign["insights"] = await _insights(c, ad.get("id"), token)
+            campaign["insights"] = await _insights(c, ad_id, token)
             return campaign
     except Exception as e:
         log.warning("launch failed: %r", e)
@@ -312,18 +329,22 @@ async def launch_campaign(run: dict[str, Any]) -> dict[str, Any]:
 async def _insights(c: httpx.AsyncClient, ad_id: str | None, token: str | None = None) -> dict[str, Any] | None:
     if not ad_id:
         return None
-    r = await c.get(
-        f"{ADS}/ads/{ad_id}/insights",
-        headers=_headers(token, json_body=False),
-        params={"time_granularity": "daily", "limit": 7},
-    )
-    if r.status_code >= 400:
+    try:
+        r = await c.get(
+            f"{ADS}/ads/{ad_id}/insights",
+            headers=_headers(token, json_body=False),
+            params={"time_granularity": "daily", "limit": 7},
+        )
+        if r.status_code >= 400:
+            return None
+        rows = (r.json() or {}).get("data") or []
+        impressions = sum(int(x.get("impressions") or 0) for x in rows)
+        clicks = sum(int(x.get("clicks") or 0) for x in rows)
+        spend = round(sum(float(x.get("spend") or 0) for x in rows), 2)
+        return {"impressions": impressions, "clicks": clicks, "spend": spend, "days": len(rows)}
+    except Exception as e:
+        log.warning("campaign insights unavailable: %r", e)
         return None
-    rows = (r.json() or {}).get("data") or []
-    impressions = sum(int(x.get("impressions") or 0) for x in rows)
-    clicks = sum(int(x.get("clicks") or 0) for x in rows)
-    spend = round(sum(float(x.get("spend") or 0) for x in rows), 2)
-    return {"impressions": impressions, "clicks": clicks, "spend": spend, "days": len(rows)}
 
 
 async def refresh_campaign(run: dict[str, Any]) -> dict[str, Any]:
@@ -332,22 +353,39 @@ async def refresh_campaign(run: dict[str, Any]) -> dict[str, Any]:
     ad_id = ids.get("ad_id")
     campaign_id = ids.get("campaign_id")
     token = key_for(run.get("id"))
-    if not token or not ad_id:
+    health = await ad_account(token)
+    if not health.get("ok"):
+        return _unconnected(campaign, health.get("error") or "Could not verify the Ads Manager account.")
+    campaign.update({
+        "mode": "live", "connected": True, "error": None,
+        "account": {k: health.get(k) for k in ("id", "name", "status", "currency", "review") if health.get(k)},
+    })
+    if not ad_id or not campaign_id or not ids.get("ad_group_id"):
+        campaign.update({"status": "draft", "error": "No submitted campaign is saved. Launch a campaign before refreshing its status."})
         return campaign
     try:
         async with httpx.AsyncClient(timeout=20.0) as c:
             ad = await c.get(f"{ADS}/ads/{ad_id}", headers=_headers(token, json_body=False))
-            if ad.status_code < 400:
-                data = ad.json() or {}
-                campaign["review_status"] = data.get("review_status")
-                cmp_status = data.get("status")
-                if campaign_id:
-                    cr = await c.get(f"{ADS}/campaigns/{campaign_id}", headers=_headers(token, json_body=False))
-                    if cr.status_code < 400:
-                        cmp_status = (cr.json() or {}).get("status") or cmp_status
-                campaign["status"] = map_status(cmp_status, campaign.get("review_status"))
+            if ad.status_code in {401, 403}:
+                return _unconnected(campaign, f"Ad refresh failed: {ad.status_code}: {_err(ad)}")
+            if ad.status_code >= 400:
+                raise RuntimeError(f"Ad refresh failed: {ad.status_code}: {_err(ad)}")
+            data = ad.json() or {}
+            if data.get("id") != ad_id:
+                raise RuntimeError("Ads Manager returned no matching ad record. Status could not be verified.")
+            campaign["review_status"] = data.get("review_status")
+            cr = await c.get(f"{ADS}/campaigns/{campaign_id}", headers=_headers(token, json_body=False))
+            if cr.status_code in {401, 403}:
+                return _unconnected(campaign, f"Campaign refresh failed: {cr.status_code}: {_err(cr)}")
+            if cr.status_code >= 400:
+                raise RuntimeError(f"Campaign refresh failed: {cr.status_code}: {_err(cr)}")
+            campaign_data = cr.json() or {}
+            if campaign_data.get("id") != campaign_id:
+                raise RuntimeError("Ads Manager returned no matching campaign record. Status could not be verified.")
+            campaign["status"] = map_status(campaign_data.get("status"), campaign.get("review_status"))
             campaign["insights"] = await _insights(c, ad_id, token)
+            campaign["note"] = None
     except Exception as e:
         log.warning("refresh failed: %r", e)
-        campaign["error"] = str(e)[:240]
+        campaign.update({"status": "failed", "error": str(e)[:240] or "Campaign status could not be refreshed."})
     return campaign

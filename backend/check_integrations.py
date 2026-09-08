@@ -13,7 +13,7 @@ from openai_ads import ad_account
 
 async def main() -> None:
     acct = await ad_account()
-    print("openai_ads", "ok" if acct.get("ok") else "demo", acct.get("name") or acct.get("error"))
+    print("openai_ads", "ok" if acct.get("ok") else "unconnected", acct.get("name") or acct.get("error"))
     print("apify", "set" if APIFY_TOKEN else "missing")
     print("ads_key", "set" if OPENAI_ADS_API_KEY else "missing")
 

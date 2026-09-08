@@ -100,7 +100,7 @@ async def instrument(run: dict[str, Any], repo: str, default_branch: str) -> dic
                 await asyncio.sleep(4)
                 pr_url = await poll_cursor(agent_id, run_id)
                 if pr_url:
-                    return apply_tracking(run, repo=repo, pr_url=pr_url, mock=False)
+                    return apply_tracking(run, repo=repo, pr_url=pr_url)
                 if pr_url == "":
                     break
         except Exception:
@@ -108,5 +108,5 @@ async def instrument(run: dict[str, Any], repo: str, default_branch: str) -> dic
     if token:
         branch = "astra/gpt6-pixel"
         pr_url = await open_pixel_pr(token, repo, snippet, branch, default_branch)
-        return apply_tracking(run, repo=repo, pr_url=pr_url, mock=False)
+        return apply_tracking(run, repo=repo, pr_url=pr_url)
     raise RuntimeError("Connect GitHub, or set CURSOR_API_KEY, to open the pixel PR")

@@ -55,7 +55,8 @@ def new_run(domain: str) -> dict[str, Any]:
         "creative": None,
         "campaign": {
             "status": "draft",
-            "mode": None,
+            "mode": "unconnected",
+            "connected": False,
             "budget_usd": 25,
             "geo": ["US"],
             "account": None,
@@ -79,6 +80,12 @@ def save(run: dict[str, Any]) -> dict[str, Any]:
 
 
 def get(run_id: str) -> dict[str, Any] | None:
+    # Run identifiers are public bearer links, never arbitrary data filenames.
+    try:
+        if str(uuid.UUID(run_id)) != run_id:
+            return None
+    except (ValueError, TypeError, AttributeError):
+        return None
     p = _path(run_id)
     if not p.exists():
         return None
@@ -86,6 +93,30 @@ def get(run_id: str) -> dict[str, Any] | None:
         run = json.loads(p.read_text(encoding="utf-8"))
     if "tracking" not in run:
         run["tracking"] = empty_tracking()
+    migrated = False
+    campaign = run.get("campaign") or {}
+    if campaign.get("mode") == "demo":
+        campaign.update({
+            "status": "draft", "mode": "unconnected", "connected": False,
+            "account": None, "external_ids": {}, "insights": None,
+            "note": None, "review_status": None, "error": None,
+        })
+        campaign.pop("review", None)
+        run["campaign"] = campaign
+        if run.get("step") in {"autopilot", "done"}:
+            run["step"] = "ads"
+            run["status"] = "ready"
+        migrated = True
+    tracking = run.get("tracking") or {}
+    old_note = str(tracking.get("note") or "").strip().lower()
+    if tracking.get("login") == "astra-demo" or old_note.startswith(("demo", "mock")) or "demo pull request" in old_note:
+        run["tracking"] = {
+            **empty_tracking(), "status": "error",
+            "error": "Connect GitHub to set up conversion tracking. No verified connection or pull request is saved.",
+        }
+        migrated = True
+    if migrated:
+        save(run)
     return run
 
 
