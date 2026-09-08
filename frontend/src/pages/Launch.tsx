@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { ActionBar } from '../components/ActionBar'
 import { TrackingSetup } from '../components/TrackingSetup'
+import { CreativeVariantPicker } from '../components/CreativeVariantPicker'
 import { api } from '../lib/api'
 import { hasCampaignIds, isCampaignConnected } from '../lib/campaign-state'
+import { getCreativeVariantGroups } from '../lib/creative-variants'
 import { safeExternalUrl } from '../lib/external-url'
 import type { Creative, Run } from '../lib/types'
 
@@ -22,11 +24,12 @@ export function Launch({
 }: {
   run: Run
   onContinue: (budget: number, geo: string[]) => void
-  onSave?: (patch: Partial<Creative>) => void
+  onSave?: (patch: Partial<Creative>) => Promise<void> | void
   onRun?: (run: Run) => void
 }) {
   const c = run.creative
   const ads = run.creatives?.length ? run.creatives : c ? [c] : []
+  const variantGroups = getCreativeVariantGroups(run)
   const [budget, setBudget] = useState(run.campaign.budget_usd > 0 ? run.campaign.budget_usd : 25)
   const [geo, setGeo] = useState((run.campaign.geo || []).filter(Boolean).join(', ') || 'US')
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -64,8 +67,10 @@ export function Launch({
   }
 
   return (
-    <div className="ui-page ui-page--narrow ui-page--actions space-y-4">
+    <div className={`ui-page ${variantGroups.length ? 'ui-page--medium' : 'ui-page--narrow'} ui-page--actions space-y-4`}>
       <h2 className="font-display font-extrabold text-3xl">Launch campaign</h2>
+
+      {variantGroups.length > 0 && <CreativeVariantPicker key={run.id} groups={variantGroups} ads={ads} onSave={onSave} />}
 
       {ads.length > 0 && (
         <section>
@@ -77,6 +82,8 @@ export function Launch({
             {ads.map((ad) => {
               const editing = editingId === ad.id
               const isDemo = ad.image_url?.startsWith('/demo-ads/')
+                || ['getsuperagent.com', 'www.getsuperagent.com'].includes(run.domain.toLowerCase())
+                  && ['/superagent-ads.png', '/superagent-ads-2.png'].includes(ad.image_url || '')
               const concept = run.concepts.find((item) => item.id === ad.concept_id)
               const destinationUrl = safeExternalUrl(ad.target_url)
               const artworkUrl = ad.image_url?.startsWith('/') && !ad.image_url.startsWith('//')
@@ -86,7 +93,7 @@ export function Launch({
                 <article key={ad.id} className="ui-card overflow-hidden">
                   {isDemo && (
                     <div className="flex flex-wrap items-center justify-between gap-3 bg-[#faf9f6] px-4 py-3">
-                      <img src="/superagent-wordmark.svg" alt="Superagent" className="w-36 h-auto" />
+                      <img src="/superagent-wordmark.svg" alt="Superagent" className="w-56 max-w-full h-auto" />
                       <span className="text-[10px] font-semibold uppercase tracking-wide text-[#65665b]">Illustrative demo</span>
                     </div>
                   )}

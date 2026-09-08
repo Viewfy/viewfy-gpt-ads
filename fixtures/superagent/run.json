@@ -548,54 +548,54 @@
   "concepts": [
     {
       "id": "a",
-      "name": "Your old leads have unfinished business.",
-      "angle": "Reactivate dormant insurance leads across phone, text and email",
-      "why": "Our captured Smith.ai and SUPERAGENT ads already use the missed-call angle. SUPERAGENT’s outbound product page describes working existing lead lists across phone, text and email. The frozen-lead visual makes that workflow tangible: an overlooked opportunity becomes a new conversation.",
-      "headline": "Your old leads have unfinished business.",
-      "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
-      "cta": "See Superagent in action",
-      "visual": "Insurance lead cards suspended inside a giant block of ice. An amber pulse cracks it open, connecting one lead through a call, text and email. Charcoal background, dramatic light, real SUPERAGENT logo. Lead details are illustrative."
+      "name": "Your next lead could call another agency.",
+      "angle": "Make the cost of a missed call immediate",
+      "why": "Buyer research highlights missed calls and coverage outside office hours. The headline makes the risk of a lead contacting another agency concrete, while the copy connects it to Superagent's researched call-answering and qualification capabilities. The prominent official wordmark and original branded artwork anchor awareness.",
+      "headline": "Your next lead could call another agency.",
+      "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+      "cta": "Meet SUPERAGENT",
+      "visual": "The original dark SUPERAGENT brand artwork with its large black-and-lime mark and company name. Keep the real official wordmark prominent beside the editable copy."
     },
     {
       "id": "b",
-      "name": "Don’t make them start over.",
-      "angle": "Give the producer context for a useful human handoff",
-      "why": "Captured AnswerConnect and Smith.ai ads emphasize human reassurance, while buyer discussions question whether AI produces useful next steps. SUPERAGENT’s inbound page describes qualification and producer handoff. Carrying the caller’s needs into the producer’s hands makes that value immediately visible.",
-      "headline": "Don’t make them start over.",
-      "body": "Superagent qualifies the call and gives your producer the context to pick up the conversation.",
-      "cta": "See the handoff",
-      "visual": "A caller’s voice becomes a flowing amber ribbon carrying Auto quote, Two vehicles and Renewal next month into a human producer’s hands. Warm editorial photography, crisp overlays, real SUPERAGENT logo. Caller details are illustrative."
+      "name": "Don’t let your warm leads go cold.",
+      "angle": "Create urgency around leads that need follow-up",
+      "why": "The collected outbound research emphasizes working existing and dormant leads through calls, texts, and email. The copy frames delayed follow-up as a missed opportunity and gives insurance agencies a concrete reason to explore Superagent. The familiar office scene and prominent brand mark keep the product recognizable.",
+      "headline": "Don’t let your warm leads go cold.",
+      "body": "SUPERAGENT follows up by call, text, and email to help your insurance agency stay in the running.",
+      "cta": "See SUPERAGENT in action",
+      "visual": "The original insurance-office scene with a phone and SUPERAGENT logo card. Use clear brand and product copy without invented customer scenarios."
     }
   ],
   "creative": {
     "id": "sa-1",
     "concept_id": "a",
-    "title": "Your old leads have unfinished business.",
-    "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
-    "cta": "See Superagent in action",
-    "target_url": "https://getsuperagent.com/outbound-ai-agent",
-    "image_url": "/demo-ads/frozen-leads.png",
+    "title": "Your next lead could call another agency.",
+    "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+    "cta": "Meet SUPERAGENT",
+    "target_url": "https://getsuperagent.com/",
+    "image_url": "/superagent-ads-2.png",
     "format": "chat_card"
   },
   "creatives": [
     {
       "id": "sa-1",
       "concept_id": "a",
-      "title": "Your old leads have unfinished business.",
-      "body": "Bring dormant insurance leads back into the conversation with AI follow-up.",
-      "cta": "See Superagent in action",
-      "target_url": "https://getsuperagent.com/outbound-ai-agent",
-      "image_url": "/demo-ads/frozen-leads.png",
+      "title": "Your next lead could call another agency.",
+      "body": "SUPERAGENT answers and qualifies calls for your insurance agency, even after hours.",
+      "cta": "Meet SUPERAGENT",
+      "target_url": "https://getsuperagent.com/",
+      "image_url": "/superagent-ads-2.png",
       "format": "chat_card"
     },
     {
       "id": "sa-2",
       "concept_id": "b",
-      "title": "Don’t make them start over.",
-      "body": "Superagent qualifies the call and gives your producer the context to pick up the conversation.",
-      "cta": "See the handoff",
-      "target_url": "https://getsuperagent.com/inbound-ai-agent",
-      "image_url": "/demo-ads/context-handoff.png",
+      "title": "Don’t let your warm leads go cold.",
+      "body": "SUPERAGENT follows up by call, text, and email to help your insurance agency stay in the running.",
+      "cta": "See SUPERAGENT in action",
+      "target_url": "https://getsuperagent.com/",
+      "image_url": "/superagent-ads.png",
       "format": "chat_card"
     }
   ],

@@ -1,0 +1,64 @@
+{
+  "version": "2026-09-08.1",
+  "ready": false,
+  "groups": [
+    {
+      "concept_id": "a",
+      "creative_id": "sa-1",
+      "headline": "Your old leads have unfinished business.",
+      "variants": [
+        {
+          "id": "a1",
+          "label": "A1",
+          "name": "The thaw",
+          "description": "A single contact card emerges from clear ice. Quiet, cinematic, and focused.",
+          "image_url": "/demo-ads/variants/a1.png"
+        },
+        {
+          "id": "a2",
+          "label": "A2",
+          "name": "Second look",
+          "description": "An overlooked lead is pulled from the archive. Tactile editorial photography.",
+          "image_url": "/demo-ads/variants/a2.png"
+        },
+        {
+          "id": "a3",
+          "label": "A3",
+          "name": "Back in motion",
+          "description": "A dormant card moves toward a new appointment. Bold, sculptural paper illustration.",
+          "image_url": "/demo-ads/variants/a3.png"
+        }
+      ]
+    },
+    {
+      "concept_id": "b",
+      "creative_id": "sa-2",
+      "headline": "Don’t make them start over.",
+      "variants": [
+        {
+          "id": "b1",
+          "label": "B1",
+          "name": "The prepared handoff",
+          "description": "A briefing passes between colleagues. Natural photography and a human moment.",
+          "image_url": "/demo-ads/variants/b1.png"
+        },
+        {
+          "id": "b2",
+          "label": "B2",
+          "name": "One continuous conversation",
+          "description": "A telephone connects to the caller’s details. A clean, architectural still life.",
+          "image_url": "/demo-ads/variants/b2.png"
+        },
+        {
+          "id": "b3",
+          "label": "B3",
+          "name": "Context, carried",
+          "description": "A conversation travels intact to a producer. Crisp editorial paper illustration.",
+          "image_url": "/demo-ads/variants/b3.png"
+        }
+      ]
+    }
+  ],
+  "status": "archived",
+  "archive_reason": "Superseded by the user’s brand-awareness direction. Do not offer these scenario-based images as active ad options."
+}

@@ -17,7 +17,7 @@ export function ThemeToggle() {
       className="theme-toggle"
       aria-label={mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
     >
-      {mode === 'dark' ? 'Light' : 'Dark'}
+      {mode === 'dark' ? 'Dark' : 'Light'}
     </button>
   )
 }
