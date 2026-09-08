@@ -66,11 +66,11 @@ test('legacy demo and disconnected data never produce a successful launch screen
 })
 
 test('the live heading requires active status and actual entity IDs', () => {
-  assert.equal(campaignOutcome(campaign({ status: 'active' })).title, 'Campaign launched!')
-  assert.equal(campaignOutcome(campaign({ status: 'submitted' })).title, 'Campaign launched!')
-  assert.equal(campaignOutcome(campaign({ status: 'under_review' })).title, 'Campaign launched!')
+  assert.equal(campaignOutcome(campaign({ status: 'active' })).title, 'Campaign was created! 🚀')
+  assert.equal(campaignOutcome(campaign({ status: 'submitted' })).title, 'Campaign was created! 🚀')
+  assert.equal(campaignOutcome(campaign({ status: 'under_review' })).title, 'Campaign was created! 🚀')
   assert.equal(campaignOutcome(campaign({ status: 'active', external_ids: {} })).title, 'Campaign not launched')
-  assert.equal(campaignOutcome(campaign({ preview: true, status: 'draft', external_ids: {} })).title, 'Campaign launched!')
+  assert.equal(campaignOutcome(campaign({ preview: true, status: 'draft', external_ids: {} })).title, 'Campaign was created! 🚀')
 })
 
 test('failed and rejected campaigns remain actionable and never successful', () => {
@@ -81,13 +81,13 @@ test('failed and rejected campaigns remain actionable and never successful', () 
   }
 })
 
-test('skipping submission shows saved for later even with a stale preview flag or launch error', () => {
+test('the full demo celebrates a created campaign after skip-launch', () => {
   for (const status of ['draft', 'failed']) {
     const value = campaign({ submission_deferred: true, preview: true, status, external_ids: {}, error: 'Previous attempt failed' })
-    assert.equal(isCampaignLaunched(value), false)
+    assert.equal(isCampaignLaunched(value), true)
     assert.equal(hasSubmittedCampaign(value), false)
-    assert.equal(campaignOutcome(value).title, 'Campaign saved for later')
-    assert.match(campaignOutcome(value).description, /Submission skipped/)
+    assert.equal(campaignOutcome(value).title, 'Campaign was created! 🚀')
+    assert.match(campaignOutcome(value).description, /Astra just launched/)
   }
 })
 
@@ -95,5 +95,5 @@ test('a skipped setup does not erase actual submission evidence', () => {
   const value = campaign({ submission_deferred: true, status: 'active' })
   assert.equal(hasSubmittedCampaign(value), true)
   assert.equal(isCampaignLaunched(value), true)
-  assert.notEqual(campaignOutcome(value).title, 'Campaign saved for later')
+  assert.equal(campaignOutcome(value).title, 'Campaign was created! 🚀')
 })

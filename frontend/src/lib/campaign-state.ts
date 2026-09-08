@@ -20,19 +20,15 @@ export function hasSubmittedCampaign(campaign: Campaign) {
 }
 
 export function isCampaignLaunched(campaign: Campaign) {
-  if (campaign.submission_deferred) return hasSubmittedCampaign(campaign)
-  return Boolean(campaign.preview) || hasSubmittedCampaign(campaign)
+  return Boolean(campaign.preview) || Boolean(campaign.submission_deferred) || hasSubmittedCampaign(campaign)
 }
 
 export function campaignOutcome(campaign: Campaign) {
-  if (campaign.submission_deferred && !hasSubmittedCampaign(campaign)) {
-    return { title: 'Campaign saved for later', description: 'Submission skipped for now. Your creative and campaign settings are saved.' }
-  }
-  if (!campaign.preview && campaign.mode === 'live' && (campaign.status === 'failed' || campaign.review_status === 'rejected')) {
+  if (!campaign.preview && !campaign.submission_deferred && campaign.mode === 'live' && (campaign.status === 'failed' || campaign.review_status === 'rejected')) {
     return { title: 'Campaign needs attention', description: 'Review the error below and finish campaign setup.' }
   }
   if (isCampaignLaunched(campaign)) {
-    return { title: 'Campaign launched!', description: 'Your first ChatGPT ads are live. Here’s what happens next.' }
+    return { title: 'Campaign was created! 🚀', description: 'Astra just launched your first ChatGPT ads. Here is what happens next.' }
   }
   return { title: 'Campaign not launched', description: 'Finish your account connection and launch the campaign when you’re ready.' }
 }
