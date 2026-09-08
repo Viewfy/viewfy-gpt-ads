@@ -6,6 +6,7 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
   const t = run.tracking
   const [repo, setRepo] = useState(t?.repo || t?.repos?.[0]?.full_name || '')
   const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     if (t?.repo) setRepo(t.repo)
@@ -23,10 +24,10 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
   const repos = t?.repos || []
 
   return (
-    <section className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#161412] p-5 space-y-3">
+    <section className="ui-card p-6 space-y-3">
       <div>
         <h3 className="font-display font-extrabold text-xl">Set up conversion tracking</h3>
-        <p className="text-sm text-neutral-600 dark:text-[#a39c92] mt-1">
+        <p className="text-sm ui-body mt-1">
           Connect GitHub. GPT6 Astra adds the Ads pixel to the site and opens a pull request.
         </p>
       </div>
@@ -40,8 +41,8 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
       )}
       {connected && (
         <>
-          <p className="text-sm text-neutral-500 dark:text-[#a39c92]">
-            Connected as <span className="font-semibold text-neutral-800 dark:text-[#f4efe6]">@{t?.login}</span>
+          <p className="text-sm ui-muted">
+            Connected as <span className="font-semibold ui-text">@{t?.login}</span>
           </p>
           <label className="block text-sm">
             Repository
@@ -49,7 +50,7 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
               value={repo}
               onChange={(e) => setRepo(e.target.value)}
               disabled={t?.status === 'running'}
-              className="mt-1 w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2"
+              className="mt-1 w-full ui-input px-3 py-2"
             >
               {repos.map((r) => (
                 <option key={r.full_name} value={r.full_name}>
@@ -65,8 +66,11 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
               disabled={busy || t?.status === 'running' || !repo}
               onClick={async () => {
                 setBusy(true)
+                setError('')
                 try {
                   onRun(await api.startTracking(run.id, repo))
+                } catch (failure) {
+                  setError(failure instanceof Error ? failure.message : 'Could not start conversion tracking setup.')
                 } finally {
                   setBusy(false)
                 }
@@ -77,15 +81,15 @@ export function TrackingSetup({ run, onRun }: { run: Run; onRun: (run: Run) => v
           )}
         </>
       )}
-      {t?.note && <p className="text-sm text-neutral-500 dark:text-[#a39c92]">{t.note}</p>}
-      {t?.error && <p className="text-sm text-red-600">{t.error}</p>}
+      {t?.note && <p className="text-sm ui-muted">{t.note}</p>}
+      {(error || t?.error) && <p role="alert" className="text-sm text-red-600 dark:text-red-300">{error || t?.error}</p>}
       {t?.status === 'pr_ready' && t.pr_url && (
         <a href={t.pr_url} target="_blank" rel="noreferrer" className="inline-flex btn-primary">
           Open pull request
         </a>
       )}
       {t?.snippet && (
-        <pre className="text-xs overflow-x-auto rounded-xl bg-neutral-100 dark:bg-black/40 px-3 py-2 text-neutral-700 dark:text-[#a39c92]">{t.snippet}</pre>
+        <pre className="text-xs overflow-x-auto rounded-xl ui-surface px-3 py-2 ui-body">{t.snippet}</pre>
       )}
     </section>
   )

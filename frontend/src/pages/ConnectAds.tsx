@@ -1,144 +1,55 @@
 import { useState } from 'react'
-import { api } from '../lib/api'
+import { ActionBar } from '../components/ActionBar'
 import type { Run } from '../lib/types'
 
-const KEY_URL = 'https://ads.openai.com/settings?act=adacct_6a9f63bbdb10819e87b23fd178c50b5b'
-
-const LABELS: Record<string, string> = {
-  draft: 'Draft',
-  submitted: 'Submitted',
-  under_review: 'Under review',
-  active: 'Active',
-  failed: 'Failed',
-}
-
-const STEPS = ['Get a key', 'Save it', 'Create the ad'] as const
-
-export function ConnectAds({
-  run,
-  launching,
-  onRun,
-  onLaunch,
-}: {
+export function ConnectAds({ run, saving, onContinue }: {
   run: Run
-  launching?: boolean
-  onRun: (run: Run) => void
-  onLaunch: () => void
+  saving?: boolean
+  onContinue: () => void | Promise<void>
 }) {
-  const live = run.campaign.mode === 'live'
-  const connected = live && Boolean(run.campaign.connected || run.campaign.account?.name)
-  const [phase, setPhase] = useState(connected ? 3 : 1)
-  const [key, setKey] = useState('')
-  const [busy, setBusy] = useState(false)
-  const insights = run.campaign.insights
+  const [continuing, setContinuing] = useState(false)
+  const [error, setError] = useState('')
 
-  async function saveKey() {
-    if (!key.trim()) return
-    setBusy(true)
+  async function continueSetup() {
+    if (saving || continuing) return
+    setContinuing(true)
+    setError('')
     try {
-      const next = await api.connectAds(run.id, key)
-      onRun(next)
-      setKey('')
-      if (next.campaign.mode === 'live' && (next.campaign.connected || next.campaign.account?.name)) {
-        setPhase(3)
-      }
+      await onContinue()
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : 'Could not continue. Please try again.')
     } finally {
-      setBusy(false)
+      setContinuing(false)
     }
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-5 pt-4 pb-8 space-y-6">
+    <div className="ui-page ui-page--narrow ui-page--actions space-y-6">
       <header>
         <h2 className="font-display font-extrabold text-3xl">Connect ads</h2>
-        <p className="text-sm text-neutral-500 dark:text-[#6b6560] mt-2">
-          Step {phase} of {STEPS.length} · {STEPS[phase - 1]}
-        </p>
+        <p className="text-sm ui-muted mt-2">Keep your setup and continue</p>
       </header>
-
-      {phase === 1 && (
-        <section className="space-y-4">
-          <p className="text-neutral-600 dark:text-[#a39c92]">
-            Open Ads Manager and create a key for this ad account.
-          </p>
-          <button
-            type="button"
-            className="btn-primary inline-flex items-center gap-2"
-            onClick={() => {
-              window.open(KEY_URL, '_blank', 'noopener,noreferrer')
-              setPhase(2)
-            }}
-          >
-            Get API Key
-            <span aria-hidden>↗</span>
-          </button>
-        </section>
-      )}
-
-      {phase === 2 && (
-        <section className="space-y-4">
-          <p className="text-neutral-600 dark:text-[#a39c92]">
-            Paste the key. Viewfy stores it on the server for this run only.
-          </p>
-          <label className="block text-sm">
-            Ads Manager API key
-            <input
-              type="password"
-              value={key}
-              autoComplete="off"
-              autoFocus
-              placeholder="sk-… or Ads Manager key"
-              onChange={(e) => setKey(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && saveKey()}
-              className="mt-1 w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2"
-            />
-          </label>
-          {run.campaign.error && <p className="text-sm text-red-600">{run.campaign.error}</p>}
-          <div className="flex flex-wrap items-center gap-3">
-            <button type="button" className="btn-primary" disabled={busy || !key.trim()} onClick={saveKey}>
-              {busy ? 'Saving…' : 'Save API Key'}
-            </button>
-            <button type="button" className="text-sm font-semibold underline underline-offset-2" onClick={() => setPhase(1)}>
-              Back
-            </button>
+      {error && <p role="alert" className="text-sm text-red-600 dark:text-red-300">{error}</p>}
+      <section className="ui-card p-6 space-y-4">
+        <h3 className="font-display font-bold text-xl">Ready for the next step</h3>
+        <p className="ui-body">Your campaign settings are saved. Continue to your next steps and connect your ad account whenever you’re ready.</p>
+        <dl className="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <dt className="ui-muted">Daily budget</dt>
+            <dd className="mt-1 font-semibold ui-text">${run.campaign.budget_usd || 25}</dd>
           </div>
-        </section>
-      )}
-
-      {phase === 3 && (
-        <section className="space-y-4">
-          <p className="text-neutral-600 dark:text-[#a39c92]">Key is saved. Create the ChatGPT ad.</p>
-          {connected && run.campaign.account?.name && (
-            <p className="text-sm text-neutral-600 dark:text-[#a39c92]">
-              Account: <span className="font-semibold text-neutral-900 dark:text-[#f4efe6]">{run.campaign.account.name}</span>
-              {run.campaign.account.review ? ` · review ${run.campaign.account.review}` : ''}
-            </p>
-          )}
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="chip border-neutral-300 dark:border-white/15">{LABELS[run.campaign.status] || run.campaign.status}</span>
-            {connected && <span className="chip border-emerald-400 text-emerald-800 dark:text-emerald-300">Key saved</span>}
+          <div>
+            <dt className="ui-muted">Geography</dt>
+            <dd className="mt-1 font-semibold ui-text">{run.campaign.geo?.filter(Boolean).join(', ') || 'US'}</dd>
           </div>
-          {insights && (
-            <p className="text-sm text-neutral-600 dark:text-[#a39c92]">
-              {insights.impressions ?? 0} impressions · {insights.clicks ?? 0} clicks · ${insights.spend ?? 0} spend
-            </p>
-          )}
-          {run.campaign.note && <p className="text-sm text-neutral-500 dark:text-[#a39c92]">{run.campaign.note}</p>}
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              className="btn-accent"
-              disabled={launching || !connected || !run.creative}
-              onClick={onLaunch}
-            >
-              {launching ? 'Creating…' : 'Create Ad'}
-            </button>
-            <button type="button" className="text-sm font-semibold underline underline-offset-2" onClick={() => setPhase(2)}>
-              Use a different key
-            </button>
-          </div>
-        </section>
-      )}
+        </dl>
+        <p className="text-sm ui-muted">Campaign submission is paused for now. Continuing saves your progress without publishing ads.</p>
+      </section>
+      <ActionBar title="Ready to continue" description="Save your setup and see what’s next.">
+        <button type="button" className="btn-primary" disabled={saving || continuing} onClick={continueSetup}>
+          {saving || continuing ? 'Continuing…' : 'Continue to Next Steps'}
+        </button>
+      </ActionBar>
     </div>
   )
 }

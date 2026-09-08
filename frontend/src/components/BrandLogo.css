@@ -1,0 +1,26 @@
+/* Original marks keep their colors and proportions on a neutral surface in both themes. */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  vertical-align: middle;
+  border-radius: 4px;
+  background: #fff;
+}
+.brand-logo > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+}
+.glass-map-shell .node-icon--brand,
+html.dark .glass-map-shell .node-icon--brand,
+.glass-map-shell .node-icon:has(> .brand-logo),
+html.dark .glass-map-shell .node-icon:has(> .brand-logo) {
+  background: #fff;
+  border-radius: 9px;
+}
+.answer-brand-heading { display: flex; align-items: center; gap: 10px; }

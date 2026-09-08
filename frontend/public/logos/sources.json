@@ -1,0 +1,74 @@
+{
+  "retrievedAt": "2026-09-08",
+  "logos": [
+    {
+      "brand": "ChatGPT",
+      "file": "chatgpt.webp",
+      "sourcePage": "https://chatgpt.com/",
+      "assetUrl": "https://chatgpt.com/cdn/assets/favicon-180x180-od45eci6.webp"
+    },
+    {
+      "brand": "Claude official favicon",
+      "file": "claude.png",
+      "sourcePage": "https://claude.com/",
+      "assetUrl": "https://cdn.sanity.io/images/4zrzovbb/claude-com/369b14e80ac643cc09dccd581ccb91f82b559190-32x32.png",
+      "notes": "Official transparent orange sunburst favicon. Visually inspected."
+    },
+    {
+      "brand": "Perplexity official website mark",
+      "file": "perplexity.svg",
+      "sourcePage": "https://hub-prod.perplexity.ai/hub/helpcenter",
+      "assetUrl": null,
+      "notes": "Unchanged SVG extracted from data URI embedded on official footer, Perplexity Logo-Dark. Fill rgb(19,52,59)."
+    },
+    {
+      "brand": "google",
+      "file": "google.png",
+      "sourcePage": "https://google.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=google.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "meta",
+      "file": "meta.jpg",
+      "sourcePage": "https://meta.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "linkedin",
+      "file": "linkedin.png",
+      "sourcePage": "https://linkedin.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=linkedin.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "x",
+      "file": "x.png",
+      "sourcePage": "https://x.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=x.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "youtube",
+      "file": "youtube.png",
+      "sourcePage": "https://youtube.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=youtube.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "reddit",
+      "file": "reddit.png",
+      "sourcePage": "https://reddit.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=reddit.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    },
+    {
+      "brand": "tiktok",
+      "file": "tiktok.png",
+      "sourcePage": "https://tiktok.com",
+      "assetUrl": "https://www.google.com/s2/favicons?domain=tiktok.com&sz=128",
+      "notes": "Company favicon delivered by Google favicon service; visually checked."
+    }
+  ]
+}

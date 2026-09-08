@@ -8,15 +8,22 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
     ...init,
   })
   if (!r.ok) {
-    const text = await r.text()
-    throw new Error(text.slice(0, 240) || r.statusText)
+    const body = await r.text()
+    let message = body
+    try {
+      const error = JSON.parse(body)
+      if (typeof error.detail === 'string') message = error.detail
+    } catch {
+      // Some proxies return plain text instead of the API's JSON error response.
+    }
+    throw new Error(message.slice(0, 240) || r.statusText)
   }
   return r.json()
 }
 
 export const api = {
-  health: () => req<{ ads: { ok: boolean; mode: string; name?: string; error?: string } }>('/api/health'),
-  create: (domain: string, fixture = true) =>
+  health: () => req<{ mock: boolean; ads: { ok: boolean; mode: string; name?: string; error?: string } }>('/api/health'),
+  create: (domain: string, fixture = false) =>
     req<Run>('/api/runs', { method: 'POST', body: JSON.stringify({ domain, fixture }) }),
   get: (id: string) => req<Run>(`/api/runs/${id}`),
   saveMap: (id: string, nodes: MapNode[], missing?: string[]) =>
@@ -34,6 +41,7 @@ export const api = {
     req<Run>(`/api/runs/${id}/ads/connect`, { method: 'POST', body: JSON.stringify({ key }) }),
   launch: (id: string, budget_usd: number, geo: string[]) =>
     req<Run>(`/api/runs/${id}/launch`, { method: 'POST', body: JSON.stringify({ budget_usd, geo }) }),
+  skipLaunch: (id: string) => req<Run>(`/api/runs/${id}/skip-launch`, { method: 'POST' }),
   refreshAds: (id: string) => req<Run>(`/api/runs/${id}/ads/refresh`, { method: 'POST' }),
   githubLogin: (id: string) => {
     window.location.href = `/api/github/login?run_id=${encodeURIComponent(id)}`

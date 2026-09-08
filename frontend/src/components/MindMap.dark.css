@@ -1,0 +1,270 @@
+/* Dark branch styling; shared theme and chrome live in theme.css. */
+html.dark .glass-map-shell .map-sidebar {
+  scrollbar-color: #49443f transparent;
+}
+html.dark .glass-map-shell .map-sidebar::-webkit-scrollbar-thumb,
+html.dark .glass-map-shell .inspector-scroll::-webkit-scrollbar-thumb { background-color: #49443f; }
+html.dark .glass-map-shell .map-sidebar::-webkit-scrollbar-track,
+html.dark .glass-map-shell .inspector-scroll::-webkit-scrollbar-track { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  html.dark .glass-map-shell .inspector-scroll { scrollbar-color: #49443f transparent; }
+}
+html.dark .glass-map-shell .map-title,
+html.dark .glass-map-shell .inspector-title { color: #f4efe6; }
+html.dark .glass-map-shell .map-description,
+html.dark .glass-map-shell .inspector-description { color: #b0a99f; }
+html.dark .glass-map-shell .map-eyebrow,
+html.dark .glass-map-shell .inspector-heading,
+html.dark .glass-map-shell .inspector-kicker { color: #9f998f; }
+html.dark .glass-map-shell .map-search {
+  color: #9b96a1;
+  background: rgba(12, 11, 10, .32);
+  border-color: rgba(244, 239, 230, .12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .12);
+}
+html.dark .glass-map-shell .map-search input { color: #ebe5dc; caret-color: #bac7ff; }
+html.dark .glass-map-shell .map-search input::placeholder { color: #938c83; }
+html.dark .glass-map-shell .map-search > button { color: #a29b92; }
+html.dark .glass-map-shell .map-search:focus-within {
+  border-color: #8290bd;
+  box-shadow: 0 0 0 3px rgba(152, 170, 235, .11);
+}
+html.dark .glass-map-shell .map-chip,
+html.dark .glass-map-shell .map-lanes .map-chip {
+  color: #bdb6ac;
+  background: rgba(244, 239, 230, .03);
+  border-color: rgba(244, 239, 230, .105);
+  box-shadow: none;
+}
+html.dark .glass-map-shell .map-chip:hover,
+html.dark .glass-map-shell .map-lanes .map-chip:hover {
+  color: #e7e0d6;
+  background: rgba(244, 239, 230, .065);
+  border-color: rgba(244, 239, 230, .2);
+}
+html.dark .glass-map-shell .map-chip[aria-pressed='true'],
+html.dark .glass-map-shell .map-lanes .map-chip[aria-pressed='true'] {
+  color: #e1e6ff;
+  background: linear-gradient(135deg, rgba(117, 136, 203, .22), rgba(115, 124, 192, .15));
+  border-color: rgba(151, 167, 223, .35);
+  box-shadow: inset 0 1px 0 rgba(182, 193, 237, .055);
+}
+html.dark .glass-map-shell .map-chip[aria-pressed='true'] > i,
+html.dark .glass-map-shell .map-chip[aria-pressed='true'] > span:first-child:not(:last-child) { box-shadow: 0 0 0 1px rgba(221, 227, 255, .15); }
+html.dark .glass-map-shell .map-controls,
+html.dark .glass-map-shell .map-quick-tips { border-color: rgba(244, 239, 230, .09); }
+html.dark .glass-map-shell .map-icon-button,
+html.dark .glass-map-shell .map-secondary-button,
+html.dark .glass-map-shell .inspector-close {
+  color: #c9c2b7;
+  background: rgba(244, 239, 230, .04);
+  border-color: rgba(244, 239, 230, .12);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .05);
+}
+html.dark .glass-map-shell .map-icon-button:hover,
+html.dark .glass-map-shell .map-secondary-button:hover,
+html.dark .glass-map-shell .inspector-close:hover {
+  color: #f4efe6;
+  background: rgba(244, 239, 230, .075);
+  border-color: rgba(244, 239, 230, .25);
+}
+html.dark .glass-map-shell .map-zoom-label { color: #c3bbb0; }
+html.dark .glass-map-shell .map-instructions,
+html.dark .glass-map-shell .map-mini-guide > p { color: #9a9287; }
+html.dark .glass-map-shell .map-mini-guide .map-tip { color: #b0b9d4; }
+html.dark .glass-map-shell .map-quick-tips > h3 { color: #c9c1b5; }
+html.dark .glass-map-shell .map-tip { color: #a9a196; }
+html.dark .glass-map-shell .map-tip svg {
+  color: #dce3ff;
+  background: linear-gradient(140deg, #545b78, #3b466c);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, .1);
+}
+html.dark .glass-map button:focus-visible,
+html.dark .glass-map a:focus-visible,
+html.dark .glass-map input:focus-visible { outline-color: #adbcf1; }
+
+html.dark .glass-map-shell .map-viewport { background: transparent; }
+html.dark .glass-map-shell .quadrant-competitors {
+  background: radial-gradient(ellipse at 75% 75%, rgba(106, 111, 197, .14), rgba(87, 94, 146, .07) 58%, rgba(75, 91, 142, .03));
+}
+html.dark .glass-map-shell .quadrant-buyers {
+  background: radial-gradient(ellipse at 12% 82%, rgba(46, 138, 119, .135), rgba(50, 112, 102, .055) 53%, rgba(49, 102, 101, .025));
+}
+html.dark .glass-map-shell .quadrant-you {
+  background: radial-gradient(ellipse at 86% 16%, rgba(170, 130, 62, .115), rgba(141, 111, 65, .055) 60%, rgba(106, 86, 56, .025));
+}
+html.dark .glass-map-shell .quadrant-answers {
+  background: radial-gradient(ellipse at 10% 12%, rgba(145, 99, 187, .13), rgba(105, 82, 144, .065) 57%, rgba(83, 80, 126, .03));
+}
+html.dark .glass-map-shell .map-node {
+  color: #eee9e2;
+  background: linear-gradient(140deg, rgba(37, 35, 38, .97), rgba(28, 27, 29, .96));
+  border-color: rgba(222, 215, 238, .105);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .16), inset 0 1px 0 rgba(244, 239, 230, .035);
+}
+html.dark .glass-map-shell .map-node--root {
+  background: linear-gradient(150deg, #302d30, #252326);
+  border-color: rgba(225, 218, 240, .18);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .2), 0 0 0 22px rgba(131, 138, 194, .07), 0 0 0 43px rgba(133, 144, 203, .035);
+}
+html.dark .glass-map-shell .map-node--section {
+  background: linear-gradient(150deg, #29262c, rgba(var(--node-rgb), .14));
+  border-color: rgba(var(--node-rgb), .35);
+  box-shadow: 0 0 0 3px rgba(var(--node-rgb), .045), 0 7px 17px rgba(0, 0, 0, .16), inset 0 1px 0 rgba(244, 239, 230, .045);
+}
+html.dark .glass-map-shell .map-node--lane {
+  background: linear-gradient(145deg, #2c2a39, #24232d);
+  border-color: rgba(145, 146, 210, .21);
+}
+html.dark .glass-map-shell .map-node--channel {
+  background: linear-gradient(145deg, #282733, #202127);
+  border-color: rgba(150, 157, 217, .21);
+}
+html.dark .glass-map-shell .map-node--ad {
+  background: linear-gradient(145deg, #26232b, #211f25);
+  border-color: rgba(176, 161, 215, .18);
+}
+html.dark .glass-map-shell .map-node:hover {
+  background: linear-gradient(140deg, rgba(48, 45, 50, .98), rgba(35, 33, 38, .98));
+  border-color: rgba(var(--node-rgb), .5);
+  box-shadow: 0 10px 27px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(244, 239, 230, .055);
+}
+html.dark .glass-map-shell .map-node.is-selected {
+  border-color: #a0aff0;
+  box-shadow: 0 0 0 3px rgba(152, 168, 240, .15), 0 10px 26px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(227, 232, 255, .055);
+}
+html.dark .glass-map-shell .node-description,
+html.dark .glass-map-shell .map-node--section .node-description,
+html.dark .glass-map-shell .map-node--root .node-description { color: #b3abb8; }
+html.dark .glass-map-shell .node-icon { background: rgba(var(--node-rgb), .15); }
+html.dark .glass-map-shell .node-count { color: #c3c7e5; background: rgba(147, 157, 210, .13); }
+html.dark .glass-map-shell .map-node--section .node-icon {
+  color: #e1e2ff;
+  background: linear-gradient(140deg, #6b6a98, #484576);
+  border-color: rgba(215, 211, 252, .2);
+  box-shadow: 0 0 0 5px rgba(150, 146, 213, .08), inset 1px 2px 5px rgba(237, 234, 255, .075), 0 5px 12px rgba(0, 0, 0, .2);
+}
+html.dark .glass-map-shell .map-node--section[data-section='buyers'] .node-icon { color: #bdeedc; background: linear-gradient(140deg, #36796b, #244f46); }
+html.dark .glass-map-shell .map-node--section[data-section='you'] .node-icon { color: #f3dcaa; background: linear-gradient(140deg, #8b7244, #594a30); }
+html.dark .glass-map-shell .map-node--section[data-section='answers'] .node-icon { color: #e4cefb; background: linear-gradient(140deg, #78558e, #4f365e); }
+html.dark .glass-map-shell .map-node--lane .node-icon {
+  color: #dedcff;
+  background: linear-gradient(145deg, #686394, #484171);
+  box-shadow: inset 1px 2px 3px rgba(238, 228, 255, .07), 0 0 0 3px rgba(173, 160, 214, .08);
+}
+html.dark .glass-map-shell .company-logo { color: #535073; background: #e6e2df; }
+html.dark .glass-map-shell .inspector-company > .company-logo { background: #ede8e2; box-shadow: 0 4px 12px rgba(0, 0, 0, .15); }
+html.dark .glass-map-shell .map-node--root > .root-logo,
+html.dark .glass-map-shell .map-node--root .node-icon {
+  color: #201c28;
+  background: #f4efe6;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, .22), inset 0 0 0 1px rgba(255, 255, 255, .5);
+}
+html.dark .glass-map-shell .node-ad-platform { color: #aaa0b6; }
+html.dark .glass-map-shell .node-ad-action { color: #bac1ef; }
+
+html.dark .glass-map-shell .map-breadcrumb,
+html.dark .glass-map-shell .map-canvas-hint,
+html.dark .glass-map-shell .map-canvas-toolbar > .map-text-button {
+  color: #a9a3b2;
+  background: rgba(28, 26, 29, .86);
+  border-color: rgba(228, 220, 244, .105);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, .12);
+}
+html.dark .glass-map-shell .map-breadcrumb button,
+html.dark .glass-map-shell .map-text-button,
+html.dark .glass-map-shell .map-canvas-toolbar > .map-text-button,
+html.dark .glass-map-shell .ad-source-link { color: #afbfed; }
+html.dark .glass-map-shell .map-breadcrumb button:hover,
+html.dark .glass-map-shell .map-text-button:hover,
+html.dark .glass-map-shell .ad-source-link:hover { color: #d0daff; }
+
+html.dark .glass-map-shell .inspector-card,
+html.dark .glass-map-shell .opportunity-card {
+  color: #ece5dc;
+  background: linear-gradient(140deg, rgba(42, 38, 35, .8), rgba(33, 30, 28, .8));
+  border-color: rgba(244, 239, 230, .09);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, .075), inset 0 1px 0 rgba(244, 239, 230, .025);
+}
+html.dark .glass-map-shell button.opportunity-card:hover {
+  border-color: rgba(180, 189, 221, .24);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+html.dark .glass-map-shell .inspector-card > h3,
+html.dark .glass-map-shell .opportunity-card > span > b { color: #eee7de; }
+html.dark .glass-map-shell .inspector-card > p,
+html.dark .glass-map-shell .opportunity-card p,
+html.dark .glass-map-shell .opportunity-card > span > span,
+html.dark .glass-map-shell .map-brief-list .inspector-card > p:last-child { color: #afa69a; }
+html.dark .glass-map-shell .inspector-card > .map-eyebrow,
+html.dark .glass-map-shell .map-brief-list .inspector-card > .map-eyebrow { color: #b4a995; }
+html.dark .glass-map-shell .inspector-card > small { color: #a3978a; }
+html.dark .glass-map-shell .opportunity-icon,
+html.dark .glass-map-shell .opportunity-card > svg:first-child { color: #abb8ed; filter: drop-shadow(0 2px 3px rgba(166, 177, 232, .1)); }
+html.dark .glass-map-shell .opportunity-icon svg,
+html.dark .glass-map-shell .opportunity-card > svg:first-child { fill: rgba(147, 158, 216, .12); }
+html.dark .glass-map-shell .map-channel-button {
+  color: #e1dacf;
+  background: rgba(244, 239, 230, .035);
+  border-color: rgba(244, 239, 230, .1);
+}
+html.dark .glass-map-shell .map-channel-button:hover,
+html.dark .glass-map-shell .map-channel-button[aria-expanded='true'] {
+  background: rgba(160, 158, 199, .09);
+  border-color: rgba(182, 178, 212, .25);
+}
+html.dark .glass-map-shell .map-channel-button > svg { color: #abb5d7; }
+html.dark .glass-map-shell .map-channel-button > .node-icon { color: #b7c4ef; background: rgba(142, 157, 212, .1); }
+html.dark .glass-map-shell .channel-summary small,
+html.dark .glass-map-shell .channel-summary span { color: #ada396; }
+html.dark .glass-map-shell .status-badge { color: #dfc98f; background: rgba(206, 175, 103, .095); }
+html.dark .glass-map-shell .map-empty-state {
+  color: #a99f92;
+  background: rgba(244, 239, 230, .025);
+  border-color: rgba(244, 239, 230, .15);
+}
+html.dark .glass-map-shell .map-empty-state strong,
+html.dark .glass-map-shell .map-empty-state > h3 { color: #d4c8b7; }
+html.dark .glass-map-shell .remove-competitor { color: #bb9ba4; }
+html.dark .glass-map-shell .remove-competitor:hover { color: #e3b0bb; }
+
+html.dark .glass-map-shell .map-ad-card {
+  color: #f4efe6;
+  background: #1a1816;
+  border-color: rgba(244, 239, 230, .11);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, .12);
+}
+html.dark .glass-map-shell .ad-meta {
+  color: #b4a99c;
+  background: rgba(244, 239, 230, .02);
+  border-color: rgba(244, 239, 230, .085);
+}
+html.dark .glass-map-shell .ad-meta > span:last-child { color: #b3baa9; }
+html.dark .glass-map-shell .ad-preview-image { background: #141312; }
+html.dark .glass-map-shell .ad-placeholder {
+  color: #a89e91;
+  background: radial-gradient(ellipse at 30% 20%, #27231f, #1d1a18);
+}
+html.dark .glass-map-shell .ad-format { color: #a59a8b; }
+html.dark .glass-map-shell .ad-headline { color: #f4efe6; }
+html.dark .glass-map-shell .ad-body { color: #b5ab9f; }
+html.dark .glass-map-shell .ad-footer {
+  color: #a69a8b;
+  background: rgba(244, 239, 230, .025);
+  border-color: rgba(244, 239, 230, .085);
+}
+html.dark .glass-map-shell .ad-cta {
+  color: #c7bdae;
+  background: rgba(244, 239, 230, .035);
+  border-color: rgba(244, 239, 230, .12);
+}
+
+html.dark .glass-map-shell .inspector-launch {
+  color: #f4efe6;
+  background: radial-gradient(ellipse at top left, rgba(137, 143, 184, .12), transparent 80%), #211f20;
+  border-color: rgba(188, 182, 207, .16);
+  box-shadow: inset 0 1px 0 rgba(244, 239, 230, .035), 0 -8px 20px rgba(12, 11, 10, .07);
+}
+html.dark .glass-map-shell .inspector-launch h3 { color: #eae4dc; }
+html.dark .glass-map-shell .inspector-launch p { color: #aaa199; }
+html.dark .glass-map-shell .inspector-launch > img { filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .2)); }

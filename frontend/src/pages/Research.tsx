@@ -1,58 +1,133 @@
 import { useEffect, useState } from 'react'
-import type { Run, Subject } from '../lib/types'
-import { AdCard, StatusNote } from '../components/AdCard'
+import { BrandLogo } from '../components/BrandLogo'
+import type { Run, Side, Subject } from '../lib/types'
+import { AdCard, researchStatusLabel, StatusNote } from '../components/AdCard'
+import { ActionBar } from '../components/ActionBar'
+import { safeExternalUrl } from '../lib/external-url'
 
 function count(s: Subject) {
   return {
     meta: (s.meta.ads || []).length,
     google: (s.google.ads || []).length,
+    other: (s.other_ads || []).length,
   }
+}
+
+function sideSummary(side: Side) {
+  const thirdParty = (side.ads || []).filter((ad) => ad.advertiser_relationship === 'unverified_third_party').length
+  if (thirdParty && thirdParty === side.ads.length) return `${thirdParty} third-party record${thirdParty === 1 ? '' : 's'}`
+  if (side.ads?.length) return `${side.ads.length} ad record${side.ads.length === 1 ? '' : 's'}`
+  const label = researchStatusLabel(side.status)
+  return ['Access limited', 'Source unavailable', 'Checking'].includes(label) ? label : 'Unverified'
+}
+
+function describe(value?: string | string[]) {
+  return Array.isArray(value) ? value.join(' ') : value
+}
+
+export function SubjectProfile({ subject }: { subject: Subject }) {
+  const profile = subject.profile
+  const fields = [
+    ['Audience', profile?.audience],
+    ['Positioning', profile?.positioning],
+    ['Offer', profile?.offer],
+    ['Pricing', profile?.pricing],
+    ['Call to action', profile?.cta],
+  ].filter(([, value]) => value)
+  const sources = (subject.sources || []).filter((source) => profile?.source_ids?.includes(source.id))
+  if (!profile && !subject.findings?.length) return null
+  return (
+    <section className="ui-card p-5 space-y-4">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-wide ui-muted">Website & product intelligence</p>
+        {profile?.category && <p className="mt-2 text-sm font-semibold ui-link">{profile.category}</p>}
+        {profile?.summary && <p className="mt-2 text-sm leading-relaxed ui-body">{profile.summary}</p>}
+      </div>
+      {!!fields.length && (
+        <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm">
+          {fields.map(([label, value]) => (
+            <div key={label}>
+              <dt className="text-xs font-semibold ui-muted">{label}</dt>
+              <dd className="mt-1 leading-relaxed">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {!!profile?.differentiators?.length && (
+        <div className="text-sm">
+          <p className="font-semibold">Differentiators claimed on the website</p>
+          <ul className="mt-2 pl-5 list-disc space-y-1 ui-body">
+            {profile.differentiators.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </div>
+      )}
+      {!!subject.findings?.length && (
+        <div className="border-t ui-border pt-4 text-sm">
+          <p className="font-semibold">Research findings</p>
+          <ul className="mt-2 pl-5 list-disc space-y-2 leading-relaxed ui-body">
+            {subject.findings.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </div>
+      )}
+      {!!profile?.limitations?.length && (
+        <div className="rounded-xl ui-surface px-3 py-3 text-xs leading-relaxed ui-muted">
+          <p className="font-semibold mb-1">Evidence limits</p>
+          {profile.limitations.map((item) => <p key={item} className="mt-1">{item}</p>)}
+        </div>
+      )}
+      {!!sources.length && (
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+          {sources.map((source) => (
+            <a key={source.id} href={safeExternalUrl(source.url)} target="_blank" rel="noreferrer" className="underline underline-offset-2 ui-link">{source.title} ↗</a>
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
+
+export function SubjectSources({ subject }: { subject: Subject }) {
+  if (!subject.sources?.length) return null
+  return (
+    <section className="space-y-3">
+      <h4 className="font-display font-bold text-lg">Source evidence</h4>
+      <div className="grid sm:grid-cols-2 gap-3">
+        {subject.sources.map((source) => (
+          <article key={source.id} className="ui-card p-4">
+            <p className="text-[11px] uppercase tracking-wide ui-muted">
+              {source.kind.replace(/_/g, ' ')}{source.observed_at && ` · Checked ${source.observed_at.slice(0, 10)}`}
+            </p>
+            <a href={safeExternalUrl(source.url)} target="_blank" rel="noreferrer" className="mt-1 inline-block text-sm font-semibold underline underline-offset-2 ui-link">{source.title} ↗</a>
+            <p className="mt-2 text-sm leading-relaxed ui-body">{source.summary}</p>
+            {source.quotes?.map((quote) => (
+              <blockquote key={quote} className="mt-3 border-l-2 ui-border pl-3 text-sm italic ui-body">“{quote}”</blockquote>
+            ))}
+          </article>
+        ))}
+      </div>
+    </section>
+  )
 }
 
 function logo(domain: string) {
   return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
 }
 
-function MetaLogo({ className = 'h-4 w-6 shrink-0' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 36 22" className={`${className} overflow-visible`} aria-hidden>
-      <path
-        fill="none"
-        stroke="#0081FB"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9.2 18.5C4.8 18.5 2.2 15 2.2 11S5.4 3.5 9.8 3.5c2.5 0 4.5 1.3 7.2 5.2C19.6 4.8 21.7 3.5 24.3 3.5 28.8 3.5 31.8 7 31.8 11s-3 7.5-7.5 7.5c-2.6 0-4.8-1.4-7.4-5.3C14.3 17.1 12.2 18.5 9.2 18.5z"
-      />
-    </svg>
-  )
-}
-
-function GoogleLogo({ className = 'h-4 w-4' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.2 2.8-2.5 3.7v3h4c2.4-2.2 3.5-5.4 3.5-8.8z" />
-      <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-4-3c-1.1.8-2.5 1.2-3.9 1.2-3 0-5.6-2-6.5-4.8H1.4v3.1C3.4 21.4 7.4 24 12 24z" />
-      <path fill="#FBBC05" d="M5.5 14.5c-.2-.7-.4-1.4-.4-2.1s.1-1.5.4-2.1V7.2H1.4C.5 8.9 0 10.4 0 12.4s.5 3.5 1.4 5.2l4.1-3.1z" />
-      <path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.8l3.4-3.4C17.9 1.1 15.2 0 12 0 7.4 0 3.4 2.6 1.4 6.4l4.1 3.1C6.4 6.8 9 4.8 12 4.8z" />
-    </svg>
-  )
-}
-
 function PlatformLabel({ platform, children }: { platform: 'meta' | 'google'; children: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      {platform === 'meta' ? <MetaLogo /> : <GoogleLogo />}
+      <BrandLogo brand={platform} size={18} />
       {children}
     </span>
   )
 }
 
-export function Research({ run, onNext }: { run: Run; onNext: () => void }) {
+export function Research({ run, onNext, busy = false, embedded = false }: { run: Run; onNext?: () => void; busy?: boolean; embedded?: boolean }) {
   const running = run.status === 'researching'
   const subjects = run.ads.subjects || []
   const [open, setOpen] = useState<string | null>(null)
   const selected = subjects.find((s) => s.domain === open) || null
+  const coverage = Array.isArray(run.ads.coverage) ? run.ads.coverage : run.ads.coverage ? [run.ads.coverage] : []
 
   useEffect(() => {
     if (!open) return
@@ -69,56 +144,78 @@ export function Research({ run, onNext }: { run: Run; onNext: () => void }) {
   }, [open])
 
   return (
-    <div className="max-w-6xl mx-auto px-5 pt-4 pb-8 space-y-8">
+    <div className={`ui-page ${embedded ? 'product-research-content' : 'ui-page--actions'} ui-text space-y-8`}>
       <header>
-        <h2 className="font-display font-extrabold text-3xl">Ad research</h2>
-        <p className="text-neutral-600 dark:text-[#a39c92] mt-1">
-          Public creatives for you and the competitors on the map. Longevity and repetition are signals. Not performance.
+        <h2 className="font-display font-extrabold text-3xl">Research & insights</h2>
+        <p className="ui-body mt-1">
+          Public ad records and sourced website research for you and your competitors.
         </p>
-        {run.stale.research && <p className="mt-2 text-sm text-amber-700">The map changed after this research. Re-confirm to refresh.</p>}
+        {(run.ads.researched_at || run.ads.methodology || run.ads.coverage) && (
+          <div className="mt-3 max-w-4xl space-y-1 text-xs leading-relaxed ui-muted">
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              {run.ads.researched_at && <p>Researched {run.ads.researched_at.slice(0, 10)}</p>}
+              {coverage[0] && <p>{coverage[0]}</p>}
+            </div>
+            {(run.ads.methodology || coverage.length > 1) && (
+              <details className="pt-1">
+                <summary className="cursor-pointer font-semibold hover:underline">Research method and limits</summary>
+                <div className="mt-2 space-y-2">
+                  {run.ads.methodology && <p>{describe(run.ads.methodology)}</p>}
+                  {coverage.slice(1).map((line) => <p key={line}>{line}</p>)}
+                </div>
+              </details>
+            )}
+          </div>
+        )}
+        {run.stale.research && <p className="mt-2 text-sm text-amber-700 dark:text-amber-300">The map changed after this research. Re-confirm to refresh.</p>}
       </header>
-      {running && <p className="text-neutral-500 dark:text-[#a39c92]">Astra is matching advertisers in Meta Ad Library and Google Ads Transparency…</p>}
+      {running && <p className="ui-muted">Astra is matching advertisers in Meta Ad Library and Google Ads Transparency…</p>}
       <div className="grid md:grid-cols-3 gap-4">
         {subjects.map((s) => {
           const st = count(s)
           return (
-            <article key={s.domain} className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#161412] p-5">
+            <article key={s.domain} className="flex flex-col ui-card p-5">
               <div className="flex items-start gap-3">
-                <img src={logo(s.domain)} alt="" className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-white/10" />
+                <img src={logo(s.domain)} alt="" className="w-10 h-10 rounded-xl ui-surface" />
                 <div className="min-w-0">
                   <p className="font-display font-extrabold text-lg leading-tight truncate">{s.name}</p>
-                  <p className="text-sm text-neutral-500 dark:text-[#a39c92] truncate">{s.domain}</p>
+                  <p className="text-sm ui-muted truncate">{s.domain}</p>
                 </div>
                 <span
                   className={`chip shrink-0 ${
                     s.kind === 'self'
-                      ? 'border-accent-300 bg-accent-50 text-accent-700 dark:bg-accent-400/15 dark:text-accent-300 dark:border-accent-400/40 normal-case'
-                      : 'border-neutral-200 text-neutral-500 dark:border-white/15 dark:text-[#a39c92]'
+                      ? 'ui-border ui-surface ui-link normal-case'
+                      : 'ui-border ui-muted'
                   }`}
                 >
                   {s.kind === 'self' ? 'You' : s.kind}
                 </span>
               </div>
+              {s.profile?.category && <p className="mt-4 text-xs font-semibold ui-link">{s.profile.category}</p>}
+              {s.profile?.summary && <p className="mt-2 text-sm leading-relaxed ui-body line-clamp-4">{s.profile.summary}</p>}
               <dl className="mt-4 space-y-2 text-sm">
                 <div className="flex items-center justify-between gap-3">
-                  <dt className="text-[11px] uppercase tracking-wide text-neutral-400 dark:text-[#6b6560]">
+                  <dt className="text-[11px] uppercase tracking-wide ui-faint">
                     <PlatformLabel platform="meta">Meta</PlatformLabel>
                   </dt>
-                  <dd className="font-semibold shrink-0">{st.meta ? `${st.meta} ads` : 'None found'}</dd>
+                  <dd className="font-semibold shrink-0">{sideSummary(s.meta)}</dd>
                 </div>
                 <div className="flex items-center justify-between gap-3">
-                  <dt className="text-[11px] uppercase tracking-wide text-neutral-400 dark:text-[#6b6560]">
+                  <dt className="text-[11px] uppercase tracking-wide ui-faint">
                     <PlatformLabel platform="google">Google</PlatformLabel>
                   </dt>
-                  <dd className="font-semibold shrink-0">{st.google ? `${st.google} ads` : 'None found'}</dd>
+                  <dd className="font-semibold shrink-0">{sideSummary(s.google)}</dd>
                 </div>
+                {!!st.other && <div className="flex items-center justify-between gap-3"><dt className="ui-muted">Other platforms</dt><dd className="font-semibold">{st.other} ad record{st.other === 1 ? '' : 's'}</dd></div>}
               </dl>
+              {!!s.sources?.length && <p className="mt-3 text-xs ui-muted">{s.sources.length} source{s.sources.length === 1 ? '' : 's'} reviewed</p>}
+              <div className="flex-1" />
               <button
                 type="button"
-                className="mt-4 w-full rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/5 px-4 py-2 text-sm font-semibold text-neutral-800 dark:text-[#f4efe6] hover:bg-neutral-50 dark:hover:bg-white/10"
+                className="mt-4 w-full ui-secondary px-4 py-2 text-sm font-semibold"
                 onClick={() => setOpen(s.domain)}
               >
-                See their ads
+                View research & ads
               </button>
             </article>
           )
@@ -133,27 +230,32 @@ export function Research({ run, onNext }: { run: Run; onNext: () => void }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="ads-dialog-title"
-            className="relative w-full max-w-6xl rounded-3xl border border-neutral-200 dark:border-white/10 bg-[#F8F5F1] dark:bg-[#141210] shadow-2xl my-8"
+            className="ui-dialog relative w-full max-w-6xl my-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-neutral-200 dark:border-white/10 bg-[#F8F5F1] dark:bg-[#141210] rounded-t-3xl px-5 py-4">
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b ui-border bg-inherit rounded-t-[inherit] px-5 py-4">
               <div>
                 <h3 id="ads-dialog-title" className="font-display font-extrabold text-2xl">
                   {selected.name}
                 </h3>
-                <p className="text-sm text-neutral-500 dark:text-[#a39c92]">{selected.domain}</p>
+                <p className="text-sm ui-muted">{selected.domain}</p>
               </div>
               <button
                 type="button"
-                className="rounded-xl border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1.5 text-sm font-semibold text-neutral-800 dark:text-[#f4efe6] hover:bg-neutral-50 dark:hover:bg-white/10"
+                className="ui-secondary px-3 py-1.5 text-sm font-semibold"
                 onClick={() => setOpen(null)}
               >
                 Close
               </button>
             </div>
             <div className="px-5 py-5 space-y-6">
+              <SubjectProfile subject={selected} />
               <div>
-                <p className="text-xs font-bold uppercase tracking-wide text-neutral-500 dark:text-[#a39c92] mb-3">
+                <h4 className="font-display font-bold text-lg">Public ad records</h4>
+                <p className="mt-1 text-xs leading-relaxed ui-muted">Library access and advertiser matching affect coverage. An unverified result does not mean a company is not advertising. Public records do not establish conversion performance.</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide ui-muted mb-3">
                   <PlatformLabel platform="meta">Meta Ad Library</PlatformLabel>
                 </p>
                 <StatusNote side={selected.meta} />
@@ -166,7 +268,7 @@ export function Research({ run, onNext }: { run: Run; onNext: () => void }) {
                 )}
               </div>
               <div>
-                <p className="text-xs font-bold uppercase tracking-wide text-neutral-500 dark:text-[#a39c92] mb-3">
+                <p className="text-xs font-bold uppercase tracking-wide ui-muted mb-3">
                   <PlatformLabel platform="google">Google Ads Transparency</PlatformLabel>
                 </p>
                 <StatusNote side={selected.google} />
@@ -178,30 +280,81 @@ export function Research({ run, onNext }: { run: Run; onNext: () => void }) {
                   </div>
                 )}
               </div>
+              {!!selected.other_ads?.length && (
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wide ui-muted mb-3">Other platforms</p>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {selected.other_ads.map((ad) => <AdCard key={ad.id} ad={ad} />)}
+                  </div>
+                </div>
+              )}
+              {!!selected.ad_checks?.length && (
+                <section className="ui-card p-4">
+                  <h4 className="text-sm font-semibold">Ad library checks</h4>
+                  <div className="mt-3">
+                    {selected.ad_checks.map((check, index) => (
+                      <div key={`${check.platform}-${index}`} className="border-b ui-border py-3 first:pt-0 last:pb-0 last:border-b-0">
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                          <a href={safeExternalUrl(check.url)} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-2 ui-link">{check.platform} ↗</a>
+                          <span className="ui-muted capitalize">{researchStatusLabel(check.status)}{check.checked_at && ` · ${check.checked_at.slice(0, 10)}`}</span>
+                        </div>
+                        <p className="mt-1 text-xs leading-relaxed ui-body">{check.note}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+              <SubjectSources subject={selected} />
             </div>
           </div>
         </div>
       )}
       <section className="space-y-3">
         <h3 className="font-display font-bold text-xl">Insights</h3>
-        <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#161412] shadow-sm overflow-hidden divide-y divide-neutral-100 dark:divide-white/10">
-          <div className="px-5 py-4">
-            <p className="text-[11px] font-display font-bold uppercase tracking-[0.12em] text-neutral-400">Finding</p>
-            <p className="mt-2 border-l-[3px] border-accent-400 pl-3.5 text-[15px] font-medium text-neutral-900 dark:text-[#f4efe6] leading-snug">
-              None of your competitors are running ChatGPT ads. All their FOMO Ads perform best. Start from here
-            </p>
-          </div>
-          <div className="px-5 py-4">
-            <p className="text-[11px] font-display font-bold uppercase tracking-[0.12em] text-neutral-400">Finding</p>
-            <p className="mt-2 border-l-[3px] border-accent-400 pl-3.5 text-[15px] font-medium text-neutral-900 dark:text-[#f4efe6] leading-snug">
-              Smith and Ruby sell a receptionist for every SMB. Nobody in the set talks to the agency owner who already paid for the lead and then missed the inbound call. That is the ChatGPT card: the phone you already bought, answered.
-            </p>
-          </div>
+        {!run.insights?.length && <p className="text-sm ui-muted">{running ? 'Gathering evidence for recommendations…' : 'No sourced insights are available for this research yet.'}</p>}
+        <div className="grid md:grid-cols-2 gap-4">
+          {(run.insights || []).map((insight, index) => (
+            <article key={`${insight.title}-${index}`} className="ui-card p-5 space-y-4">
+              <div>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.12em] ui-muted">Finding {index + 1}</p>
+                  {insight.confidence && <p className="text-[11px] ui-muted capitalize">Confidence: {insight.confidence}</p>}
+                </div>
+                <h4 className="mt-2 font-display font-bold text-lg leading-snug">{insight.title}</h4>
+                <p className="mt-3 text-sm ui-body leading-relaxed">{insight.observation}</p>
+              </div>
+              {insight.recommendation && (
+                <div className="border-l-[3px] border-accent-400 pl-3.5">
+                  <p className="text-[11px] uppercase tracking-wide font-semibold ui-link">Recommended test</p>
+                  <p className="mt-1 text-sm leading-relaxed">{insight.recommendation}</p>
+                </div>
+              )}
+              {!!insight.because?.length && !insight.evidence?.some((evidence) => safeExternalUrl(evidence.url)) && (
+                <ul className="list-disc pl-4 space-y-1 text-xs leading-relaxed ui-muted">
+                  {insight.because.map((reason) => <li key={reason}>{reason}</li>)}
+                </ul>
+              )}
+              {!!insight.evidence?.length && (
+                <div className="border-t ui-border pt-3 space-y-2">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide ui-muted">Supporting evidence</p>
+                  {insight.evidence.map((evidence, evidenceIndex) => (
+                    <div key={`${evidence.url}-${evidenceIndex}`} className="text-xs leading-relaxed">
+                      <a href={safeExternalUrl(evidence.url)} target="_blank" rel="noreferrer" className="underline underline-offset-2 ui-link">{evidence.subject ? `${evidence.subject}: ` : ''}{evidence.title} ↗</a>
+                      {evidence.detail && <p className="mt-0.5 ui-muted">{evidence.detail}</p>}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {insight.limitation && <p className="rounded-lg ui-surface p-3 text-xs leading-relaxed ui-muted">{insight.limitation}</p>}
+            </article>
+          ))}
         </div>
       </section>
-      <button type="button" className="btn-accent" disabled={running || !run.concepts.length} onClick={onNext}>
-        Create my Ad
-      </button>
+      {!embedded && <ActionBar title="Ready for your next ad?" description="Turn your research into a campaign.">
+        <button type="button" className="btn-accent" disabled={busy || running || !run.concepts.length} onClick={onNext}>
+          {busy ? 'Preparing your ad…' : 'Create my Ad'}
+        </button>
+      </ActionBar>}
     </div>
   )
 }

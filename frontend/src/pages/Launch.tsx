@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { ActionBar } from '../components/ActionBar'
 import { TrackingSetup } from '../components/TrackingSetup'
 import { api } from '../lib/api'
+import { hasCampaignIds, isCampaignConnected } from '../lib/campaign-state'
+import { safeExternalUrl } from '../lib/external-url'
 import type { Creative, Run } from '../lib/types'
 
 const LABELS: Record<string, string> = {
@@ -23,198 +26,236 @@ export function Launch({
   onRun?: (run: Run) => void
 }) {
   const c = run.creative
+  const ads = run.creatives?.length ? run.creatives : c ? [c] : []
   const [budget, setBudget] = useState(run.campaign.budget_usd > 0 ? run.campaign.budget_usd : 25)
   const [geo, setGeo] = useState((run.campaign.geo || []).filter(Boolean).join(', ') || 'US')
-  const [editing, setEditing] = useState(false)
-  const [title, setTitle] = useState(c?.title || '')
-  const [body, setBody] = useState(c?.body || '')
-  const [cta, setCta] = useState(c?.cta || '')
-  const mode = run.campaign.mode
-  const [accountName, setAccountName] = useState(run.campaign.account?.name || '')
-  const [adsMode, setAdsMode] = useState(mode || '')
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+  const [cta, setCta] = useState('')
+  const live = run.campaign.mode === 'live'
+  const connected = isCampaignConnected(run.campaign)
   const [refreshing, setRefreshing] = useState(false)
-  const insights = run.campaign.insights
-
-  useEffect(() => {
-    api.health().then((h) => {
-      setAdsMode(h.ads.mode)
-      if (h.ads.name) setAccountName(h.ads.name)
-    }).catch(() => undefined)
-  }, [])
-
-  useEffect(() => {
-    if (run.campaign.account?.name) setAccountName(run.campaign.account.name)
-  }, [run.campaign.account?.name])
+  const [refreshError, setRefreshError] = useState('')
+  const insights = live ? run.campaign.insights : null
+  const trackingOn = run.tracking && run.tracking.status && run.tracking.status !== 'idle'
 
   if ((run.status === 'rendering' || run.status === 'writing') && !c) {
     return (
-      <div className="max-w-3xl mx-auto px-5 py-16 text-center">
+      <div className="ui-page ui-page--narrow text-center">
         <img src="/viewfy-happy.png" alt="" className="w-24 h-24 mx-auto" />
-        <p className="mt-4 text-neutral-600 dark:text-[#a39c92]">Writing your ChatGPT card…</p>
+        <p className="mt-4 ui-body">Writing your ChatGPT card…</p>
       </div>
     )
   }
 
+  function startEdit(ad: Creative) {
+    setTitle(ad.title)
+    setBody(ad.body)
+    setCta(ad.cta)
+    setEditingId(ad.id)
+  }
+
   function saveEdit() {
-    onSave?.({ id: c?.id, title, body, cta, image_url: c?.image_url || undefined })
-    setEditing(false)
+    const ad = ads.find((item) => item.id === editingId)
+    if (!ad) return
+    onSave?.({ id: ad.id, title, body, cta, image_url: ad.image_url || undefined })
+    setEditingId(null)
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-5 pt-4 pb-8 space-y-6">
+    <div className="ui-page ui-page--narrow ui-page--actions space-y-4">
       <h2 className="font-display font-extrabold text-3xl">Launch campaign</h2>
-      <p className="text-neutral-600 dark:text-[#a39c92]">Credentials stay on the server. Launch is the only action that can spend.</p>
-      {(run.creatives?.length ? run.creatives : c ? [c] : []).length > 0 && (
-        <div className="grid sm:grid-cols-2 gap-3">
-          {(run.creatives?.length ? run.creatives : c ? [c] : []).map((ad) => {
-            const on = (c?.id || c?.image_url) === (ad.id || ad.image_url)
-            return (
-              <button
-                key={ad.id}
-                type="button"
-                onClick={() => {
-                  setTitle(ad.title)
-                  setBody(ad.body)
-                  setCta(ad.cta)
-                  setEditing(false)
-                  onSave?.({ id: ad.id, title: ad.title, body: ad.body, cta: ad.cta, image_url: ad.image_url || undefined })
-                }}
-                className={`text-left rounded-2xl border p-3 bg-white dark:bg-[#161412] ${
-                  on ? 'border-neutral-900 dark:border-white' : 'border-neutral-200 dark:border-white/10'
-                }`}
-              >
-                <img
-                  src={ad.image_url || '/superagent-ads.png'}
-                  alt=""
-                  className="w-full aspect-square rounded-xl object-cover bg-neutral-100 dark:bg-white/5"
-                />
-                <p className="mt-3 font-display font-bold">{ad.title}</p>
-                <p className="text-sm text-neutral-600 dark:text-[#a39c92] mt-1">{ad.body}</p>
-              </button>
-            )
-          })}
-        </div>
-      )}
-      {c && !editing && (
-        <button
-          type="button"
-          className="text-sm font-semibold text-neutral-600 dark:text-[#a39c92] underline underline-offset-2"
-          onClick={() => {
-            setTitle(c.title)
-            setBody(c.body)
-            setCta(c.cta)
-            setEditing(true)
-          }}
-        >
-          Edit selected
-        </button>
-      )}
-      {c && editing && (
-        <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-[#161412] p-4">
-          <div className="flex gap-4">
-            <img
-              src={c.image_url || '/superagent-ads.png'}
-              alt=""
-              className="w-28 h-28 rounded-xl object-cover bg-neutral-100 dark:bg-white/5 shrink-0"
-            />
-            <div className="min-w-0 flex-1 space-y-2">
-              <input
-                value={title}
-                maxLength={50}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 font-display font-bold text-lg"
-              />
-              <textarea
-                value={body}
-                maxLength={100}
-                rows={3}
-                onChange={(e) => setBody(e.target.value)}
-                className="w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2 text-sm"
-              />
-              <input
-                value={cta}
-                onChange={(e) => setCta(e.target.value)}
-                className="w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-sm"
-              />
-              <p className="text-xs text-neutral-400">{title.length}/50 · {body.length}/100</p>
-              <div className="flex gap-2">
-                <button type="button" className="btn-accent text-sm py-2 px-4" onClick={saveEdit}>
-                  Save
-                </button>
-                <button type="button" className="text-sm font-semibold text-neutral-500 dark:text-[#a39c92]" onClick={() => setEditing(false)}>
-                  Cancel
-                </button>
-              </div>
-            </div>
+
+      {ads.length > 0 && (
+        <section>
+          <h3 className="font-display font-extrabold text-lg">Ads</h3>
+          <p className="text-sm ui-muted mt-0.5">
+            {ads.length === 1 ? 'Review your ChatGPT ad before continuing.' : `Review these ${ads.length} ChatGPT ads before continuing.`}
+          </p>
+          <div className="mt-3 grid sm:grid-cols-2 gap-2">
+            {ads.map((ad) => {
+              const editing = editingId === ad.id
+              const isDemo = ad.image_url?.startsWith('/demo-ads/')
+              const concept = run.concepts.find((item) => item.id === ad.concept_id)
+              const destinationUrl = safeExternalUrl(ad.target_url)
+              const artworkUrl = ad.image_url?.startsWith('/') && !ad.image_url.startsWith('//')
+                ? ad.image_url
+                : safeExternalUrl(ad.image_url)
+              return (
+                <article key={ad.id} className="ui-card overflow-hidden">
+                  {isDemo && (
+                    <div className="flex flex-wrap items-center justify-between gap-3 bg-[#faf9f6] px-4 py-3">
+                      <img src="/superagent-wordmark.svg" alt="Superagent" className="w-36 h-auto" />
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-[#65665b]">Illustrative demo</span>
+                    </div>
+                  )}
+                  {editing ? (
+                    <div className="p-3 space-y-2">
+                      <div className="rounded-lg ui-surface">
+                        <img
+                          src={ad.image_url || '/superagent-ads.png'}
+                          alt={concept?.visual || ad.title}
+                          className="block w-full h-auto object-contain"
+                        />
+                      </div>
+                      <input
+                        aria-label="Headline"
+                        value={title}
+                        maxLength={50}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-full ui-input px-2 py-1 font-display font-bold"
+                      />
+                      <textarea
+                        aria-label="Body"
+                        value={body}
+                        maxLength={100}
+                        rows={2}
+                        onChange={(e) => setBody(e.target.value)}
+                        className="w-full ui-input px-2 py-1 text-sm"
+                      />
+                      <input
+                        aria-label="Call to action"
+                        value={cta}
+                        onChange={(e) => setCta(e.target.value)}
+                        className="w-full ui-input px-2 py-1 text-sm"
+                      />
+                      <p className="text-xs ui-faint">{title.length}/50 · {body.length}/100</p>
+                      <div className="flex gap-2">
+                        <button type="button" className="btn-accent text-sm min-h-0 py-1.5 px-3" onClick={saveEdit}>
+                          Save
+                        </button>
+                        <button type="button" className="ui-secondary px-3 py-1.5 text-sm font-semibold" onClick={() => setEditingId(null)}>
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="ui-surface">
+                        <img
+                          src={ad.image_url || '/superagent-ads.png'}
+                          alt={concept?.visual || ad.title}
+                          className="block w-full h-auto object-contain"
+                        />
+                      </div>
+                      <div className="p-3">
+                        <p className="font-display font-bold leading-tight">{ad.title}</p>
+                        <p className="text-sm ui-body mt-1">{ad.body}</p>
+                        {destinationUrl && (
+                          <a href={destinationUrl} target="_blank" rel="noreferrer" className="inline-flex mt-3 btn-accent text-sm min-h-0 py-2 px-3">
+                            {ad.cta} ↗
+                          </a>
+                        )}
+                        {concept && (
+                          <details className="mt-4 border-t ui-border pt-3 text-sm">
+                            <summary className="cursor-pointer font-semibold ui-text">Why this concept</summary>
+                            <p className="mt-2 font-semibold ui-body">{concept.angle}</p>
+                            <p className="mt-1 ui-muted leading-relaxed">{concept.why}</p>
+                          </details>
+                        )}
+                        <div className="mt-3 flex flex-wrap items-center gap-3">
+                          <button
+                            type="button"
+                            className="ui-secondary text-sm font-semibold min-h-0 py-1.5 px-3"
+                            onClick={() => startEdit(ad)}
+                          >
+                            Edit copy
+                          </button>
+                          {artworkUrl && (
+                            <a href={artworkUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold ui-link underline underline-offset-2">
+                              View full artwork ↗
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </article>
+              )
+            })}
           </div>
-        </div>
+        </section>
       )}
-      <div className="grid sm:grid-cols-2 gap-4">
-        <label className="text-sm">
-          Lifetime budget (USD)
-          <input
-            type="number"
-            min={1}
-            value={budget}
-            onChange={(e) => setBudget(Number(e.target.value))}
-            className="mt-1 w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2"
-          />
+
+      <div className="flex flex-wrap items-end gap-3">
+        <label className="text-xs font-semibold ui-muted">
+          Budget
+          <span className="mt-1 flex items-center gap-1">
+            <span className="text-sm font-normal ui-faint">$</span>
+            <input
+              type="number"
+              min={1}
+              aria-label="Lifetime budget (USD)"
+              value={budget}
+              onChange={(e) => setBudget(Number(e.target.value))}
+              className="w-[4.5rem] ui-input px-2 py-1 text-sm font-normal ui-text"
+            />
+          </span>
         </label>
-        <label className="text-sm">
-          Geography
+        <label className="text-xs font-semibold ui-muted">
+          Geo
           <input
+            aria-label="Geography"
             value={geo}
             onChange={(e) => setGeo(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-2"
+            className="mt-1 block w-20 ui-input px-2 py-1 text-sm font-normal ui-text"
           />
         </label>
       </div>
-      <p className="text-sm text-neutral-500 dark:text-[#a39c92]">
-        Ad account: {accountName || (adsMode === 'live' ? 'Connected' : 'Not connected')}
-        {run.campaign.review_status ? ` · review ${run.campaign.review_status}` : ''}
-      </p>
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="chip border-neutral-300 dark:border-white/15">{LABELS[run.campaign.status] || run.campaign.status}</span>
-        {(mode === 'demo' || adsMode === 'demo') && <span className="chip border-amber-400 text-amber-800 dark:text-amber-300">Demo / export</span>}
-        {(mode === 'live' || adsMode === 'live') && <span className="chip border-emerald-400 text-emerald-800 dark:text-emerald-300">Live Ads API</span>}
-        {run.campaign.external_ids?.ad_id && onRun && (
-          <button
-            type="button"
-            className="text-sm font-semibold underline underline-offset-2"
-            disabled={refreshing}
-            onClick={async () => {
-              setRefreshing(true)
-              try {
-                onRun(await api.refreshAds(run.id))
-              } finally {
-                setRefreshing(false)
-              }
-            }}
-          >
-            {refreshing ? 'Refreshing…' : 'Refresh status'}
-          </button>
-        )}
-      </div>
+
+      {live && (
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <span className="chip ui-border">{LABELS[run.campaign.status] || run.campaign.status}</span>
+          <span className="ui-muted">
+            {connected ? run.campaign.account?.name || run.campaign.account?.id : 'Not connected'}
+            {run.campaign.review_status ? ` · review ${run.campaign.review_status}` : ''}
+          </span>
+          {hasCampaignIds(run.campaign) && onRun && (
+            <button
+              type="button"
+              className="font-semibold ui-link underline underline-offset-2"
+              disabled={refreshing}
+              onClick={async () => {
+                setRefreshing(true)
+                setRefreshError('')
+                try {
+                  onRun(await api.refreshAds(run.id))
+                } catch (error) {
+                  setRefreshError(error instanceof Error ? error.message : 'Could not refresh campaign status.')
+                } finally {
+                  setRefreshing(false)
+                }
+              }}
+            >
+              {refreshing ? 'Refreshing…' : 'Refresh status'}
+            </button>
+          )}
+        </div>
+      )}
       {insights && (
-        <p className="text-sm text-neutral-600 dark:text-[#a39c92]">
+        <p className="text-sm ui-body">
           {insights.impressions ?? 0} impressions · {insights.clicks ?? 0} clicks · ${insights.spend ?? 0} spend
         </p>
       )}
-      {run.campaign.note && <p className="text-sm text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-xl px-4 py-3">{run.campaign.note}</p>}
-      {run.campaign.error && <p className="text-sm text-red-600">{run.campaign.error}</p>}
-      {onRun && <TrackingSetup run={run} onRun={onRun} />}
-      <button
-        type="button"
-        className="btn-accent"
-        disabled={!c}
-        onClick={() => {
-          if (editing) saveEdit()
-          const places = geo.split(/[,\s]+/).map((x) => x.trim()).filter(Boolean)
-          onContinue(budget || 25, places.length ? places : ['US'])
-        }}
-      >
-        Continue
-      </button>
+      {live && run.campaign.note && <p className="text-sm text-amber-800 dark:text-amber-200 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-xl px-4 py-3">{run.campaign.note}</p>}
+      {run.campaign.error && <p className="text-sm text-red-600 dark:text-red-300">{run.campaign.error}</p>}
+      {refreshError && <p role="alert" className="text-sm text-red-600 dark:text-red-300">{refreshError}</p>}
+      {onRun && trackingOn && <TrackingSetup run={run} onRun={onRun} />}
+      <ActionBar title="Launch campaign">
+        <button
+          type="button"
+          className="btn-accent"
+          disabled={!ads.length}
+          onClick={() => {
+            if (editingId) saveEdit()
+            const places = geo.split(/[,\s]+/).map((x) => x.trim()).filter(Boolean)
+            onContinue(budget || 25, places.length ? places : ['US'])
+          }}
+        >
+          Continue
+        </button>
+      </ActionBar>
     </div>
   )
 }

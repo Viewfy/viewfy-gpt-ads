@@ -1,1169 +1,591 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import {
-  CHANNELS,
-  COMPETITORS,
-  ENGINES,
-  INSIGHTS,
-  LANES,
-  PROMPTS,
-  SECTIONS,
-  THREADS,
-  VENUES,
-  YOU,
-  type Comp,
-} from '../lib/market'
-import type { MapNode, Run } from '../lib/types'
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { ANSWER_TOPICS, CHANNELS, ENGINES, LANES, PROMPTS, SECTIONS, PUBLIC_RESEARCH_SNAPSHOT, type Comp, type Prompt } from '../lib/market'
+import { getCompetitorChannels, getSelfChannels, getMapCompetitors, getResearchRun, getCompetitorSubject, getSelfSubject, safeExternalUrl, type MapChannel } from '../lib/mindmap-data'
+import type { Ad, MapNode, PublicChannelItem, Run } from '../lib/types'
+import { getBuyerResearch, hasReceptionistResearch, type BuyerQuestion } from '../lib/buyer-research'
+import { questionNodeHeight } from '../lib/question-layout'
+import { Research, SubjectProfile, SubjectSources } from '../pages/Research'
+import { BrandLogo, hasBrandLogo } from './BrandLogo'
+import { AiAnswerCard } from './AiAnswerCard'
+import './MindMap.css'
+import './MindMap.dark.css'
+import { useVisualViewportBottom } from './ActionBar'
 
-const TAU = Math.PI * 2
-const BG = '#0c0b0a'
-const INK = '#f4efe6'
-const GOLD = '#e8c36a'
-const MUT = '#a39c92'
-const DIM = '#6b6560'
-const FONT = '"Hanken Grotesk", system-ui, sans-serif'
-const SHOWN_INSIGHTS = INSIGHTS.slice(0, 2)
+const COLORS: Record<string, string> = { competitors: '#7882f7', buyers: '#2ebda3', you: '#e7b74b', answers: '#a16af2' }
+const BASE = { width: 1160, height: 930 }
+type GraphNode = {
+  id: string; kind: 'root' | 'section' | 'lane' | 'company' | 'leaf' | 'channel' | 'ad' | 'topic' | 'question' | 'engine'
+  label: string; description?: string; section?: string; icon?: string; domain?: string
+  x: number; y: number; width: number; height: number
+  comp?: Comp; channel?: MapChannel; ad?: Ad; lane?: string; gap?: boolean
+  topic?: string; buyerQuestion?: BuyerQuestion; prompt?: Prompt; engine?: string
+}
+type Graph = { nodes: GraphNode[]; edges: { from: string; to: string }[] }
+type Camera = { x: number; y: number; k: number }
 
-const KIND: Record<string, [string, string]> = {
-  act: ['Needs you', GOLD],
-  gap: ['Gap', '#7eb8e8'],
-  risk: ['Risk', '#f07167'],
-  win: ['Working', '#6ee7b7'],
+function Icon({ name, size = 22 }: { name: string; size?: number }) {
+  if (hasBrandLogo(name)) return <BrandLogo brand={name} size={size} />
+  const paths: Record<string, ReactNode> = {
+    users: <><circle cx="9" cy="7" r="3" /><path d="M3 21v-4a6 6 0 0 1 12 0v4M16 4a3 3 0 0 1 0 6m2 4a5 5 0 0 1 3 5v2" /></>,
+    sparkle: <path d="m12 2 3.1 6.9L22 12l-6.9 3.1L12 22l-3.1-6.9L2 12l6.9-3.1Z" />,
+    headphones: <><path d="M4 14V10a8 8 0 0 1 16 0v4M6 13H3v7h3zm12 0h3v7h-3z" /></>,
+    voice: <><path d="M12 3v18M8 6v12M4 10v4M16 6v12M20 10v4" /></>,
+    phone: <path d="M5 3 2 6c0 8 8 16 16 16l3-3-5-5-3 2a15 15 0 0 1-5-5l2-3Z" />,
+    flag: <><path d="M4 21V3m0 1 15 4-15 5" /></>,
+    bubble: <path d="M21 11a8 8 0 0 1-8 8H8l-5 3 1-6a8 8 0 0 1 8-13h1a8 8 0 0 1 8 8Z" />,
+    pen: <><path d="M5 3h10l4 4v14H5zm9 0v5h5M8 12h8m-8 4h6" /></>,
+    news: <><path d="M5 4h16v16H5a3 3 0 0 1-3-3V8h3zm0 4v12M9 8h8m-8 4h8m-8 4h5" /></>,
+    globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z" /></>,
+    calendar: <><path d="M4 5h16v16H4zM8 2v6m8-6v6M4 10h16m-12 4h3m3 0h2" /></>,
+    search: <><circle cx="10" cy="10" r="7" /><path d="m15 15 6 6" /></>,
+    fit: <path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6" />,
+    arrow: <path d="M4 12h16m-6-6 6 6-6 6" />,
+    chevron: <path d="m9 5 7 7-7 7" />,
+    close: <path d="m6 6 12 12M18 6 6 18" />,
+    check: <path d="m5 12 4 4 10-10" />,
+    lightbulb: <><path d="M8 17c0-3-4-4-4-9a8 8 0 0 1 16 0c0 5-4 6-4 9M8 17h8m-7 4h6" /></>,
+    external: <path d="M14 3h7v7m0-7L10 14m-1-9H3v16h16v-6" />,
+    play: <path d="m8 4 12 8-12 8Z" />,
+    target: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></>,
+  }
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name] || paths.bubble}</svg>
 }
 
-type GNode = {
-  id: string
-  kind: 'company' | 'section' | 'group' | 'leaf'
-  section?: string
-  parent?: string
-  lane?: string
-  label: string
-  color: string
-  r: number
-  sub?: string
-  icon?: string
-  chan?: string
-  domain?: string
-  gap?: boolean
-  engine?: string
-  thread?: (typeof THREADS)[number]
-  prompt?: (typeof PROMPTS)[number]
-  comp?: Comp
-  venue?: (typeof VENUES)[number]
-  x: number
-  y: number
-  tx: number
-  ty: number
-  a: number
-  alpha: number
-  talpha: number
+function CompanyLogo({ domain, name, root = false, logo }: { domain?: string; name: string; root?: boolean; logo?: string | null }) {
+  const [failed, setFailed] = useState<string[]>([])
+  const local = /^(getsuperagent\.(com|me)|superagent\.ai)$/i.test(domain || '') ? '/superagent-mark.png' : undefined
+  const favicon = domain ? `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64` : undefined
+  const src = [root ? safeExternalUrl(logo) : undefined, local, favicon].find((url): url is string => Boolean(url && !failed.includes(url)))
+  return <span className={`company-logo ${root ? 'root-logo' : ''}`}>{src ? <img src={src} alt="" onError={() => setFailed(previous => [...previous, src])} /> : <span>{name.slice(0, 1).toUpperCase()}</span>}</span>
 }
 
-function favicon(domain: string) {
-  return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`
-}
-
-function loadImg(cache: Map<string, HTMLImageElement>, src: string) {
-  const hit = cache.get(src)
-  if (hit) return hit
-  const im = new Image()
-  im.src = src
-  cache.set(src, im)
-  return im
-}
-
-function ready(im?: HTMLImageElement) {
-  return Boolean(im && im.complete && im.naturalWidth > 2)
-}
-
-function drawIcon(ctx: CanvasRenderingContext2D, name: string, s: number, fg: string) {
-  const k = s / 24
-  ctx.fillStyle = fg
-  ctx.strokeStyle = fg
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  if (name === 'meta') {
-    ctx.lineWidth = 2.6 * k
-    ctx.beginPath()
-    for (let i = 0; i <= 40; i++) {
-      const t = (i / 40) * TAU
-      const d = 1 + Math.sin(t) ** 2
-      const x = (8 * k * Math.cos(t)) / d
-      const y = (8 * k * Math.sin(t) * Math.cos(t)) / d
-      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)
+function createGraph(run: Run, competitors: Comp[], expanded: Set<string>, channels: Map<string, MapChannel[]>, selfChannels: MapChannel[], openChannel: string | null): Graph {
+  const graph: Graph = { nodes: [], edges: [] }
+  const buyers = getBuyerResearch(run)
+  const answers = getAnswerResearch(run)
+  const add = (n: GraphNode, parent?: string) => { graph.nodes.push(n); if (parent) graph.edges.push({ from: parent, to: n.id }) }
+  add({ id: 'root', kind: 'root', label: run.brand.name || run.domain, description: 'Business overview', x: 533, y: 415, width: 148, height: 140, domain: run.domain })
+  const sections = [
+    { id: 'competitors', x: 425, y: 290, label: 'Competitors', description: 'Who else is in this space', icon: 'users' },
+    { id: 'buyers', x: 690, y: 265, label: 'Buyers asking', description: `${buyers.questions.length} buyer questions`, icon: 'users' },
+    { id: 'you', x: selfChannels.length > 4 ? 260 : 425, y: selfChannels.length > 4 ? 700 : 670, label: 'Your channels', description: 'Content, coverage & ads', icon: 'flag' },
+    { id: 'answers', x: 690, y: 670, label: 'AI answers', description: answers.prompts.some(prompt => prompt.results.length) ? `${answers.prompts.reduce((total, prompt) => total + prompt.results.length, 0)} answers · ${answers.prompts.length} questions` : 'Topics → questions → engines', icon: 'sparkle' },
+  ]
+  sections.forEach(s => add({ ...s, id: `section:${s.id}`, section: s.id, kind: 'section', width: 162, height: 116 }, 'root'))
+  let cursor = 36
+  for (const lane of LANES) {
+    const members = competitors.filter(c => c.lane === lane.id)
+    if (!members.length) continue
+    const start = cursor
+    for (const comp of members) {
+      const visibleChannels = expanded.has(comp.id) ? channels.get(comp.id) || [] : []
+      const spans = visibleChannels.map(channel => {
+        const id = `channel:${comp.id}:${channel.id}`
+        return { channel, id, height: openChannel === id ? Math.max(60, channel.ads.length * 112) : 60 }
+      })
+      const height = Math.max(46, spans.reduce((sum, span) => sum + span.height, 0))
+      const company: GraphNode = { id: `company:${comp.id}`, kind: 'company', label: comp.name, section: 'competitors', x: 22, y: cursor + height / 2 - 20, width: 168, height: 40, comp, domain: comp.domain, lane: comp.lane }
+      add(company, `lane:${lane.id}`)
+      let channelY = cursor
+      for (const span of spans) {
+        add({ id: span.id, kind: 'channel', section: 'competitors', label: span.channel.label, description: span.channel.ads.length ? `${span.channel.ads.length} saved ads` : span.channel.status === 'empty' ? 'No ads found' : 'No saved ads', icon: span.channel.icon, comp, channel: span.channel, x: -230, y: channelY + span.height / 2 - 27, width: 190, height: 54 }, company.id)
+        if (openChannel === span.id) span.channel.ads.forEach((ad, index) => add({ id: `ad:${comp.id}:${span.channel.id}:${ad.id}`, kind: 'ad', section: 'competitors', label: ad.headline || 'Untitled ad', description: ad.body || ad.format || 'View ad details', comp, channel: span.channel, ad, x: -545, y: channelY + index * 112 + 6, width: 250, height: 100 }, span.id))
+        channelY += span.height
+      }
+      cursor += height
     }
-    ctx.closePath()
-    ctx.stroke()
-    return
+    add({ id: `lane:${lane.id}`, kind: 'lane', section: 'competitors', lane: lane.id, label: lane.label, icon: lane.id === 'desk' ? 'headphones' : lane.id === 'voice' ? 'voice' : 'phone', x: 237, y: (start + cursor) / 2 - 27, width: 160, height: 54 }, 'section:competitors')
+    cursor += 28
   }
-  if (name === 'google') {
-    const r = 6.5 * k
-    ctx.lineWidth = 3 * k
-    const arc = (a0: number, a1: number, col: string) => {
-      ctx.beginPath()
-      ctx.strokeStyle = col
-      ctx.arc(0, 0, r, a0, a1)
-      ctx.stroke()
+  let buyerY = 52
+  for (const topic of buyers.topics) {
+    const id = `buyer-topic:${topic.id}`
+    const questions = buyers.questions.filter(question => question.topic === topic.id)
+    const heights = questions.map(question => questionNodeHeight(question.title))
+    const span = expanded.has(id) ? heights.reduce((sum, height) => sum + height + 18, 0) : 86
+    add({ id, kind: 'topic', section: 'buyers', topic: topic.id, label: topic.label, description: `${questions.length} questions`, icon: topic.icon, x: 907, y: buyerY + span / 2 - 36, width: 236, height: 72 }, 'section:buyers')
+    if (expanded.has(id)) {
+      let questionY = buyerY
+      questions.forEach((question, index) => {
+        add({ id: `buyer-question:${question.id}`, kind: 'question', section: 'buyers', topic: topic.id, label: question.title, description: question.evidence === 'sample' ? 'Sample question' : question.sourceLabel, icon: 'bubble', buyerQuestion: question, x: 1205, y: questionY, width: 336, height: heights[index] }, id)
+        questionY += heights[index] + 18
+      })
     }
-    arc(-2.6, -1.2, '#ea4335')
-    arc(-1.2, 0, '#fbbc05')
-    arc(0, 0.9, '#34a853')
-    arc(2.2, 2.6, '#4285f4')
-    ctx.beginPath()
-    ctx.strokeStyle = '#4285f4'
-    ctx.moveTo(0, 0)
-    ctx.lineTo(r + 1.4 * k, 0)
-    ctx.stroke()
-    return
+    buyerY += span + 12
   }
-  if (name === 'x') {
-    ctx.beginPath()
-    ctx.moveTo(-6 * k, -6 * k)
-    ctx.lineTo(6 * k, 6 * k)
-    ctx.moveTo(6 * k, -6 * k)
-    ctx.lineTo(-6 * k, 6 * k)
-    ctx.lineWidth = 2.4 * k
-    ctx.stroke()
-    return
-  }
-  if (name === 'linkedin') {
-    ctx.fillRect(-6 * k, -2 * k, 3.2 * k, 10 * k)
-    ctx.beginPath()
-    ctx.arc(-4.4 * k, -4.6 * k, 1.8 * k, 0, TAU)
-    ctx.fill()
-    ctx.fillRect(-1.6 * k, -2 * k, 3.2 * k, 10 * k)
-    ctx.beginPath()
-    ctx.moveTo(1.6 * k, 2 * k)
-    ctx.lineTo(1.6 * k, 8 * k)
-    ctx.lineTo(5.4 * k, 8 * k)
-    ctx.lineTo(5.4 * k, 1.2 * k)
-    ctx.quadraticCurveTo(5.4 * k, -2.4 * k, 1.6 * k, -2 * k)
-    ctx.fill()
-    return
-  }
-  if (name === 'reddit') {
-    ctx.beginPath()
-    ctx.ellipse(0, 1.5 * k, 8 * k, 6 * k, 0, 0, TAU)
-    ctx.fill()
-    ctx.beginPath()
-    ctx.arc(0, -6.5 * k, 2 * k, 0, TAU)
-    ctx.fill()
-    ctx.fillStyle = BG
-    ctx.beginPath()
-    ctx.arc(-3 * k, 1 * k, 1.5 * k, 0, TAU)
-    ctx.arc(3 * k, 1 * k, 1.5 * k, 0, TAU)
-    ctx.fill()
-    return
-  }
-  if (name === 'play') {
-    ctx.beginPath()
-    ctx.moveTo(-4.5 * k, -6 * k)
-    ctx.lineTo(7 * k, 0)
-    ctx.lineTo(-4.5 * k, 6 * k)
-    ctx.closePath()
-    ctx.fill()
-    return
-  }
-  if (name === 'pen') {
-    ctx.save()
-    ctx.rotate(-Math.PI / 4)
-    ctx.beginPath()
-    ctx.roundRect(-2.4 * k, -8 * k, 4.8 * k, 11 * k, 1.5 * k)
-    ctx.fill()
-    ctx.restore()
-    return
-  }
-  if (name === 'bubble') {
-    ctx.beginPath()
-    ctx.roundRect(-8.5 * k, -7 * k, 17 * k, 12.5 * k, 4 * k)
-    ctx.fill()
-    ctx.beginPath()
-    ctx.moveTo(-5 * k, 4.5 * k)
-    ctx.lineTo(-6 * k, 9 * k)
-    ctx.lineTo(-1 * k, 5 * k)
-    ctx.fill()
-    return
-  }
-  if (name === 'sparkle') {
-    ctx.beginPath()
-    for (let i = 0; i < 8; i++) {
-      const a = (i / 8) * TAU - Math.PI / 2
-      const r = i % 2 ? 3.2 * k : 9 * k
-      i ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r)
+  selfChannels.forEach((channel, i) => {
+    const split = Math.ceil(selfChannels.length / 2)
+    const twoColumns = selfChannels.length > 4
+    const right = twoColumns && i >= split
+    const row = right ? i - split : i
+    const count = right ? selfChannels.length - split : split
+    const gap = Math.min(72, 270 / Math.max(1, count - 1))
+    const y = twoColumns ? 758 - ((count - 1) * gap + 55) / 2 + row * gap : 645 + i * 72
+    add({ id: `you:${channel.id}`, kind: 'leaf', section: 'you', label: channel.label, icon: channel.icon, channel, description: channelSummary(channel), x: twoColumns ? right ? 465 : 22 : 151, y, width: 201, height: 55 }, 'section:you')
+  })
+  let answerY = Math.max(586, buyerY + 76)
+  const answerStart = answerY
+  for (const topic of answers.topics) {
+    const id = `answer-topic:${topic.id}`
+    const prompts = answers.prompts.filter(prompt => prompt.topic === topic.id)
+    const spans = prompts.map(prompt => expanded.has(`prompt:${prompt.id}`) ? Math.max(questionNodeHeight(prompt.text), Object.keys(ENGINES).length * 108) : questionNodeHeight(prompt.text))
+    const span = expanded.has(id) ? spans.reduce((sum, height) => sum + height + 18, 0) : 92
+    const captured = prompts.reduce((total, prompt) => total + prompt.results.length, 0)
+    add({ id, kind: 'topic', section: 'answers', topic: topic.id, label: topic.label, description: `${prompts.length} ${prompts.length === 1 ? 'question' : 'questions'}${captured ? ` · ${captured} answers` : ' to test'}`, icon: topic.icon, x: 907, y: answerY + span / 2 - 38, width: 236, height: 76 }, 'section:answers')
+    if (expanded.has(id)) {
+      let questionY = answerY
+      prompts.forEach((prompt, index) => {
+        const promptId = `prompt:${prompt.id}`, height = questionNodeHeight(prompt.text)
+        add({ id: promptId, kind: 'question', section: 'answers', topic: topic.id, label: prompt.text, description: prompt.results.length ? `${prompt.results.length}/${Object.keys(ENGINES).length} responses collected` : `${Object.keys(ENGINES).length} engines · Not checked`, icon: 'sparkle', prompt, x: 1205, y: questionY + (spans[index] - height) / 2, width: 336, height }, id)
+        if (expanded.has(promptId)) Object.entries(ENGINES).forEach(([engine, details], engineIndex) => {
+          const result = prompt.results.find(result => result.engine === engine)
+          add({ id: `engine:${prompt.id}:${engine}`, kind: 'engine', section: 'answers', topic: topic.id, label: details.label, description: result ? result.excerpt : 'No response collected', icon: engine, prompt, engine, x: 1603, y: questionY + engineIndex * 108, width: 260, height: 92 }, promptId)
+        })
+        questionY += spans[index] + 18
+      })
     }
-    ctx.closePath()
-    ctx.fill()
-    return
+    answerY += span + 14
   }
-  if (name === 'flag') {
-    ctx.lineWidth = 2.2 * k
-    ctx.beginPath()
-    ctx.moveTo(-6 * k, -9 * k)
-    ctx.lineTo(-6 * k, 9 * k)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.moveTo(-5 * k, -8 * k)
-    ctx.lineTo(8 * k, -4.5 * k)
-    ctx.lineTo(-5 * k, -1 * k)
-    ctx.closePath()
-    ctx.fill()
-    return
-  }
-  if (name === 'target') {
-    ctx.lineWidth = 2 * k
-    ctx.beginPath()
-    ctx.arc(0, 0, 8.5 * k, 0, TAU)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.arc(0, 0, 4.8 * k, 0, TAU)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.arc(0, 0, 1.6 * k, 0, TAU)
-    ctx.fill()
-    return
-  }
-  ctx.font = `800 ${name.length > 2 ? 8 : 12}px ${FONT}`
-  ctx.fillText(name[0] || '?', 0, 0.5 * k)
+  const answerSection = graph.nodes.find(node => node.id === 'section:answers')!
+  answerSection.y = answerStart + (answerY - answerStart) / 2 - answerSection.height / 2
+  return graph
 }
 
-function badge(
-  ctx: CanvasRenderingContext2D,
-  cache: Map<string, HTMLImageElement>,
-  x: number,
-  y: number,
-  s: number,
-  o: { bg: string; fg?: string; icon?: string; ring?: string | null; ringW?: number; domain?: string; shape?: 'circle' | 'square'; dashed?: boolean },
-) {
-  ctx.save()
-  ctx.translate(x, y)
-  ctx.beginPath()
-  if (o.shape === 'square') ctx.roundRect(-s / 2, -s / 2, s, s, s * 0.28)
-  else ctx.arc(0, 0, s / 2, 0, TAU)
-  if (o.dashed) {
-    ctx.setLineDash([3, 3])
-    ctx.strokeStyle = o.bg
-    ctx.lineWidth = 1.5
-    ctx.fillStyle = '#141210'
-    ctx.fill()
-    ctx.stroke()
-    ctx.setLineDash([])
-  } else {
-    ctx.fillStyle = o.bg
-    ctx.fill()
-  }
-  if (o.ring) {
-    ctx.lineWidth = o.ringW || 2
-    ctx.strokeStyle = o.ring
-    ctx.stroke()
-  }
-  const im = o.domain ? loadImg(cache, o.domain === 'getsuperagent.com' ? '/superagent-logo.png' : favicon(o.domain)) : undefined
-  if (ready(im)) {
-    ctx.save()
-    ctx.beginPath()
-    ctx.arc(0, 0, s * 0.36, 0, TAU)
-    ctx.clip()
-    ctx.drawImage(im!, -s * 0.36, -s * 0.36, s * 0.72, s * 0.72)
-    ctx.restore()
-  } else if (o.icon) {
-    drawIcon(ctx, o.icon, s, o.dashed ? o.bg : o.fg || BG)
-  }
-  ctx.restore()
+function getAnswerResearch(run: Run) {
+  if (hasReceptionistResearch(run)) return { topics: ANSWER_TOPICS, prompts: PROMPTS }
+  const name = run.brand.name || run.domain
+  return { topics: [{ id: 'evaluate', label: 'Evaluating your product', icon: 'search' }], prompts: [
+    { id: 'product-fit', topic: 'evaluate', text: `Who is ${name} best suited for?`, intent: 'Proposed evaluation question', results: [] },
+    { id: 'product-compare', topic: 'evaluate', text: `How does ${name} compare with alternatives?`, intent: 'Proposed comparison question', results: [] },
+  ] as Prompt[] }
 }
 
-function isSuperagent(domain?: string) {
-  const host = (domain || '').replace(/^www\./, '').toLowerCase()
-  return host === 'getsuperagent.com' || host === 'getsuperagent.me' || host === 'superagent.ai'
+function descendants(graph: Graph, id: string): Set<string> {
+  const result = new Set([id])
+  const pending = [id]
+  while (pending.length) {
+    const parent = pending.pop()!
+    for (const edge of graph.edges) if (edge.from === parent && !result.has(edge.to)) {
+      result.add(edge.to); pending.push(edge.to)
+    }
+  }
+  return result
 }
 
-function compsFrom(nodes: MapNode[], domain?: string) {
-  const listed = nodes.filter((n) => n.branch === 'competitors')
-  if (!listed.length) return COMPETITORS
-  const byDomain = new Map(COMPETITORS.map((c) => [c.domain, c]))
-  const known = listed
-    .map((n) => byDomain.get(n.domain || '') || COMPETITORS.find((c) => c.id === n.id || c.name.toLowerCase() === n.text.toLowerCase()))
-    .filter((c): c is Comp => Boolean(c))
-  const uniq = [...new Map(known.map((c) => [c.id, c])).values()]
-  if (uniq.length) return uniq
-  if (isSuperagent(domain)) return COMPETITORS
-  return listed.map((n) => ({
-    id: n.id,
-    name: n.text,
-    domain: n.domain || '',
-    lane: 'desk',
-    price: '',
-    tag: n.text,
-    vs: '',
-    channels: ['meta', 'google'],
-    hooks: [],
-  }))
+function edgePath(from: GraphNode, to: GraphNode) {
+  const left = to.x + to.width / 2 < from.x + from.width / 2
+  const x1 = left ? from.x : from.x + from.width
+  const x2 = left ? to.x + to.width : to.x
+  const y1 = from.y + from.height / 2
+  const y2 = to.y + to.height / 2
+  const bend = Math.max(40, Math.abs(x2 - x1) * .58)
+  return `M ${x1} ${y1} C ${x1 + (left ? -bend : bend)} ${y1}, ${x2 + (left ? bend : -bend)} ${y2}, ${x2} ${y2}`
 }
 
-export function MindMap({
-  run,
-  nodes,
-  onChange,
-  onConfirm,
-  confirming,
-}: {
-  run: Run
-  nodes: MapNode[]
-  onChange: (nodes: MapNode[]) => void
-  onConfirm: (competitorIds: string[]) => void
-  confirming?: boolean
+export function MindMap({ run, nodes, onChange, onConfirm, confirming }: {
+  run: Run; nodes: MapNode[]; onChange: (nodes: MapNode[]) => void; onConfirm: (competitorIds: string[]) => void; confirming?: boolean
 }) {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const logos = useRef(new Map<string, HTMLImageElement>())
-  const cam = useRef({ x: 0, y: 0, k: 0.72, tx: 0, ty: 0, tk: 0.72, drag: false, moved: false, lx: 0, ly: 0 })
-  const hover = useRef<string | null>(null)
-  const [sel, setSel] = useState<string | null>(null)
-  const [filter, setFilter] = useState<string>('')
+  const competitors = useMemo(() => getMapCompetitors(nodes, run.domain), [nodes, run.domain])
+  const channels = useMemo(() => new Map(competitors.map(comp => [comp.id, getCompetitorChannels(run, comp)])), [competitors, run.ads, run.source])
+  const selfChannels = useMemo(() => getSelfChannels(run), [run.ads, run.source, run.domain, run.public_channels])
+  const [expanded, setExpanded] = useState<Set<string>>(new Set())
+  const [openChannel, setOpenChannel] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [focusId, setFocusId] = useState<string | null>(null)
+  const [filter, setFilter] = useState('')
   const [query, setQuery] = useState('')
-  const [tip, setTip] = useState<{ x: number; y: number; label: string; sub?: string } | null>(null)
-  const graph = useMemo(() => {
-    const g = buildGraph(compsFrom(nodes))
-    applyFilter(g, filter)
-    return g
-  }, [nodes, filter])
-
-  useEffect(() => {
-    const cache = logos.current
-    loadImg(cache, '/superagent-logo.png')
-    for (const c of compsFrom(nodes)) loadImg(cache, favicon(c.domain))
-  }, [nodes])
-
-  useEffect(() => {
-    const c = canvasRef.current
-    const wrap = wrapRef.current
-    if (!c || !wrap) return
-    const ctx = c.getContext('2d')
-    if (!ctx) return
-    let raf = 0
-    const t0 = performance.now()
-    const draw = (now: number) => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      const w = wrap.clientWidth
-      const h = wrap.clientHeight
-      if (c.width !== Math.round(w * dpr)) {
-        c.width = Math.round(w * dpr)
-        c.height = Math.round(h * dpr)
-        c.style.width = `${w}px`
-        c.style.height = `${h}px`
-      }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      const camv = cam.current
-      camv.x += (camv.tx - camv.x) * 0.08
-      camv.y += (camv.ty - camv.y) * 0.08
-      camv.k += (camv.tk - camv.k) * 0.08
-      for (const n of graph.nodes) {
-        n.x += (n.tx - n.x) * 0.1
-        n.y += (n.ty - n.y) * 0.1
-        n.alpha += (n.talpha - n.alpha) * 0.12
-      }
-      const sky = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7)
-      sky.addColorStop(0, '#16140f')
-      sky.addColorStop(1, BG)
-      ctx.fillStyle = sky
-      ctx.fillRect(0, 0, w, h)
-      ctx.save()
-      ctx.translate(w / 2, h / 2)
-      ctx.scale(camv.k, camv.k)
-      ctx.translate(camv.x, camv.y)
-      paint(ctx, graph, logos.current, sel, hover.current, query, now - t0, camv.k)
-      ctx.restore()
-      raf = requestAnimationFrame(draw)
+  const [camera, setCamera] = useState<Camera>({ x: 0, y: 0, k: .7 })
+  const [size, setSize] = useState({ width: 900, height: 760 })
+  const viewport = useRef<HTMLDivElement>(null)
+  const inspectorScroll = useRef<HTMLDivElement>(null)
+  const actionBarBottom = useVisualViewportBottom()
+  const researchDialog = useRef<HTMLDialogElement>(null)
+  const preparing = confirming || ['researching', 'writing', 'rendering'].includes(run.status)
+  const researchRun = useMemo(() => getResearchRun(run), [run])
+  const drag = useRef<{ x: number; y: number; cx: number; cy: number; moved: boolean; pointer: number } | null>(null)
+  const visibleExpanded = useMemo(() => {
+    const next = new Set(expanded)
+    const search = query.trim().toLowerCase()
+    if (search) {
+      getBuyerResearch(run).questions.forEach(question => {
+        if (`${question.title} ${question.snippet} ${question.sourceLabel || ''}`.toLowerCase().includes(search)) next.add(`buyer-topic:${question.topic}`)
+      })
+      getAnswerResearch(run).prompts.forEach(prompt => {
+        if (prompt.text.toLowerCase().includes(search)) next.add(`answer-topic:${prompt.topic}`)
+      })
     }
-    raf = requestAnimationFrame(draw)
-    return () => cancelAnimationFrame(raf)
-  }, [graph, sel, query])
+    return next
+  }, [expanded, query, run])
+  const graph = useMemo(() => createGraph(run, competitors, visibleExpanded, channels, selfChannels, openChannel), [run, competitors, visibleExpanded, channels, selfChannels, openChannel])
+  const byId = useMemo(() => new Map(graph.nodes.map(node => [node.id, node])), [graph])
+  const selected = selectedId ? byId.get(selectedId) : undefined
+  const focusedNodes = useMemo(() => focusId ? descendants(graph, focusId) : null, [graph, focusId])
+  const isSnapshot = run.ads.source === 'public_snapshot' || (
+    run.source === 'fixture' && run.ads.status === 'idle' && !run.ads.subjects.length && PUBLIC_RESEARCH_SNAPSHOT.source === 'public_snapshot'
+  )
+  const snapshotLabel = isSnapshot ? `Public research snapshot · ${formatDate(run.ads.researched_at || PUBLIC_RESEARCH_SNAPSHOT.observedAt)}` : undefined
 
   useEffect(() => {
-    fitAll(cam.current, wrapRef.current, graph)
+    inspectorScroll.current?.scrollTo({ top: 0 })
+  }, [selectedId])
+
+  useEffect(() => {
+    const element = viewport.current
+    if (!element) return
+    const observer = new ResizeObserver(([entry]) => setSize({ width: entry.contentRect.width, height: entry.contentRect.height }))
+    observer.observe(element)
+    const wheel = (event: WheelEvent) => {
+      event.preventDefault()
+      const rect = element.getBoundingClientRect(), px = event.clientX - rect.left, py = event.clientY - rect.top
+      setCamera(previous => {
+        const k = Math.max(.28, Math.min(1.8, previous.k * Math.exp(-event.deltaY * .0015)))
+        return { k, x: px - (px - previous.x) * k / previous.k, y: py - (py - previous.y) * k / previous.k }
+      })
+    }
+    element.addEventListener('wheel', wheel, { passive: false })
+    return () => { observer.disconnect(); element.removeEventListener('wheel', wheel) }
+  }, [])
+
+  const matches = (node: GraphNode) => {
+    const inFocus = !focusedNodes || focusedNodes.has(node.id)
+    const inFilter = !filter || (filter.startsWith('lane:') ? node.lane === filter.slice(5) || node.comp?.lane === filter.slice(5) || node.id === 'section:competitors' : node.section === filter)
+    const inQuery = !query.trim() || `${node.label} ${node.description || ''} ${node.domain || ''} ${node.comp?.name || ''} ${node.channel?.content?.map(item => `${item.title} ${item.summary}`).join(' ') || ''}`.toLowerCase().includes(query.trim().toLowerCase())
+    return inFocus && (node.kind === 'root' || inFilter && inQuery)
+  }
+
+  function fit(list: GraphNode[], overview = false) {
+    if (!list.length) return
+    const x0 = Math.min(...list.map(n => n.x), ...(overview ? [0] : [])) - 34
+    const y0 = Math.min(...list.map(n => n.y), ...(overview ? [0] : [])) - 50
+    const x1 = Math.max(...list.map(n => n.x + n.width), ...(overview ? [BASE.width] : [])) + 34
+    const y1 = Math.max(...list.map(n => n.y + n.height), ...(overview ? [BASE.height] : [])) + 50
+    const k = Math.min(overview ? 1 : 1.12, (size.width - 28) / (x1 - x0), (size.height - 38) / (y1 - y0))
+    setCamera({ x: (size.width - (x1 - x0) * k) / 2 - x0 * k, y: (size.height - (y1 - y0) * k) / 2 - y0 * k, k })
+  }
+
+  useEffect(() => {
+    if (focusId && focusedNodes?.size) {
+      fit(graph.nodes.filter(node => focusedNodes.has(node.id)))
+      return
+    }
+    if (filter || query.trim()) fit(graph.nodes.filter(n => n.kind !== 'root' && matches(n)))
+    else fit(graph.nodes, expanded.size === 0)
+  }, [graph, size.width, size.height, focusId, filter, query])
+
+  function overview() {
+    setExpanded(new Set()); setOpenChannel(null); setSelectedId(null); setFocusId(null); setFilter(''); setQuery('')
+    fit(graph.nodes, true)
+  }
+
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable="true"]')) return
+      if (event.key === 'Escape' || event.key === '0') overview()
+    }
+    window.addEventListener('keydown', key)
+    return () => window.removeEventListener('keydown', key)
   }, [graph])
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).tagName === 'INPUT') return
-      if (e.key === 'Escape') setSel(null)
-      if (e.key === '0') fitAll(cam.current, wrapRef.current, graph)
+  function select(node: GraphNode) {
+    if (drag.current?.moved) return
+    if (node.kind === 'root') {
+      overview()
+      return
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [graph])
-
-  function pick(ev: React.PointerEvent) {
-    const c = canvasRef.current
-    if (!c) return null
-    const r = c.getBoundingClientRect()
-    const { x: cx, y: cy, k } = cam.current
-    const x = (ev.clientX - r.left - r.width / 2) / k - cx
-    const y = (ev.clientY - r.top - r.height / 2) / k - cy
-    let best: GNode | null = null
-    let bestD = 999
-    for (const n of graph.nodes) {
-      if (n.alpha < 0.4) continue
-      const d = Math.hypot(n.x - x, n.y - y)
-      if (d < n.r + 10 / k && d < bestD) {
-        best = n
-        bestD = d
-      }
-    }
-    return best
-  }
-
-  const selected = graph.byId.get(sel || '') || null
-  const competitors = compsFrom(nodes, run.domain)
-
-  function removeComp(id: string) {
-    onChange(nodes.filter((n) => n.id !== id))
-    if (sel === id) setSel(null)
-  }
-
-  return (
-    <div className="h-[calc(100vh-120px)] flex flex-col bg-[#0c0b0a] text-[#f4efe6]">
-      <div ref={wrapRef} className="relative flex-1 min-h-0">
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing touch-none"
-          onPointerDown={(e) => {
-            cam.current.drag = true
-            cam.current.moved = false
-            cam.current.lx = e.clientX
-            cam.current.ly = e.clientY
-            ;(e.target as HTMLCanvasElement).setPointerCapture(e.pointerId)
-          }}
-          onPointerMove={(e) => {
-            if (cam.current.drag) {
-              const dx = e.clientX - cam.current.lx
-              const dy = e.clientY - cam.current.ly
-              if (Math.abs(dx) + Math.abs(dy) > 3) cam.current.moved = true
-              cam.current.x += dx / cam.current.k
-              cam.current.y += dy / cam.current.k
-              cam.current.tx = cam.current.x
-              cam.current.ty = cam.current.y
-              cam.current.lx = e.clientX
-              cam.current.ly = e.clientY
-              setTip(null)
-              return
-            }
-            const n = pick(e)
-            hover.current = n?.id || null
-            if (n && n.kind !== 'company') {
-              const r = canvasRef.current!.getBoundingClientRect()
-              setTip({ x: e.clientX - r.left + 14, y: e.clientY - r.top + 14, label: n.label, sub: n.sub })
-            } else setTip(null)
-          }}
-          onPointerUp={(e) => {
-            const moved = cam.current.moved
-            cam.current.drag = false
-            if (moved) return
-            const n = pick(e)
-            setSel(n ? n.id : null)
-          }}
-          onWheel={(e) => {
-            e.preventDefault()
-            const r = canvasRef.current!.getBoundingClientRect()
-            const sx = e.clientX - r.left
-            const sy = e.clientY - r.top
-            const before = {
-              x: (sx - r.width / 2) / cam.current.k - cam.current.x,
-              y: (sy - r.height / 2) / cam.current.k - cam.current.y,
-            }
-            cam.current.k = Math.max(0.28, Math.min(3.2, cam.current.k * Math.exp(-e.deltaY * 0.0015)))
-            cam.current.tk = cam.current.k
-            const after = {
-              x: (sx - r.width / 2) / cam.current.k - cam.current.x,
-              y: (sy - r.height / 2) / cam.current.k - cam.current.y,
-            }
-            cam.current.x += after.x - before.x
-            cam.current.y += after.y - before.y
-            cam.current.tx = cam.current.x
-            cam.current.ty = cam.current.y
-          }}
-          onDoubleClick={() => fitAll(cam.current, wrapRef.current, graph)}
-        />
-        {tip && (
-          <div
-            className="pointer-events-none absolute z-10 max-w-[240px] rounded-xl border border-white/10 bg-[#0c0b0a]/94 px-2.5 py-1.5 text-xs"
-            style={{ left: tip.x, top: tip.y }}
-          >
-            <b className="block font-display">{tip.label}</b>
-            {tip.sub && <span className="text-[#a39c92]">{tip.sub}</span>}
-          </div>
-        )}
-        <aside className="absolute left-4 top-4 w-[300px] rounded-[18px] border border-white/10 bg-[#0c0b0a]/82 backdrop-blur-md p-4 max-md:w-auto max-md:right-4">
-          <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">market map</p>
-          <h1 className="font-display font-extrabold text-[22px] leading-tight mt-1">The whole market, one map</h1>
-          <p className="mt-1.5 text-[13px] text-[#a39c92]">
-            Buyers asking right now, what the AI engines answer, your own channels, and every competitor with everything they run. Click anything.
-          </p>
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Find a competitor, venue, question…"
-            className="mt-3 w-full rounded-[10px] border border-white/10 bg-white/5 px-2.5 py-2 text-sm outline-none focus:border-white/30"
-          />
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            <FilterChip on={!filter} onClick={() => setFilter('')}>
-              All
-            </FilterChip>
-            {SECTIONS.map((s) => (
-              <FilterChip key={s.id} on={filter === `s:${s.id}`} color={s.color} onClick={() => setFilter(`s:${s.id}`)}>
-                {s.short}
-              </FilterChip>
-            ))}
-          </div>
-          <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">competitor lanes</p>
-          <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {LANES.map((l) => (
-              <FilterChip key={l.id} on={filter === `l:${l.id}`} color={l.color} small onClick={() => setFilter(`l:${l.id}`)}>
-                {l.label} <span className="text-[#6b6560]">{competitors.filter((c) => c.lane === l.id).length}</span>
-              </FilterChip>
-            ))}
-          </div>
-          <div className="mt-3 flex items-center justify-between gap-2">
-            <button type="button" className="text-[13px] font-bold text-[#f4efe6] border border-[rgba(232,195,106,.4)] bg-[rgba(232,195,106,.08)] rounded-full px-3 py-1" onClick={() => setSel('insights')}>
-              Insights <span className="ml-1 rounded-full bg-[#e8c36a] text-[#0c0b0a] px-1.5 text-[11px]">{SHOWN_INSIGHTS.length}</span>
-            </button>
-            <button type="button" className="text-xs text-[#a39c92] border border-white/10 rounded-full px-3 py-1" onClick={() => fitAll(cam.current, wrapRef.current, graph)}>
-              Fit
-            </button>
-          </div>
-          <p className="mt-2 text-[11px] text-[#6b6560]">Drag to pan · scroll to zoom · Esc closes · 0 fits</p>
-        </aside>
-        <aside className={`absolute right-4 top-4 bottom-4 w-[380px] overflow-y-auto rounded-[18px] border border-white/10 bg-[#141210]/92 backdrop-blur-md p-4 max-md:left-4 max-md:top-auto max-md:h-[42%] max-md:w-auto ${sel ? '' : 'max-md:hidden'}`}>
-          <Drawer
-            run={run}
-            selected={selected}
-            sel={sel}
-            competitors={competitors}
-            onGo={setSel}
-            onRemove={removeComp}
-          />
-          <div className="mt-6 pt-4 border-t border-white/10">
-            <p className="text-sm text-[#a39c92] mb-3">Ads stay untouched until you confirm.</p>
-            <button
-              type="button"
-              disabled={confirming}
-              className="btn-accent w-full"
-              onClick={() => onConfirm(competitors.map((c) => c.id))}
-            >
-              {confirming ? 'Starting research…' : 'Create Ads'}
-            </button>
-          </div>
-        </aside>
-      </div>
-    </div>
-  )
-}
-
-function FilterChip({
-  on,
-  color,
-  small,
-  onClick,
-  children,
-}: {
-  on?: boolean
-  color?: string
-  small?: boolean
-  onClick: () => void
-  children: ReactNode
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      style={{ ['--c' as string]: color || '#fff' }}
-      className={`inline-flex items-center gap-1.5 rounded-full border font-semibold ${small ? 'text-[11px] px-2 py-0.5' : 'text-xs px-2.5 py-1'} ${
-        on ? 'text-[#f4efe6] bg-white/10 border-white/25' : 'text-[#a39c92] border-white/10'
-      }`}
-    >
-      {color && <i className="w-1.5 h-1.5 rounded-full" style={{ background: color }} />}
-      {children}
-    </button>
-  )
-}
-
-function Drawer({
-  run,
-  selected,
-  sel,
-  competitors,
-  onGo,
-  onRemove,
-}: {
-  run: Run
-  selected: GNode | null
-  sel: string | null
-  competitors: Comp[]
-  onGo: (id: string | null) => void
-  onRemove: (id: string) => void
-}) {
-  if (sel === 'insights' || !selected) {
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">insights · {SHOWN_INSIGHTS.length} from this map</p>
-        <h2 className="font-display font-extrabold text-xl leading-tight inline-flex items-center gap-2">
-          Create
-          <svg className="w-[1.15em] h-[1.15em] shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-            <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.997 2.9 6.046 6.046 0 0 0 .742 7.096 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.984 5.984 0 0 0 13.26 24a6.055 6.055 0 0 0 5.772-4.205 5.99 5.99 0 0 0 3.997-2.9 6.055 6.055 0 0 0-.747-7.074zM13.26 22.43a4.475 4.475 0 0 1-2.876-1.04l.141-.08 4.778-2.758a.795.795 0 0 0 .392-.681v-6.736l2.02 1.168a.071.071 0 0 1 .038.052v5.582a4.504 4.504 0 0 1-4.493 4.493zM3.6 18.304a4.47 4.47 0 0 1-.535-3.013l.141.085 4.783 2.758a.771.771 0 0 0 .78 0l5.842-3.368v2.332a.08.08 0 0 1-.033.061L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.348a4.482 4.482 0 0 1 2.365-1.972V11.6a.766.766 0 0 0 .388.676l5.814 3.354-2.02 1.168a.075.075 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.596 3.777-5.83-3.387 2.021-1.168a.075.075 0 0 1 .071 0l4.83 2.787a4.494 4.494 0 0 1-.675 8.104v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.773-2.781a.775.775 0 0 0-.785 0L9.409 9.6V7.268a.066.066 0 0 1 .028-.061l4.83-2.786a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.021-1.163a.08.08 0 0 1-.038-.057V6.074a4.499 4.499 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.68zm1.097-2.365 2.602-1.499 2.607 1.499v2.999l-2.597 1.499-2.606-1.499z" />
-          </svg>
-          Ads
-        </h2>
-        <p className="text-sm text-[#a39c92]">Ranked by impact. Every card points at the place on the map it came from.</p>
-        <div className="space-y-2">
-          {SHOWN_INSIGHTS.map((i) => (
-            <button
-              key={i.title}
-              type="button"
-              onClick={() => onGo(i.go)}
-              className="block w-full text-left rounded-xl border border-white/10 bg-white/[0.03] p-3"
-              style={{ borderLeftWidth: 3, borderLeftColor: KIND[i.kind][1] }}
-            >
-              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: KIND[i.kind][1] }}>
-                {KIND[i.kind][0]}
-              </span>
-              <b className="block font-display mt-1 leading-snug">{i.title}</b>
-              <p className="text-sm text-[#a39c92] mt-1">{i.why}</p>
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-  if (selected.kind === 'company') {
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">brief · {run.domain}</p>
-        <div className="flex items-center gap-2">
-          <img src="/superagent-logo.png" alt="" className="w-9 h-9 rounded-lg" />
-          <div>
-            <h2 className="font-display font-extrabold text-xl leading-tight">{run.brand.name}</h2>
-            <p className="text-xs text-[#a39c92]">{run.brand.category}</p>
-          </div>
-        </div>
-        <p className="text-sm text-[#a39c92]">{run.brand.one_liner}</p>
-        <div className="flex flex-wrap gap-2">
-          {SECTIONS.map((s) => (
-            <button key={s.id} type="button" className="chip border-white/10" onClick={() => onGo('s:' + s.id)}>
-              {s.short}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-  if (selected.kind === 'section') {
-    const s = SECTIONS.find((x) => x.id === selected.section)
-    const groups = selected.section === 'competitors' ? competitors : []
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">{s?.label}</p>
-        <h2 className="font-display font-extrabold text-xl">{s?.label}</h2>
-        <p className="text-sm text-[#a39c92]">{s?.note}</p>
-        {s?.id === 'competitors' && (
-          <div className="space-y-2">
-            {LANES.map((l) => (
-              <p key={l.id} className="text-sm">
-                <b style={{ color: l.color }}>{l.label}</b>
-                <span className="text-[#a39c92]"> — {l.note}</span>
-              </p>
-            ))}
-            <ul className="text-sm space-y-1.5 pt-2">
-              {groups.map((c) => (
-                <li key={c.id}>
-                  <button type="button" className="flex items-center gap-2 w-full text-left" onClick={() => onGo(c.id)}>
-                    <img src={favicon(c.domain)} alt="" className="w-4 h-4 rounded-sm bg-white" />
-                    <span className="truncate">{c.name}</span>
-                    <span className="ml-auto text-[#6b6560]">{c.domain}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {s?.id === 'buyers' && (
-          <ul className="text-sm space-y-1.5">
-            {VENUES.map((v) => (
-              <li key={v.id}>
-                <button type="button" className="underline underline-offset-2" onClick={() => onGo('v:' + v.id)}>
-                  {v.label}
-                </button>
-                <span className="text-[#6b6560]"> · {v.filed} filed</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        {s?.id === 'answers' && (
-          <ul className="text-sm space-y-2">
-            {PROMPTS.map((p) => (
-              <li key={p.id}>
-                <button type="button" className="text-left" onClick={() => onGo(p.id)}>
-                  “{p.text}”
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-        {s?.id === 'you' && (
-          <ul className="text-sm space-y-1.5">
-            {YOU.map((y) => (
-              <li key={y.id} className="flex justify-between">
-                <span>{CHANNELS[y.id].label}</span>
-                <span className="text-[#6b6560]">{y.gap ? 'gap' : 'running'}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    )
-  }
-  if (selected.comp) {
-    const c = selected.comp
-    const lane = LANES.find((l) => l.id === c.lane)
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em]" style={{ color: lane?.color }}>
-          {lane?.label} · {c.price}
-        </p>
-        <div className="flex items-center gap-2">
-          <img src={favicon(c.domain)} alt="" className="w-8 h-8 rounded-full bg-white" />
-          <div>
-            <h2 className="font-display font-extrabold text-xl leading-tight">{c.name}</h2>
-            <a href={`https://${c.domain}`} target="_blank" rel="noreferrer" className="text-xs text-[#a39c92] underline">
-              {c.domain}
-            </a>
-          </div>
-        </div>
-        <p className="text-sm italic text-[#f4efe6]/90">“{c.tag}”</p>
-        <p className="text-sm text-[#a39c92]">
-          <b className="text-[#f4efe6]">vs SUPERAGENT.</b> {c.vs}
-        </p>
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">Where they market</p>
-        <div className="flex flex-wrap gap-2">
-          {c.channels.map((ch) => (
-            <span key={ch} className="chip border-white/10 normal-case">
-              {CHANNELS[ch].label}
-            </span>
-          ))}
-        </div>
-        {!!c.hooks.length && (
-          <ul className="text-sm text-[#a39c92] list-disc pl-4 space-y-1">
-            {c.hooks.map((h) => (
-              <li key={h}>{h}</li>
-            ))}
-          </ul>
-        )}
-        <button type="button" className="text-sm text-[#f07167]" onClick={() => onRemove(c.id)}>
-          Remove from map
-        </button>
-      </div>
-    )
-  }
-  if (selected.venue) {
-    const ts = THREADS.filter((t) => t.venue === selected.venue!.id)
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">venue · standing {selected.venue.standing}</p>
-        <h2 className="font-display font-extrabold text-xl">{selected.venue.label}</h2>
-        <p className="text-sm text-[#a39c92]">Threads where a buyer is asking right now. Score is closeness to a buying question.</p>
-        <div className="space-y-2">
-          {ts.map((t) => (
-            <article key={t.title} className="rounded-xl border border-white/10 p-3">
-              <div className="flex gap-2">
-                <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 font-display font-extrabold text-sm flex items-center justify-center shrink-0">{t.score}</span>
-                <div>
-                  <p className="font-semibold leading-snug">{t.title}</p>
-                  <p className="text-xs text-[#6b6560]">
-                    {t.author} · {t.age} · {t.intent}
-                  </p>
-                </div>
-              </div>
-              <p className="text-sm text-[#a39c92] mt-2">{t.snippet}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    )
-  }
-  if (selected.prompt) {
-    const p = selected.prompt
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">buyer question · {p.intent}</p>
-        <h2 className="font-display font-extrabold text-lg leading-snug">“{p.text}”</h2>
-        {p.results.map((r) => {
-          const e = ENGINES[r.engine as keyof typeof ENGINES]
-          return (
-            <article key={r.engine} className="rounded-xl border border-white/10 p-3" style={{ borderLeftWidth: 3, borderLeftColor: r.named ? '#6ee7b7' : '#f07167' }}>
-              <p className="font-bold">{e.label}</p>
-              <p className="text-xs text-[#6b6560]">{r.named ? 'names SUPERAGENT' : 'does not name SUPERAGENT'}</p>
-              <p className="text-sm text-[#a39c92] mt-1">{r.excerpt}</p>
-              <p className="text-xs text-[#6b6560] mt-2">{r.brands.join(' · ')}</p>
-            </article>
-          )
-        })}
-      </div>
-    )
-  }
-  if (selected.chan) {
-    const ch = CHANNELS[selected.chan]
-    const running = competitors.filter((c) => c.channels.includes(selected.chan!))
-    return (
-      <div className="space-y-3">
-        <p className="text-[10px] uppercase tracking-[0.14em] text-[#6b6560]">{selected.comp ? selected.comp.name : 'your channel'}</p>
-        <h2 className="font-display font-extrabold text-xl">{ch.label}</h2>
-        <p className="text-sm text-[#a39c92]">{selected.sub}</p>
-        {selected.gap && (
-          <ul className="text-sm space-y-1.5">
-            {running.map((c) => (
-              <li key={c.id}>
-                <button type="button" className="underline underline-offset-2" onClick={() => onGo(c.id)}>
-                  {c.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    )
-  }
-  return <p className="text-sm text-[#a39c92]">Click a node. Confirm when the competitor half looks right.</p>
-}
-
-function blank(): Pick<GNode, 'x' | 'y' | 'tx' | 'ty' | 'a' | 'alpha' | 'talpha'> {
-  return { x: 0, y: 0, tx: 0, ty: 0, a: 0, alpha: 0, talpha: 1 }
-}
-
-function buildGraph(comps: Comp[]) {
-  const nodes: GNode[] = []
-  const byId = new Map<string, GNode>()
-  const mk = (n: Omit<GNode, 'x' | 'y' | 'tx' | 'ty' | 'a' | 'alpha' | 'talpha'>) => {
-    const full = { ...blank(), ...n }
-    nodes.push(full)
-    byId.set(full.id, full)
-    return full
-  }
-  mk({ id: 'company', kind: 'company', label: 'SUPERAGENT', color: GOLD, r: 34, domain: 'getsuperagent.com' })
-  for (const s of SECTIONS) mk({ id: 's:' + s.id, kind: 'section', section: s.id, label: s.label, color: s.color, r: 24, icon: s.icon })
-  for (const c of comps) {
-    const lane = LANES.find((l) => l.id === c.lane) || LANES[0]
-    mk({ id: c.id, kind: 'group', section: 'competitors', lane: c.lane, label: c.name, color: lane.color, r: 13, sub: `${c.channels.length} channels · ${c.price}`, domain: c.domain, comp: c })
-    for (const ch of c.channels) {
-      mk({ id: `${c.id}:${ch}`, kind: 'leaf', section: 'competitors', parent: c.id, label: CHANNELS[ch].label, color: CHANNELS[ch].color, r: 8, chan: ch, comp: c })
+    setSelectedId(node.id)
+    if (node.kind === 'company' && node.comp) {
+      const next = new Set(expanded)
+      if (next.has(node.comp.id)) { next.delete(node.comp.id); setOpenChannel(null); setFocusId(null) }
+      else { next.add(node.comp.id); setFocusId(node.id); setQuery(''); setFilter('') }
+      setExpanded(next)
+    } else if (node.kind === 'channel') {
+      setQuery(''); setFilter('')
+      setOpenChannel(openChannel === node.id ? null : node.id)
+      setFocusId(openChannel === node.id ? `company:${node.comp!.id}` : node.id)
+    } else if (node.kind === 'topic' || node.prompt && node.kind === 'question') {
+      const next = new Set(expanded)
+      if (next.has(node.id)) {
+        descendants(graph, node.id).forEach(id => next.delete(id))
+        setFocusId(node.prompt ? `answer-topic:${node.topic}` : null)
+      } else { next.add(node.id); setFocusId(node.id) }
+      setExpanded(next); setQuery(''); setFilter('')
+    } else if (node.kind === 'lane') {
+      setFocusId(null); setFilter(filter === node.id ? '' : node.id); setQuery('')
     }
   }
-  for (const v of VENUES) {
-    mk({ id: 'v:' + v.id, kind: 'group', section: 'buyers', label: v.label, color: v.color, r: 13, sub: `${v.filed} filed · standing ${v.standing}`, venue: v, icon: v.icon })
-    THREADS.filter((t) => t.venue === v.id).forEach((t, i) => {
-      mk({ id: `t:${v.id}:${i}`, kind: 'leaf', section: 'buyers', parent: 'v:' + v.id, label: t.title, color: t.score > 80 ? '#6ee7b7' : GOLD, r: 8, thread: t, sub: t.status })
+
+  function openCompany(comp: Comp) {
+    setExpanded(previous => new Set(previous).add(comp.id)); setSelectedId(`company:${comp.id}`); setFocusId(`company:${comp.id}`); setFilter(''); setQuery('')
+  }
+  function openAds(comp: Comp, channel: MapChannel) {
+    setExpanded(previous => new Set(previous).add(comp.id)); const id = `channel:${comp.id}:${channel.id}`
+    setOpenChannel(id); setSelectedId(id); setFocusId(id); setFilter(''); setQuery('')
+  }
+  function zoom(multiplier: number) {
+    setCamera(previous => {
+      const k = Math.max(.28, Math.min(1.8, previous.k * multiplier))
+      return { k, x: size.width / 2 - (size.width / 2 - previous.x) * k / previous.k, y: size.height / 2 - (size.height / 2 - previous.y) * k / previous.k }
     })
   }
-  for (const p of PROMPTS) {
-    const named = p.results.filter((r) => r.named).length
-    mk({ id: p.id, kind: 'group', section: 'answers', label: p.text, color: named ? '#6ee7b7' : '#f07167', r: 13, sub: named ? `SUPERAGENT named by ${named} / 3` : 'not named', prompt: p })
-    for (const r of p.results) {
-      const e = ENGINES[r.engine as keyof typeof ENGINES]
-      mk({ id: `${p.id}:${r.engine}`, kind: 'leaf', section: 'answers', parent: p.id, label: e.label, color: r.named ? '#6ee7b7' : '#f07167', r: 8, engine: r.engine, prompt: p, sub: r.named ? 'names SUPERAGENT' : r.brands.slice(0, 2).join(', ') })
-    }
-  }
-  for (const y of YOU) {
-    const ch = CHANNELS[y.id]
-    mk({ id: 'you:' + y.id, kind: 'group', section: 'you', label: ch.label, color: y.gap ? DIM : ch.color, r: 13, sub: y.sub, chan: y.id, gap: y.gap })
-  }
-  const kids = new Map<string, GNode[]>()
-  for (const n of nodes) {
-    if (!n.parent) continue
-    if (!kids.has(n.parent)) kids.set(n.parent, [])
-    kids.get(n.parent)!.push(n)
-  }
-  return { nodes, byId, kids, arcs: [] as { kind: string; color: string; label?: string; a0: number; a1: number; mid: number; section?: string; lane?: string }[], R0: 150, R1: 300, R2: 480 }
+  const activeComp = selected?.comp
+  const matchCount = graph.nodes.filter(n => n.kind !== 'root' && matches(n)).length
+
+  return <div className="glass-map">
+    <aside className="map-sidebar glass-panel">
+      <p className="map-eyebrow">Market map</p>
+      <h1 className="map-title">The whole market,<br />one map</h1>
+      <p className="map-description">Explore sourced company profiles, public content, ad creatives, and the questions that still need research.</p>
+      <label className="map-search"><Icon name="search" size={19} /><input aria-label="Search the market map" value={query} onChange={e => { setQuery(e.target.value); setFocusId(null) }} placeholder="Find a competitor, venue, question…" />{query && <button type="button" aria-label="Clear search" onClick={() => setQuery('')}><Icon name="close" size={14} /></button>}</label>
+      <div className="map-filters" aria-label="Map sections">
+        <Chip active={!filter} onClick={() => { setFilter(''); setFocusId(null) }}>All</Chip>
+        {SECTIONS.map(s => <Chip key={s.id} color={COLORS[s.id]} active={filter === s.id} onClick={() => { setFilter(filter === s.id ? '' : s.id); setFocusId(null); if (s.id === 'you') setSelectedId(filter === s.id ? null : 'section:you') }}>{s.id === 'you' ? 'Your channels' : s.short}</Chip>)}
+      </div>
+      <div className="map-lanes"><p className="map-eyebrow">Competitor lanes</p><div className="map-filters">{LANES.map(lane => <Chip key={lane.id} color={lane.id === 'desk' ? '#638cff' : lane.id === 'voice' ? '#a16af2' : '#19958b'} active={filter === `lane:${lane.id}`} onClick={() => { setFilter(filter === `lane:${lane.id}` ? '' : `lane:${lane.id}`); setFocusId(null) }}>{lane.label}</Chip>)}</div></div>
+      <div className="map-sidebar-bottom">
+        <div className="map-mini-guide"><span className="map-tip"><Icon name="chevron" size={15} /> Competitor → channels → ads</span><p>Click a company to unfold its channels. Follow a channel to explore its ads.</p></div>
+        <div className="map-controls"><button type="button" className="map-icon-button" aria-label="Zoom out" onClick={() => zoom(1 / 1.2)}>−</button><span className="map-zoom-label">{Math.round(camera.k * 100)}%</span><button type="button" className="map-icon-button" aria-label="Zoom in" onClick={() => zoom(1.2)}>+</button><button type="button" className="map-secondary-button" onClick={overview}><Icon name="fit" size={15} /> Fit</button></div>
+        <p className="map-instructions">Drag to pan · scroll to zoom · 0 to fit</p>
+      </div>
+    </aside>
+
+    <main className="map-workspace" aria-label="Interactive business mindmap">
+      <div className="map-canvas-toolbar"><div className="map-breadcrumb"><button type="button" onClick={overview}>All map</button>{activeComp && <><Icon name="chevron" size={12} /><button type="button" onClick={() => openCompany(activeComp)}>{activeComp.name}</button></>}{selected?.channel && <><Icon name="chevron" size={12} /><span>{selected.channel.label}</span></>}</div>{expanded.size > 0 && <button type="button" className="map-text-button" onClick={overview}>Collapse all</button>}</div>
+      <div ref={viewport} className="map-viewport" onPointerDown={event => {
+        if ((event.target as HTMLElement).closest('button, a')) return
+        drag.current = { x: event.clientX, y: event.clientY, cx: camera.x, cy: camera.y, moved: false, pointer: event.pointerId }
+        event.currentTarget.setPointerCapture(event.pointerId)
+      }} onPointerMove={event => {
+        const state = drag.current
+        if (!state || state.pointer !== event.pointerId) return
+        const dx = event.clientX - state.x, dy = event.clientY - state.y
+        if (Math.abs(dx) + Math.abs(dy) > 3) state.moved = true
+        if (state.moved) setCamera(previous => ({ ...previous, x: state.cx + dx, y: state.cy + dy }))
+      }} onPointerUp={() => { drag.current = null }} onPointerCancel={() => { drag.current = null }} onDoubleClick={event => { if (!(event.target as HTMLElement).closest('button')) overview() }}>
+        <div className="map-world" style={{ width: BASE.width, height: BASE.height, transform: `translate(${camera.x}px, ${camera.y}px) scale(${camera.k})` }}>
+          <div className="map-quadrant quadrant-competitors" style={{ left: 5, top: 12, width: 585, height: 452 }} />
+          <div className="map-quadrant quadrant-buyers" style={{ left: 598, top: 12, width: 554, height: 452 }} />
+          <div className="map-quadrant quadrant-you" style={{ left: 5, top: 474, width: 585, height: 442 }} />
+          <div className="map-quadrant quadrant-answers" style={{ left: 598, top: 474, width: 554, height: 442 }} />
+          <svg className="map-connections" width={BASE.width} height={BASE.height} style={{ overflow: 'visible' }} aria-hidden="true">{graph.edges.map(edge => {
+            const from = byId.get(edge.from), to = byId.get(edge.to)
+            if (!from || !to) return null
+            const color = COLORS[to.section || 'competitors']
+            const left = to.x + to.width / 2 < from.x + from.width / 2
+            return <g key={`${edge.from}-${edge.to}`} opacity={matches(to) ? .7 : .1}><path d={edgePath(from, to)} fill="none" stroke={color} strokeWidth={from.kind === 'root' ? 3.2 : 1.8} strokeDasharray={to.gap ? '5 5' : undefined} /><circle cx={left ? to.x + to.width : to.x} cy={to.y + to.height / 2} r={3} fill={color} /></g>
+          })}</svg>
+          {graph.nodes.map(node => {
+            const hasChildren = node.kind === 'company' || node.kind === 'channel' || node.kind === 'topic' || node.kind === 'question' && !!node.prompt
+            const isExpanded = node.kind === 'company' ? expanded.has(node.comp!.id) : node.kind === 'channel' ? openChannel === node.id : visibleExpanded.has(node.id)
+            return <button key={node.id} type="button" className={`map-node map-node--${node.kind} ${selectedId === node.id ? 'is-selected' : ''} ${!matches(node) ? 'is-dimmed' : ''} ${node.gap ? 'is-gap' : ''}`} data-section={node.section} data-node-id={node.id} title={node.label} tabIndex={matches(node) ? 0 : -1} onFocus={() => { const left = node.x * camera.k + camera.x, top = node.y * camera.k + camera.y; if (left < 0 || top < 45 || left + node.width * camera.k > size.width || top + node.height * camera.k > size.height - 35) setCamera(previous => ({ ...previous, x: size.width / 2 - (node.x + node.width / 2) * previous.k, y: size.height / 2 - (node.y + node.height / 2) * previous.k })) }} aria-label={node.kind === 'company' ? `${node.label}, ${isExpanded ? 'collapse' : 'expand'} channels` : node.kind === 'channel' ? `${node.comp!.name} ${node.label}, ${isExpanded ? 'collapse' : 'show'} ads` : node.kind === 'ad' ? `View ad: ${node.label}` : node.label} aria-expanded={hasChildren ? isExpanded : undefined} aria-pressed={hasChildren ? undefined : selectedId === node.id} onClick={() => select(node)} style={{ left: node.x, top: node.y, width: node.width, height: node.height, '--node-color': COLORS[node.section || 'competitors'] } as CSSProperties}>
+              {node.kind === 'root' || node.kind === 'company' ? <CompanyLogo domain={node.domain} name={node.label} root={node.kind === 'root'} logo={run.brand.logo_url} /> : node.kind === 'ad' ? <span className="node-ad-platform">{node.channel?.label}</span> : <span className={`node-icon${hasBrandLogo(node.icon || '') ? ' node-icon--brand' : ''}`}><Icon name={node.icon || 'bubble'} size={node.kind === 'section' ? 29 : 23} /></span>}
+              <span className="node-copy"><span className="node-label">{node.label}</span>{node.description && <span className="node-description">{node.description}</span>}</span>
+              {hasChildren && <span className={`node-chevron ${isExpanded ? 'is-expanded' : ''}`}><Icon name="chevron" size={14} /></span>}
+              {node.kind === 'ad' && <span className="node-ad-action">View creative <Icon name="arrow" size={13} /></span>}
+            </button>
+          })}
+        </div>
+      </div>
+      <div className="map-canvas-hint" role="status">{query && !matchCount ? `No matches for “${query}”` : selected?.channel && isContentChannel(selected.channel) ? `${channelSummary(selected.channel)} · open a source in the details panel` : selected?.kind === 'channel' ? `${selected.channel!.ads.length} saved ads · click an ad for the full creative` : expanded.size ? 'Follow the branches to explore. Click a company again to collapse.' : 'A little clarity. A world of possibilities.'}</div>
+    </main>
+
+    <aside className="map-inspector glass-panel" aria-label="Map details" aria-live="polite">
+      <div className="inspector-heading"><p className="map-eyebrow">{selected ? 'Explore this node' : 'Insights from this map'}</p>{selected && <button type="button" className="inspector-close map-icon-button" aria-label="Close details" onClick={() => setSelectedId(null)}><Icon name="close" size={17} /></button>}</div>
+      <div ref={inspectorScroll} className="inspector-scroll" role="region" aria-label="Insights and details" tabIndex={0}>
+      <Inspector run={run} selected={selected} competitors={competitors} channels={channels} selfChannels={selfChannels} snapshotLabel={snapshotLabel} onCompany={openCompany} onChannel={openAds} onRemove={comp => { onChange(nodes.filter(n => n.id !== comp.id)); setSelectedId(null); setFocusId(null); setExpanded(previous => { const next = new Set(previous); next.delete(comp.id); return next }) }} onResearch={() => researchDialog.current?.showModal()} onSelect={id => { const node = byId.get(id); if (node && (node.kind === 'topic' || node.kind === 'question' && node.prompt)) { select(node); return }; setSelectedId(id); if (id.startsWith('section:')) { setFilter(id.slice(8)); setFocusId(null) } }} />
+      {!selected && <div className="map-quick-tips"><h3>Quick tips</h3>{['Click a competitor to unfold its channels', 'Explore your content in Your channels', 'Zoom and pan to see more'].map(tip => <p key={tip} className="map-tip"><span><Icon name="check" size={13} /></span>{tip}</p>)}</div>}
+      </div>
+      <div className="inspector-launch" style={{ '--action-bar-lift': `${actionBarBottom}px` } as CSSProperties}><h3>Ready for your next ad?</h3><p>Ads stay untouched until you confirm.</p><button type="button" className="map-primary-button" disabled={preparing} onClick={() => onConfirm(competitors.map(c => c.id))}>{preparing ? run.status === 'writing' ? 'Preparing directions…' : 'Researching your product…' : run.brief && run.concepts.length && !run.stale.research ? 'Create Ads' : 'Research & prepare ads'}<Icon name="arrow" size={19} /></button></div>
+    </aside>
+    <dialog ref={researchDialog} className="product-research-dialog" aria-label="Product research and insights">
+      <div className="product-research-header"><span>Your product / Research & insights</span><button type="button" className="map-secondary-button" onClick={() => researchDialog.current?.close()}>Back to map <Icon name="close" size={16} /></button></div>
+      <Research run={researchRun} embedded />
+    </dialog>
+  </div>
 }
 
-function applyFilter(graph: ReturnType<typeof buildGraph>, filter: string) {
-  const f = !filter ? null : filter.startsWith('s:') ? { section: filter.slice(2) } : { lane: filter.slice(2) }
-  const secs = SECTIONS.filter((s) => !f || f.section === s.id || (f.lane && s.id === 'competitors'))
-  const groupsOf = (s: (typeof SECTIONS)[number]) =>
-    graph.nodes.filter((n) => n.kind === 'group' && n.section === s.id && (!f?.lane || n.lane === f.lane))
-  const plan = secs.map((s) => {
-    const groups = groupsOf(s)
-    const subs = s.id === 'competitors' ? LANES.map((l) => groups.filter((g) => g.lane === l.id)).filter((g) => g.length) : [groups]
-    return { s, groups, subs, units: groups.length + subs.length * 1 }
-  })
-  const spans = new Map<string, [number, number, number]>()
-  const right = plan.filter((p) => p.s.side === 'right')
-  const left = plan.filter((p) => p.s.side === 'left')
-  const half = (list: typeof plan, from: number, total: number) => {
-    const u = list.reduce((a, p) => a + p.units, 0) || 1
-    let a = from
-    for (const p of list) {
-      const sp = (total * p.units) / u
-      spans.set(p.s.id, [a, sp, 1])
-      a += sp
-    }
-  }
-  if (left.length && right.length) {
-    half(right, -Math.PI / 2, Math.PI)
-    half(left, Math.PI / 2, Math.PI)
-    for (const p of left) {
-      const v = spans.get(p.s.id)!
-      spans.set(p.s.id, [v[0] + v[1], v[1], -1])
-    }
-  } else half(plan, -Math.PI / 2, TAU)
-  const units = plan.map((p) => spans.get(p.s.id)![1] / p.units)
-  graph.R1 = Math.max(250, ...units.map((u) => 30 / u))
-  let need = graph.R1 + 160
-  plan.forEach((p, i) => {
-    for (const g of p.groups) {
-      const k = (graph.kids.get(g.id) || []).length
-      if (!k) continue
-      const rings = k <= 3 ? 1 : k <= 6 ? 2 : 3
-      const per = Math.ceil(k / rings)
-      need = Math.max(need, (24 * (per - 1)) / (0.82 * units[i]))
-    }
-  })
-  graph.R2 = need
-  graph.arcs = []
-  const shown = new Set<string>()
-  plan.forEach((p, i) => {
-    const [start, span, dir] = spans.get(p.s.id)!
-    const unit = units[i]
-    const hub = graph.byId.get('s:' + p.s.id)!
-    const mid = start + (span / 2) * dir
-    hub.a = mid
-    hub.tx = Math.cos(mid) * graph.R0
-    hub.ty = Math.sin(mid) * graph.R0
-    hub.talpha = 1
-    shown.add(hub.id)
-    graph.arcs.push({ kind: 'section', color: p.s.color, section: p.s.id, a0: Math.min(start, start + span * dir), a1: Math.max(start, start + span * dir), mid })
-    let a = start
-    for (const sub of p.subs) {
-      a += (unit * dir) / 2
-      const s0 = a
-      for (const g of sub) {
-        g.a = a + (unit / 2) * dir
-        g.tx = Math.cos(g.a) * graph.R1
-        g.ty = Math.sin(g.a) * graph.R1
-        g.talpha = 1
-        shown.add(g.id)
-        const ch = graph.kids.get(g.id) || []
-        const k = ch.length
-        const rings = k <= 3 ? 1 : k <= 6 ? 2 : 3
-        const sp = unit * 0.82
-        ch.forEach((m, j) => {
-          const t = k === 1 ? 0.5 : j / (k - 1)
-          m.a = g.a - sp / 2 + sp * t
-          const rr = graph.R2 + (j % rings) * 34
-          m.tx = Math.cos(m.a) * rr
-          m.ty = Math.sin(m.a) * rr
-          m.talpha = 1
-          shown.add(m.id)
-        })
-        a += unit * dir
-      }
-      if (p.s.id === 'competitors' && sub[0]?.lane) {
-        const l = LANES.find((x) => x.id === sub[0].lane)!
-        graph.arcs.push({ kind: 'lane', color: l.color, label: l.label, lane: l.id, a0: Math.min(s0, a), a1: Math.max(s0, a), mid: (s0 + a) / 2 })
-      }
-      a += (unit * dir) / 2
-    }
-  })
-  for (const n of graph.nodes) {
-    if (n.kind === 'company' || shown.has(n.id)) continue
-    n.talpha = 0
-    const p = n.parent ? graph.byId.get(n.parent) : n.kind === 'group' ? graph.byId.get('s:' + n.section) : null
-    if (p) {
-      n.tx = p.tx
-      n.ty = p.ty
-    }
-  }
+function Chip({ active, color, children, onClick }: { active: boolean; color?: string; children: ReactNode; onClick: () => void }) {
+  return <button type="button" className="map-chip" aria-pressed={active} onClick={onClick}>{color && <i style={{ background: color }} />}{children}</button>
 }
 
-function fitAll(cam: { tx: number; ty: number; tk: number }, wrap: HTMLDivElement | null, graph: ReturnType<typeof buildGraph>) {
-  if (!wrap) return
-  const w = wrap.clientWidth
-  const h = wrap.clientHeight
-  const dw = w > 700 ? 200 : 0
-  cam.tk = Math.max(0.32, Math.min(1.05, Math.min((w - dw) / (2 * (graph.R2 + 200)), h / (2 * (graph.R2 + 170)))))
-  cam.tx = -dw / 2 / cam.tk
-  cam.ty = 0
+function Inspector({ run, selected, competitors, channels, selfChannels, snapshotLabel, onCompany, onChannel, onRemove, onSelect, onResearch }: {
+  run: Run; selected?: GraphNode; competitors: Comp[]; channels: Map<string, MapChannel[]>; selfChannels: MapChannel[]; snapshotLabel?: string
+  onCompany: (comp: Comp) => void; onChannel: (comp: Comp, channel: MapChannel) => void; onRemove: (comp: Comp) => void; onSelect: (id: string) => void; onResearch: () => void
+}) {
+  if (!selected) return <>
+    <button type="button" className="inspector-card opportunity-card" onClick={() => onSelect('section:you')}><span className="opportunity-icon"><Icon name="sparkle" size={28} /></span><span><b>Test a ChatGPT campaign</b><span>Use observed creative to shape a measured test.</span></span><Icon name="chevron" size={17} /></button>
+    <p className="inspector-description">Your market, connected. Explore the companies, channels, and messages behind your next campaign.</p>
+    {selfChannels.some(channel => channel.content?.length) && <div className="map-owned-preview">
+      <div className="map-content-heading"><p className="map-eyebrow">Your public content</p><span>{selfChannels.reduce((count, channel) => count + (channel.content?.length || 0), 0)} resources</span></div>
+      <div className="map-channel-list">{selfChannels.filter(channel => channel.content?.length).slice(0, 2).map(channel => <SelfChannelButton key={channel.id} channel={channel} onSelect={onSelect} />)}</div>
+      <button type="button" className="map-text-button" onClick={() => onSelect('section:you')}>Explore all your channels <Icon name="arrow" size={13} /></button>
+    </div>}
+    {snapshotLabel && <span className="status-badge">{snapshotLabel}</span>}
+    {['researching', 'writing'].includes(run.status) && <p className="inspector-description" role="status">{run.status === 'writing' ? 'Preparing campaign directions from your research…' : 'Updating company profiles and ad research…'}</p>}
+    {run.stale.research && <p className="inspector-description">The map changed. Research again to refresh your campaign brief.</p>}
+    {run.insights.slice(0, 3).map((insight, index) => <button type="button" className="inspector-card map-insight-preview" key={index} onClick={onResearch}><b>{insight.title}</b><p>{insight.recommendation || insight.observation}</p><span className="ad-source-link">View evidence <Icon name="arrow" size={14} /></span></button>)}
+    <button type="button" className="map-text-button" onClick={onResearch}>All research, sources & insights <Icon name="arrow" size={14} /></button>
+  </>
+  if (selected.kind === 'ad' && selected.ad) return <><p className="inspector-kicker">{selected.comp?.name} / {selected.channel?.label}</p><h2 className="inspector-title">Ad creative</h2><button type="button" className="map-text-button" onClick={() => onChannel(selected.comp!, selected.channel!)}>← All {selected.channel?.label}</button><CreativeCard key={selected.ad.id} ad={selected.ad} /></>
+  if (selected.channel) {
+    const channel = selected.channel
+    if (isContentChannel(channel)) return <ContentChannelDetails channel={channel} businessName={run.brand.name || run.domain} onBack={() => onSelect('section:you')} />
+    return <><p className="inspector-kicker">{selected.comp?.name || run.brand.name}</p><h2 className="inspector-title">{channel.label}</h2><p className="inspector-description">{channel.description}</p>{(channel.checkedAt || channel.checkNote) && <details className="inspector-description"><summary>Source check{channel.checkedAt ? ` · ${formatDate(channel.checkedAt)}` : ''}</summary>{channel.checkNote && <p>{channel.checkNote}</p>}</details>}<div className="map-ad-list">{channel.ads.length ? channel.ads.map(ad => <CreativeCard key={ad.id} ad={ad} />) : <div className="map-empty-state"><Icon name="search" size={30} /><h3>{channel.status === 'empty' ? 'No matching ads found' : channel.status === 'unavailable' ? 'Ad activity unverified' : 'No saved ads yet'}</h3><p>{channel.status === 'empty' ? 'The last library result was empty. It does not prove this business never advertises here.' : 'Explore the source directly, or run ad research to collect available ads.'}</p></div>}</div>{channel.sourceUrl && <a className="ad-source-link" href={channel.sourceUrl} target="_blank" rel="noreferrer">Open channel source <Icon name="external" size={14} /></a>}</>
+  }
+  if (selected.comp) {
+    const comp = selected.comp, available = channels.get(comp.id) || [], subject = getCompetitorSubject(run, comp), profile = comp.profile
+    return <><p className="inspector-kicker">{LANES.find(lane => lane.id === comp.lane)?.label}</p><div className="inspector-company"><CompanyLogo domain={comp.domain} name={comp.name} /><h2 className="inspector-title">{comp.name}</h2></div><p className="inspector-description">{comp.tag}</p>
+      {subject && <div className="map-subject-research"><SubjectProfile subject={subject} /><SubjectSources subject={subject} /></div>}
+      {!subject && profile && <div className="map-brief-list">
+        {profile.audience && <div className="inspector-card"><p className="map-eyebrow">Audience</p><p>{profile.audience}</p></div>}
+        {(profile.pricing || comp.price) && <div className="inspector-card"><p className="map-eyebrow">Published pricing</p><p>{profile.pricing || comp.price}</p></div>}
+        {profile.offer && <div className="inspector-card"><p className="map-eyebrow">Offer</p><p>{profile.offer}</p></div>}
+        {profile.differentiators?.length ? <div className="inspector-card"><p className="map-eyebrow">Product capabilities</p><p>{profile.differentiators.join(' · ')}</p></div> : null}
+      </div>}
+      <p className="map-eyebrow">Channels & ad libraries</p><div className="map-channel-list">{available.map(channel => <button key={channel.id} type="button" className="map-channel-button" onClick={() => onChannel(comp, channel)}><span className="node-icon"><Icon name={channel.icon} /></span><span className="channel-summary"><b>{channel.label}</b><span>{channel.ads.length ? `${channel.ads.length} saved ads` : channel.status === 'empty' ? 'No matching ads' : channel.status === 'unavailable' ? 'Source unavailable' : 'Not researched'}</span>{comp.channelEvidence?.[channel.id]?.thirdPartyRecords ? <small>Advertiser relationship unverified</small> : null}</span><Icon name="chevron" size={16} /></button>)}</div>{safeExternalUrl(`https://${comp.domain}`) && <a className="ad-source-link" href={safeExternalUrl(`https://${comp.domain}`)} target="_blank" rel="noreferrer">Visit {comp.domain}<Icon name="external" size={14} /></a>}<button type="button" className="map-text-button remove-competitor" onClick={() => onRemove(comp)}>Remove from map</button></>
+  }
+  if (selected.kind === 'root') return <><p className="inspector-kicker">Your business / {run.domain}</p><h2 className="inspector-title">{run.brand.name}</h2><p className="inspector-description">{run.brand.one_liner}</p>{getSelfSubject(run) && <div className="map-subject-research"><SubjectProfile subject={getSelfSubject(run)!} /><SubjectSources subject={getSelfSubject(run)!} /></div>}<div className="map-brief-list">{nodesForBrief(run.map.nodes).map(node => <div className="inspector-card" key={node.id}><p className="map-eyebrow">{node.branch}</p><p>{node.text}</p></div>)}</div></>
+  if (selected.kind === 'lane' || selected.id === 'section:competitors') return <><h2 className="inspector-title">{selected.label}</h2><p className="inspector-description">Click a company to reveal its channels, then follow a channel to its ads.</p><div className="map-channel-list">{competitors.filter(comp => !selected.lane || comp.lane === selected.lane).map(comp => <button key={comp.id} type="button" className="map-channel-button" onClick={() => onCompany(comp)}><CompanyLogo domain={comp.domain} name={comp.name} /><span className="channel-summary"><b>{comp.name}</b><span>{comp.domain}</span></span><Icon name="chevron" size={16} /></button>)}</div></>
+  const buyers = getBuyerResearch(run)
+  const answers = getAnswerResearch(run)
+  if (selected.buyerQuestion) return <BuyerQuestionCard question={selected.buyerQuestion} />
+  if (selected.id.startsWith('buyer-topic:')) return <><h2 className="inspector-title">{selected.label}</h2><p className="inspector-description">{buyers.note}</p>{buyers.questions.filter(question => question.topic === selected.topic).map(question => <BuyerQuestionCard key={question.id} question={question} compact />)}</>
+  if (selected.prompt) {
+    const prompt = selected.prompt
+    const engines = selected.engine ? Object.entries(ENGINES).filter(([id]) => id === selected.engine) : Object.entries(ENGINES)
+    return <><p className="inspector-kicker">AI answer research · {prompt.results.length ? 'captured responses' : 'proposed question'}</p><h2 className="inspector-title">{prompt.text}</h2>{engines.map(([engine, details]) => {
+      const result = prompt.results.find(result => result.engine === engine)
+      return result ? <AiAnswerCard key={engine} result={result} label={details.label} expanded={!!selected.engine} /> : <article className="inspector-card answer-result" key={engine}><h3 className="answer-brand-heading"><BrandLogo brand={engine} size={24} />{details.label}</h3><span className="status-badge">Not checked</span><p className="inspector-description">No response collected for this question yet.</p></article>
+    })}</>
+  }
+  if (selected.id.startsWith('answer-topic:')) return <><h2 className="inspector-title">{selected.label}</h2><p className="inspector-description">Expand a question to read the captured answers, compare named brands, and follow the sources returned by each engine.</p><div className="map-channel-list">{answers.prompts.filter(prompt => prompt.topic === selected.topic).map(prompt => <button type="button" className="map-channel-button" key={prompt.id} onClick={() => onSelect(`prompt:${prompt.id}`)}><Icon name="sparkle" /><span>{prompt.text}</span><Icon name="chevron" size={15} /></button>)}</div></>
+  if (selected.section === 'you') return <>
+    <h2 className="inspector-title">Your channels</h2>
+    <p className="inspector-description">Explore your published content, social activity, press coverage, and verified ad records. Every resource links to its source.</p>
+    <div className="map-channel-list">{selfChannels.map(channel => <SelfChannelButton key={channel.id} channel={channel} onSelect={onSelect} />)}</div>
+  </>
+  const section = SECTIONS.find(item => item.id === selected.section)
+  return <><h2 className="inspector-title">{selected.label}</h2><p className="inspector-description">{selected.section === 'you' ? 'Saved ads and source checks for your business. Open a channel to review its creatives and evidence.' : selected.section === 'buyers' ? buyers.note : section?.note}</p><div className="map-channel-list">{selected.section === 'buyers' ? buyers.topics.map(topic => <button className="map-channel-button" type="button" key={topic.id} onClick={() => onSelect(`buyer-topic:${topic.id}`)}><Icon name={topic.icon} /><span className="channel-summary"><b>{topic.label}</b><span>{buyers.questions.filter(question => question.topic === topic.id).length} questions</span></span><Icon name="chevron" size={15} /></button>) : selected.section === 'answers' ? answers.topics.map(topic => <button className="map-channel-button" type="button" key={topic.id} onClick={() => onSelect(`answer-topic:${topic.id}`)}><Icon name={topic.icon} /><b>{topic.label}</b><Icon name="chevron" size={15} /></button>) : selfChannels.map(channel => <button className="map-channel-button" type="button" key={channel.id} onClick={() => onSelect(`you:${channel.id}`)}><Icon name={channel.icon} /><span className="channel-summary"><b>{channel.label}</b><span>{channelSummary(channel)}</span></span><Icon name="chevron" size={15} /></button>)}</div></>
 }
 
-function paint(
-  ctx: CanvasRenderingContext2D,
-  graph: ReturnType<typeof buildGraph>,
-  cache: Map<string, HTMLImageElement>,
-  sel: string | null,
-  hoverId: string | null,
-  query: string,
-  t: number,
-  k: number,
-) {
-  const q = query.trim().toLowerCase()
-  const hot = new Set<string>()
-  const add = (id: string | null) => {
-    const n = id ? graph.byId.get(id) : null
-    if (!n) return
-    hot.add(n.id)
-    hot.add('company')
-    if (n.kind === 'section') graph.nodes.filter((m) => m.kind === 'group' && m.section === n.section).forEach((m) => hot.add(m.id))
-    if (n.kind === 'group') {
-      hot.add('s:' + n.section)
-      ;(graph.kids.get(n.id) || []).forEach((m) => hot.add(m.id))
-    }
-    if (n.kind === 'leaf') {
-      if (n.parent) hot.add(n.parent)
-      hot.add('s:' + n.section)
-    }
-    if (n.kind === 'company') SECTIONS.forEach((s) => hot.add('s:' + s.id))
-  }
-  add(sel)
-  add(hoverId)
-  const dim = hot.size > 0
-  const matches = (n: GNode) => {
-    if (!q) return true
-    const g = n.kind === 'leaf' && n.parent ? graph.byId.get(n.parent) : n
-    return (g?.label || '').toLowerCase().includes(q) || (g?.domain || '').includes(q)
-  }
+function BuyerQuestionCard({ question, compact = false }: { question: BuyerQuestion; compact?: boolean }) {
+  const source = safeExternalUrl(question.sourceUrl)
+  return <article className={`inspector-card buyer-question-card${compact ? ' is-compact' : ''}`}>
+    <span className="status-badge">{question.evidence === 'sample' ? 'Sample question' : 'Public discussion'}</span>
+    <h3>{question.title}</h3><p className="inspector-description">{question.snippet}</p>
+    <p className="buyer-intent">{question.intent}</p>
+    {question.sourceLabel && <p className="buyer-source">{question.sourceLabel}{question.publishedAt ? ` · ${formatDate(question.publishedAt)}` : ''}</p>}
+    {source && <a className="ad-source-link" href={source} target="_blank" rel="noreferrer">Read original discussion <Icon name="external" size={14} /></a>}
+    <p className="buyer-evidence-note">{question.evidence === 'sample' ? 'Illustrative prompt; no public conversation collected.' : 'Paraphrased from a public post. Experience and identity are self-reported.'}</p>
+  </article>
 
-  for (const ar of graph.arcs) {
-    if (ar.kind === 'section') {
-      const lit = !dim || [...hot].some((id) => graph.byId.get(id)?.section === ar.section)
-      ctx.beginPath()
-      ctx.arc(0, 0, graph.R2 + 100, ar.a0 + 0.01, ar.a1 - 0.01)
-      ctx.arc(0, 0, graph.R0 + 40, ar.a1 - 0.01, ar.a0 + 0.01, true)
-      ctx.closePath()
-      ctx.fillStyle = ar.color
-      ctx.globalAlpha = lit ? 0.04 : 0.015
-      ctx.fill()
-      ctx.globalAlpha = 1
-    } else {
-      const lit = !dim || [...hot].some((id) => graph.byId.get(id)?.lane === ar.lane)
-      ctx.beginPath()
-      ctx.arc(0, 0, graph.R1 - 40, ar.a0 + 0.01, ar.a1 - 0.01)
-      ctx.strokeStyle = ar.color
-      ctx.lineWidth = 2 / k
-      ctx.globalAlpha = lit ? 0.55 : 0.18
-      ctx.stroke()
-      ctx.globalAlpha = 1
-      ctx.save()
-      ctx.translate(Math.cos(ar.mid) * (graph.R2 + 108), Math.sin(ar.mid) * (graph.R2 + 108))
-      let rot = ar.mid + Math.PI / 2
-      if (Math.sin(ar.mid) > 0) rot += Math.PI
-      ctx.rotate(rot)
-      ctx.font = `700 11px ${FONT}`
-      ctx.textAlign = 'center'
-      ctx.fillStyle = ar.color
-      ctx.globalAlpha = lit ? 0.9 : 0.35
-      ctx.fillText((ar.label || '').toUpperCase().split('').join(' '), 0, 0)
-      ctx.restore()
-      ctx.globalAlpha = 1
-    }
-  }
-
-  const parentOf = (n: GNode) => graph.byId.get(n.parent || (n.kind === 'group' ? 's:' + n.section : 'company'))
-  for (const n of graph.nodes) {
-    if (n.kind === 'company' || n.alpha < 0.02) continue
-    const p = parentOf(n)
-    if (!p) continue
-    const lit = (!dim || (hot.has(n.id) && hot.has(p.id))) && matches(n)
-    ctx.strokeStyle = n.color
-    ctx.globalAlpha = n.alpha * (lit ? (n.kind === 'section' ? 0.7 : n.kind === 'group' ? 0.4 : 0.55) : 0.06)
-    ctx.lineWidth = (n.kind === 'section' ? 3 : n.kind === 'group' ? 1.5 : 1.1) / k
-    if (n.gap) ctx.setLineDash([4 / k, 4 / k])
-    ctx.beginPath()
-    ctx.moveTo(p.x, p.y)
-    if (n.kind === 'leaf') {
-      const pr = Math.hypot(p.x, p.y)
-      const nr = Math.hypot(n.x, n.y)
-      const mid = (pr + nr) / 2
-      const pa = Math.atan2(p.y, p.x)
-      ctx.bezierCurveTo(Math.cos(pa) * mid, Math.sin(pa) * mid, Math.cos(n.a) * (mid + 20), Math.sin(n.a) * (mid + 20), n.x, n.y)
-    } else {
-      ctx.quadraticCurveTo(p.x + (n.x - p.x) * 0.45 - (n.y - p.y) * 0.08, p.y + (n.y - p.y) * 0.45 + (n.x - p.x) * 0.08, n.x, n.y)
-    }
-    ctx.stroke()
-    ctx.setLineDash([])
-    ctx.globalAlpha = 1
-  }
-
-  for (const n of graph.nodes) {
-    if (n.kind !== 'leaf' || n.alpha < 0.02) continue
-    const isHot = hot.has(n.id)
-    const lit = (!dim || isHot) && matches(n)
-    ctx.globalAlpha = n.alpha * (lit ? 1 : 0.2)
-    const s = isHot ? 20 : 14
-    if (n.chan) badge(ctx, cache, n.x, n.y, s, { shape: 'square', bg: CHANNELS[n.chan].color, fg: CHANNELS[n.chan].ink, icon: CHANNELS[n.chan].icon, ring: sel === n.id ? INK : null })
-    else if (n.engine) badge(ctx, cache, n.x, n.y, s, { shape: 'circle', bg: ENGINES[n.engine as keyof typeof ENGINES].color, fg: ENGINES[n.engine as keyof typeof ENGINES].ink, icon: n.engine, ring: sel === n.id ? INK : n.color })
-    else badge(ctx, cache, n.x, n.y, s, { shape: 'circle', bg: n.color, icon: 'bubble', ring: sel === n.id ? INK : null })
-    ctx.globalAlpha = 1
-  }
-  for (const n of graph.nodes) {
-    if (n.kind !== 'group' || n.alpha < 0.02) continue
-    const isHot = hot.has(n.id)
-    const lit = (!dim || isHot) && matches(n)
-    ctx.globalAlpha = n.alpha * (lit ? 1 : 0.25)
-    const s = n.r * 2 + 2
-    if (n.comp) badge(ctx, cache, n.x, n.y, s, { shape: 'circle', bg: '#141210', fg: n.color, icon: n.comp.name[0], ring: sel === n.id ? INK : n.color, domain: n.comp.domain })
-    else if (n.venue) badge(ctx, cache, n.x, n.y, s, { shape: 'circle', bg: n.venue.color, icon: n.venue.icon, ring: sel === n.id ? INK : null })
-    else if (n.prompt) badge(ctx, cache, n.x, n.y, s, { shape: 'circle', bg: n.color, icon: 'sparkle', ring: sel === n.id ? INK : null })
-    else badge(ctx, cache, n.x, n.y, s, { shape: 'square', bg: n.gap ? DIM : CHANNELS[n.chan || 'meta'].color, fg: CHANNELS[n.chan || 'meta'].ink, icon: CHANNELS[n.chan || 'meta'].icon, dashed: n.gap, ring: sel === n.id ? INK : null })
-    radialText(ctx, n.prompt ? n.label.slice(0, 28) + (n.label.length > 28 ? '…' : '') : n.label, n.a, graph.R1 + n.r + 6, { pill: true, color: lit ? INK : '#8a837a' })
-    ctx.globalAlpha = 1
-  }
-  for (const n of graph.nodes) {
-    if (n.kind !== 'section' || n.alpha < 0.02) continue
-    const lit = !dim || hot.has(n.id)
-    ctx.globalAlpha = n.alpha * (lit ? 1 : 0.35)
-    badge(ctx, cache, n.x, n.y, n.r * 2, { shape: 'circle', bg: n.color, icon: n.icon, ring: sel === n.id ? INK : null, ringW: 3 })
-    const left = Math.cos(n.a) < -0.2
-    const below = Math.abs(Math.cos(n.a)) <= 0.2
-    ctx.font = `800 13px ${FONT}`
-    ctx.textAlign = below ? 'center' : left ? 'right' : 'left'
-    ctx.textBaseline = 'middle'
-    const lx = below ? n.x : n.x + (left ? -1 : 1) * (n.r + 8)
-    const ly = below ? n.y + (Math.sin(n.a) > 0 ? n.r + 12 : -n.r - 12) : n.y
-    ctx.fillStyle = INK
-    ctx.fillText(n.label, lx, ly)
-    ctx.globalAlpha = 1
-  }
-  const pulse = 1 + Math.sin(t / 900) * 0.04
-  ctx.beginPath()
-  ctx.arc(0, 0, 34 * 1.8 * pulse, 0, TAU)
-  ctx.fillStyle = GOLD
-  ctx.globalAlpha = 0.08
-  ctx.fill()
-  ctx.globalAlpha = 1
-  badge(ctx, cache, 0, 0, 68, { shape: 'circle', bg: GOLD, icon: 'sparkle', ring: sel === 'company' ? INK : null, ringW: 3, domain: 'getsuperagent.com' })
-  ctx.fillStyle = INK
-  ctx.font = `800 15px ${FONT}`
-  ctx.textAlign = 'center'
-  ctx.fillText('superagent', 0, 50)
-  ctx.fillStyle = MUT
-  ctx.font = `500 10px ${FONT}`
-  ctx.fillText('the brief · click', 0, 64)
 }
 
-function radialText(ctx: CanvasRenderingContext2D, text: string, a: number, r: number, o: { pill?: boolean; color: string }) {
-  const flip = Math.cos(a) < 0
-  ctx.save()
-  ctx.translate(Math.cos(a) * r, Math.sin(a) * r)
-  ctx.rotate(flip ? a + Math.PI : a)
-  ctx.textAlign = flip ? 'right' : 'left'
-  ctx.textBaseline = 'middle'
-  ctx.font = `700 13px ${FONT}`
-  const wd = ctx.measureText(text).width
-  if (o.pill) {
-    ctx.fillStyle = BG
-    ctx.globalAlpha *= 0.85
-    ctx.beginPath()
-    ctx.roundRect(flip ? -wd - 6 : -6, -9, wd + 12, 18, 9)
-    ctx.fill()
-    ctx.globalAlpha /= 0.85
+function channelSummary(channel: MapChannel) {
+  if (isContentChannel(channel)) {
+    const content = channel.content || []
+    if (!content.length) return channel.status === 'unavailable' ? 'Content unverified' : 'No saved resources'
+    const firstKind = content[0].kind
+    const homogeneous = content.every(item => item.kind === firstKind)
+    return `${content.length} ${homogeneous ? contentCountLabel(firstKind, content.length) : 'resources'}`
   }
-  ctx.fillStyle = o.color
-  ctx.fillText(text, 0, 0)
-  ctx.restore()
+  return channel.ads.length ? `${channel.ads.length} saved ${channel.ads.length === 1 ? 'ad' : 'ads'}` : channel.status === 'unavailable' ? 'Activity unverified' : channel.status === 'empty' ? 'No saved matches' : 'Not researched'
+}
+
+function isContentChannel(channel: MapChannel) { return Boolean(channel.kind || channel.content) }
+
+function channelKindLabel(channel: MapChannel) {
+  return channel.kind === 'owned' ? 'Owned content' : channel.kind === 'social' ? 'Social content' : channel.kind === 'earned' ? 'Earned coverage' : isContentChannel(channel) ? 'Public content' : 'Paid advertising'
+}
+
+function contentCountLabel(kind: PublicChannelItem['kind'], count: number) {
+  const labels: Record<PublicChannelItem['kind'], [string, string]> = {
+    article: ['article', 'articles'], post: ['post', 'posts'], video: ['video', 'videos'], page: ['resource', 'resources'],
+    press: ['press release', 'press releases'], profile: ['profile', 'profiles'], event: ['event', 'events'],
+  }
+  return labels[kind][count === 1 ? 0 : 1]
+}
+
+function SelfChannelButton({ channel, onSelect }: { channel: MapChannel; onSelect: (id: string) => void }) {
+  return <button className="map-channel-button map-self-channel" type="button" onClick={() => onSelect(`you:${channel.id}`)}>
+    <span className="node-icon"><Icon name={channel.icon} /></span>
+    <span className="channel-summary"><b>{channel.label}</b><span>{channelSummary(channel)}</span><small>{channelKindLabel(channel)}</small></span>
+    <Icon name="chevron" size={15} />
+  </button>
+}
+
+function ContentChannelDetails({ channel, businessName, onBack }: { channel: MapChannel; businessName: string; onBack: () => void }) {
+  const source = safeExternalUrl(channel.sourceUrl)
+  const content = channel.content || []
+  return <>
+    <p className="inspector-kicker">{businessName} / {channelKindLabel(channel)}</p>
+    <h2 className="inspector-title">{channel.label}</h2>
+    <button type="button" className="map-text-button" onClick={onBack}>← Your channels</button>
+    <p className="inspector-description">{channel.description}</p>
+    <div className="map-content-heading"><span className="map-content-type">{channelKindLabel(channel)}</span><span>{channelSummary(channel)}</span></div>
+    <div className="map-content-list">
+      {content.length ? content.map(item => <PublicContentCard key={item.id} item={item} />) : <div className="map-empty-state"><Icon name="pen" size={28} /><h3>No saved resources yet</h3><p>Open the channel source to explore its published content.</p></div>}
+    </div>
+    {(channel.checkedAt || channel.checkNote) && <details className="map-content-evidence"><summary>Source check{channel.checkedAt ? ` · ${formatDate(channel.checkedAt)}` : ''}</summary>{channel.checkNote && <p>{channel.checkNote}</p>}</details>}
+    {source && <a className="ad-source-link" href={source} target="_blank" rel="noopener noreferrer">Open channel source <Icon name="external" size={14} /></a>}
+  </>
+}
+
+function PublicContentCard({ item }: { item: PublicChannelItem }) {
+  const source = safeExternalUrl(item.url)
+  const icons: Record<PublicChannelItem['kind'], string> = { article: 'pen', post: 'bubble', video: 'play', page: 'globe', press: 'news', profile: 'users', event: 'calendar' }
+  const labels: Record<PublicChannelItem['kind'], string> = { article: 'Article', post: 'Post', video: 'Video', page: 'Resource', press: 'Press release', profile: 'Profile', event: 'Event' }
+  return <article className="map-content-card">
+    <div className="map-content-meta"><span className="map-content-icon"><Icon name={icons[item.kind]} size={19} /></span><span>{labels[item.kind]}</span>{item.published_at && <time dateTime={item.published_at}>{formatDate(item.published_at)}</time>}</div>
+    <h3>{source ? <a href={source} target="_blank" rel="noopener noreferrer">{item.title}</a> : item.title}</h3>
+    <p>{item.summary}</p>
+    <div className="map-content-footer">
+      {source && <a className="ad-source-link" href={source} target="_blank" rel="noopener noreferrer">{item.kind === 'video' ? 'Watch video' : item.kind === 'article' ? 'Read article' : 'Open source'}<Icon name="external" size={13} /></a>}
+      <span>{source ? new URL(source).hostname.replace(/^www\./, '') : 'Source unavailable'}</span>
+    </div>
+    {item.observed_at && <p className="map-content-observed">Observed {formatDate(item.observed_at)}</p>}
+  </article>
+}
+
+function nodesForBrief(nodes: MapNode[]) { return nodes.filter(node => node.branch !== 'competitors').slice(0, 8) }
+
+function formatDate(value?: string | null) {
+  if (!value) return 'date unavailable'
+  const date = new Date(`${value.slice(0, 10)}T00:00:00Z`)
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+}
+
+function CreativeCard({ ad }: { ad: Ad }) {
+  const [imageFailed, setImageFailed] = useState(false)
+  const [videoFailed, setVideoFailed] = useState(false)
+  const source = safeExternalUrl(ad.source_url), landing = safeExternalUrl(ad.link_url), image = safeExternalUrl(ad.image_url), video = safeExternalUrl(ad.video_url)
+  const unverifiedAdvertiser = ad.advertiser_relationship === 'unverified_third_party'
+  const evidence = unverifiedAdvertiser ? 'Domain match · advertiser unverified'
+    : ad.evidence_type === 'third_party_observed_ad' ? 'Independent ad capture'
+    : ad.evidence_type === 'publisher_confirmed_campaign' ? 'Publisher-confirmed campaign'
+    : ad.evidence_type === 'publisher_confirmed_paid_ad' ? 'Publisher-confirmed paid ad'
+    : ad.evidence_type ? 'Public ad-library record' : 'Saved creative · verification unavailable'
+  const activity = ad.is_active === true ? 'Active when observed' : ad.is_active === false ? 'Inactive when observed' : 'Activity unknown'
+  return <article className="map-ad-card">
+    <div className="ad-meta"><span>{ad.advertiser || 'Ad creative'}</span><span>{activity}</span></div>
+    {video && !videoFailed
+      ? <video className="ad-preview-image" src={video} poster={image} controls preload="none" onError={() => setVideoFailed(true)} />
+      : image && !imageFailed
+        ? <img className="ad-preview-image" src={image} alt={ad.headline || 'Ad creative'} onError={() => setImageFailed(true)} />
+        : <div className="ad-placeholder"><Icon name={ad.platform === 'google' ? 'google' : ad.format === 'video' ? 'play' : 'pen'} size={26} /><span>{ad.format?.includes('search') || ad.platform === 'google' && ad.format === 'text' ? 'Text ad · see source for rendering' : 'Preview unavailable · open source'}</span></div>}
+    <div className="ad-card-copy">
+      <p className="ad-format">{CHANNELS[ad.platform]?.label || ad.platform} · {ad.format || 'Ad'}</p>
+      <p className="ad-format">{evidence}{ad.observed_at ? ` · Observed ${formatDate(ad.observed_at)}` : ''}</p>
+      {ad.last_shown_at && <p className="ad-format">Last shown {formatDate(ad.last_shown_at)}</p>}
+      {(ad.started_at || ad.ended_at) && <p className="ad-format">{ad.started_at ? `Started ${formatDate(ad.started_at)}` : ''}{ad.started_at && ad.ended_at ? ' · ' : ''}{ad.ended_at ? `Ended ${formatDate(ad.ended_at)}` : ''}</p>}
+      <h3 className="ad-headline">{ad.headline || 'Campaign creative'}</h3>
+      {ad.body && <p className="ad-body">{ad.body}</p>}
+      {ad.verification_note && <p className="inspector-description">{ad.verification_note}</p>}
+      <div className="ad-footer">
+        {ad.cta && <span className="ad-cta">{ad.cta}</span>}
+        {source && <a className="ad-source-link" href={source} target="_blank" rel="noreferrer">Ad source <Icon name="external" size={13} /></a>}
+        {video && <a className="ad-source-link" href={video} target="_blank" rel="noreferrer">Open video <Icon name="play" size={13} /></a>}
+        {landing && <a className="ad-source-link" href={landing} target="_blank" rel="noreferrer">Landing page <Icon name="external" size={13} /></a>}
+      </div>
+    </div>
+  </article>
 }
