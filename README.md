@@ -23,3 +23,9 @@ Astra puts your product, channels, competitors, and buyer questions in one place
 Open a competitor and read the public creatives behind each channel, including ChatGPT ads.
 
 ![Smith.ai ChatGPT ad captures on the Viewfy map](docs/competitor-ads.png)
+
+## Your ChatGPT ads, ready to launch
+
+Astra writes the campaign. Two ads. One click to continue. That is the 3-click pitch.
+
+![Generated Superagent ChatGPT ads in Viewfy](docs/generated-ads.png)
