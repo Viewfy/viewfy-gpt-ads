@@ -105,14 +105,12 @@ html.dark .hero-mascot-glow {
 
 .shine-ring .btn-primary,
 .shine-ring .btn-accent {
-  isolation: auto;
-  overflow: visible;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .shine-ring .btn-primary::before,
-.shine-ring .btn-primary::after,
-.shine-ring .btn-accent::before,
-.shine-ring .btn-accent::after {
+.shine-ring .btn-accent::before {
   content: none;
 }
 

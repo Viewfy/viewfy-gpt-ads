@@ -73,11 +73,11 @@ html.dark {
   --ui-step-active-ink: #211d19;
   --ui-step-active-border: #f4efe6;
   --ui-step-active-shadow: 0 3px 12px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.5);
-  --ui-primary: linear-gradient(135deg,#f4efe6,#e9e1d5);
-  --ui-primary-hover: #fffaf1;
-  --ui-primary-ink: #241f1a;
-  --ui-primary-border: #e7ddce;
-  --ui-primary-shadow: 0 5px 16px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.4);
+  --ui-primary: linear-gradient(135deg,#3b82f6,#2563eb);
+  --ui-primary-hover: linear-gradient(135deg,#60a5fa,#3b82f6);
+  --ui-primary-ink: #fff;
+  --ui-primary-border: #60a5fa;
+  --ui-primary-shadow: 0 6px 18px rgba(59,130,246,.35), inset 0 1px 0 rgba(147,197,253,.35);
   --ui-focus: #adbcf1;
   --ui-scroll-thumb: #655e57;
   --ui-scroll-track: transparent;
