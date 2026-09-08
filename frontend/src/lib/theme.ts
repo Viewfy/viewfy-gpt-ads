@@ -4,7 +4,7 @@ const KEY = 'gpt-ads-theme'
 
 export function readTheme(): Theme {
   const stored = localStorage.getItem(KEY)
-  return stored === 'light' ? 'light' : 'dark'
+  return stored === 'dark' ? 'dark' : 'light'
 }
 
 export function applyTheme(mode: Theme) {
